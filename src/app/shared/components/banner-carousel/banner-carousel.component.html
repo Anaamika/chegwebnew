@@ -1,0 +1,48 @@
+<div #storeCarousel class="banner_carousel">
+  <owl-carousel-o class="owl-carousel-outer" [options]="customOptions">
+    <ng-container class="owl-carousel" *ngFor="let data of bannersData">
+      <ng-template *ngIf="data.type == 'Store'" carouselSlide>
+        <div class="d-flex flex-column justify-content-center align-items-center" appObserveVisibility
+          [debounceTime]="300" (visible)="onVisible(data.store, data.id, 'store','Impression')">
+          <div class="banner-tile" (click)="openTermsDialog($event, data.store,data.id)"
+            [ngStyle]="{'background-image': 'url(' + data.imageURL + ')'}">
+          </div>
+        </div>
+      </ng-template>
+      <ng-template *ngIf="data.type == 'Coupon'" carouselSlide>
+        <div class="d-flex flex-column justify-content-center align-items-center" appObserveVisibility
+          [debounceTime]="300" (visible)="onVisible(data.coupon, data.id, 'coupon','Impression')">
+          <div class="banner-tile" (click)="getOfferInfo($event, data.coupon,data.id)"
+            [ngStyle]="{'background-image': 'url(' + data.imageURL + ')'}">
+          </div>
+        </div>
+      </ng-template>
+      <ng-template *ngIf="data.type == 'Giftcard'" carouselSlide>
+        <div class="d-flex flex-column justify-content-center align-items-center" appObserveVisibility
+          [debounceTime]="300" (visible)="onVisible(data.giftcard, data.id, 'gifts','Impression')">
+          <div class="banner-tile" (click)="openGiftsDialog($event, data.giftcard,data.id)"
+            [ngStyle]="{'background-image': 'url(' + data.imageURL + ')'}">
+          </div>
+        </div>
+      </ng-template>
+      <ng-template *ngIf="data.type == 'Hyperlink'" carouselSlide>
+        <div class="d-flex flex-column justify-content-center align-items-center" appObserveVisibility
+          [debounceTime]="300" (visible)="onHyperlinkVisible(data, data.id, 'Hyperlink','Impression')">
+          <div class="banner-tile" (click)="openHyperlink(data,data.hyperLink,data.id)"
+            [ngStyle]="{'background-image': 'url(' + data.imageURL + ')'}">
+          </div>
+        </div>
+      </ng-template>
+      <ng-template *ngIf="data.type == 'CustomCategory'" carouselSlide>
+        <div class="d-flex flex-column justify-content-center align-items-center" appObserveVisibility
+          [debounceTime]="300" (visible)="onHyperlinkVisible(data, data.id, 'CustomCategory','Impression')">
+          <div class="banner-tile" (click)="openCustomCategory(data,data.id)"
+            [ngStyle]="{'background-image': 'url(' + data.imageURL + ')'}">
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o>
+</div>
+
+<!-- CSS File: _shared.scss -->

@@ -1,0 +1,105 @@
+<div class="theme--{{bank | lowercase}}">
+    <div class="offer-dialog">
+        <div mat-dialog-title class="header border-bottom pb-3 mb-3 d-flex align-items-center justify-content-between">
+            <h3 class="m-0">{{ data.title }}</h3>
+            <button type="button" (click)="close(false)" class="close" aria-label="Close">
+                <svg class="icon">
+                    <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                </svg>
+            </button>
+        </div>
+        <div mat-dialog-content>
+            <div class="d-flex flex-column align-items-center">
+                <a title="{{data.merchantName}}">
+                    <img class="mb-3" alt="{{data.merchantName}}" style="max-height: 40px; max-width: 100px;"
+                        src="{{ data.merchantLogo }}" />
+                </a>
+
+                <div class="d-flex flex-column align-items-center"
+                    *ngIf="data.couponType == 'Sale' || data.couponType == 'Cashback' || data.couponType == 'Offer'">
+                    <p>No code needed!</p>
+                    <a (click)="postProductInfo($event, data)" class="btn btn-offer">Continue to Store</a>
+                </div>
+
+                <div class="d-flex flex-column align-items-center"
+                    *ngIf="data.couponType == 'Code' || data.couponType == 'code'">
+                    <p class="h5 my-4">Copy and paste this code at <a class="link"
+                            (click)="postProductInfo($event, data)"><strong>{{data.merchantName}}</strong></a>
+                    </p>
+                    
+                    <!-- <ng-lottie width="300px" height="300px"  containerClass="moving-box" [styles]="styles" [options]="options"
+                    (animationCreated)="animationCreated($event)" (loopComplete)="onLoopComplete()">
+                </ng-lottie> -->
+               
+                    <div class="coupon-btn d-flex align-items-center">
+                        <h4 class="m-0 px-3">{{ data.couponCode }}</h4>
+                        <!-- <button class="btn btn-offer" (click)="toggle = !toggle" [cdkCopyToClipboard]="data.couponCode">
+                            <span>{{toggle ? 'Copy' : 'Copied!'}}</span></button> -->
+                            <button (click)="postProductInfo($event, data)" class="btn btn-offer" (click)="clickCopy(data)" [cdkCopyToClipboard]="data.couponCode">
+                                <span>{{toggle ? 'Copy' : 'Copied!'}}</span></button>
+                    </div>
+                    <div class="visit-btn mt-4 mb-2">
+                        <button (click)="postProductInfo($event, data)" class="btn btn-visit">Visit Store</button>
+                    </div>
+                </div>
+
+                <hr class="w-100">
+                <p>
+                    {{data.offerDetail}}
+                </p>
+
+                <!-- <ng-template [ngIf]="data.offerAdditionalLink != '' && data.offerAdditionalLink != null">
+                    <p class="mb-3">For additional details <a target="_blank" href="{{data.offerAdditionalLink}}">Click
+                            here</a>
+                    </p>
+                </ng-template>
+
+                <ng-template [ngIf]="data.offerAdditionalLink == '' || data.offerAdditionalLink == null">
+                    <ng-template [ngIf]="data.offerAdditionalInfo != '' && data.offerAdditionalInfo != null">
+                        <app-read-more class="mb-3 w-100"><strong>Additional details: </strong>
+                            <div [innerHTML]="data.offerAdditionalInfo | sanitizeHtml"></div>
+                        </app-read-more>
+                    </ng-template>
+                </ng-template> -->
+
+                <ng-template [ngIf]="data.rewardTerms != '' && data.rewardTerms != null">
+                    <app-read-more class="mb-3 w-100"><strong>Rewards Terms & Conditions: </strong>
+                        <div [innerHTML]="data.rewardTerms | sanitizeHtml"></div>
+                    </app-read-more>
+                </ng-template>
+
+                <ng-template [ngIf]="data.offerTermsLink != '' && data.offerTermsLink != null">
+                    <p class="mb-3">For offer terms & conditions <a target="_blank" href="{{data.offerTermsLink}}">Click
+                            here</a>
+                    </p>
+                </ng-template>
+
+                <ng-template [ngIf]="data.offerTermsLink == '' || data.offerTermsLink == null">
+                    <ng-template [ngIf]="data.offerTerms != '' && data.offerTerms != null">
+                        <app-read-more class="mb-3 w-100"><strong>Offer Terms & Conditions: </strong>
+                            <div [innerHTML]="data.offerTerms | sanitizeHtml"></div>
+                        </app-read-more>
+                    </ng-template>
+                </ng-template>
+
+                <p class=" mb-3 d-flex align-items-center">Did this help you save money?
+                    <a [class.like]="isLike" (click)="likeClick(data)">
+                        <svg class="icon thumbup ml-2">
+                            <use xlink:href="/assets/icons/sprite.svg#ThumbUp"></use>
+                        </svg>
+                    </a>
+                    <a [class.dislike]="isDisLike" (click)="dislikeClick(data)">
+                        <svg class="icon thumbdown ml-2">
+                            <use xlink:href="/assets/icons/sprite.svg#ThumbDown"></use>
+                        </svg>
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end border-top" mat-dialog-actions>
+            <button mat-button mat-dialog-close>Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- CSS File: _shared.scss -->

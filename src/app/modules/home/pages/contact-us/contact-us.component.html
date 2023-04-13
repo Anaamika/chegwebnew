@@ -1,0 +1,97 @@
+<div class="contact-us">
+    <div class="container">
+        <app-breadcrumb></app-breadcrumb>
+        <div class="page_content">
+            <div class="image">
+                <img src="/assets/images/contact_us.png" alt="Contact Us" class="img-fluid">
+            </div>
+            <div class="content">
+                <div class="box">
+                    <h4 class="mb-3">
+                        Hi there,
+                        We are here to answer questions & get feedback from you.
+                    </h4>
+                    <h5 class="mb-3"> Get in touch with us!</h5>
+
+                    <mat-form-field class="w-100 mb-3" appearance="">
+                        <mat-label>Select Topic</mat-label>
+                        <mat-select [formControl]="selectedTopic">
+                            <mat-option *ngFor="let topic of topicsList" [value]="topic">
+                                {{topic}}
+                            </mat-option>
+                            <!-- <mat-option value="Cashback">Cashback</mat-option>
+                            <mat-option value="Withdrawal">Withdrawal</mat-option>
+                            <mat-option value="Tracking">Tracking</mat-option>
+                            <mat-option value="Profile & Accounting">Profile & Accounting</mat-option> -->
+                        </mat-select>
+                        <mat-error *ngIf="selectedTopic.hasError('required')">
+                            Please select query type
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- <mat-form-field class="w-100 mb-3">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Name" [formControl]="nameFormControl">
+                        <mat-error *ngIf="nameFormControl.hasError('required')">
+                            Please enter Name
+                        </mat-error>
+                    </mat-form-field> -->
+
+                    <mat-form-field class="w-100 mb-3">
+                        <span matPrefix>+91 &nbsp;</span>
+                        <!-- (focusout)="checkIfMobileRegistered('login')" -->
+                        <input onkeypress="return event.charCode >= 48 && event.charCode <= 57" type="tel"
+                            minlength="10" maxlength=10 matInput placeholder="Mobile Number"
+                            [formControl]="mobileFormControl" [value]="mobileFormControl.value">
+                        <mat-error
+                            *ngIf="mobileFormControl.hasError('required') || mobileFormControl.hasError('minlength') || mobileFormControl.hasError('pattern')">
+                            Please enter valid Mobile Number <strong>(10 digits)</strong>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-100 mb-3">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="Email" [formControl]="emailFormControl">
+                        <mat-error *ngIf="emailFormControl.hasError('email') || emailFormControl.hasError('required')">
+                            Please enter a valid email address
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-100 mb-3">
+                        <mat-label>Summary</mat-label>
+                        <input matInput placeholder="Summary" [formControl]="summaryFormControl">
+                        <mat-error *ngIf="summaryFormControl.hasError('required')">
+                            Please enter Summary
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-100 mb-3">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Description" rows="4"
+                            [formControl]="descriptionFormControl"></textarea>
+                        <mat-error *ngIf="descriptionFormControl.hasError('required')">
+                            Please enter description
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- <re-captcha [(ngModel)]="formModel.captcha" (resolved)="resolved($event)" name="captcha" required
+                        siteKey="6Leq4OEZAAAAAGFz6LVgI6jwHW1HiRdA10q8fgWV" #captchaControl="ngModel">
+                    </re-captcha> -->
+                    <!-- <div [hidden]="captchaControl.valid || captchaControl.pristine" class="error">Captcha must be solved
+                    </div> -->
+
+                    <div *ngIf="showLoader" class="py-2 loader d-flex">
+                        <mat-spinner class="mr-2" [diameter]="20"></mat-spinner>
+                        Please Wait...
+                    </div>
+
+                    <re-captcha #captchaRef="reCaptcha" siteKey="6Lc6UyIcAAAAANsEWUSbdloPq1qYVPUbr1Edgjpd"
+                        size="invisible" (resolved)="$event && resolved($event)"></re-captcha>
+                    <button (click)="captchaRef.execute();"
+                        [disabled]="showLoader || mobileFormControl.hasError('required') || selectedTopic.hasError('required') || emailFormControl.hasError('required') || summaryFormControl.hasError('required') || descriptionFormControl.hasError('required')"
+                        mat-raised-button color="primary" class="w-100 mt-3">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="card card-gift_order pointer mb-3"
+    *ngFor="let data of giftCardsData | paginate: { itemsPerPage: 10, currentPage: p }"
+    (click)="openGiftInfoDialog($event, data.id)">
+    <div class="card-body">
+        <div class="d-flex">
+            <div class="mr-4">
+                <small>order#</small>
+                <p>{{data.orderId}}</p>
+            </div>
+            <div class="mr-4">
+                <small>order placed</small>
+                <p>{{data.createdDate | date: 'd MMM y, hh:mm a'}}</p>
+            </div>
+            <div class="mr-4">
+                <small>status</small>
+                <p>{{data.status}}</p>
+            </div>
+        </div>
+        <div class="m-2 p-3 bg-light d-flex justify-content-center" [ngClass]="mobileView ? 'flex-column' : 'flex-row'">
+            <div>
+                <img style="height: 100px;" src="{{data.s_Images}}" title="{{data.siteName}}" alt="{{data.siteName}}">
+            </div>
+            <div class="info ml-2">
+                <p class="mb-2">{{data.productName}} &nbsp;({{data.siteName}})</p>
+                <p class="mb-2">
+                    <small>₹</small><strong>{{data.amount}}</strong>
+                </p>
+                <p>
+                    Expiry: {{data.expiry}}
+                </p>
+            </div>
+            <div class="d-flex align-items-center" [ngClass]="mobileView ? 'm-auto' : 'ml-auto'">
+                <button *ngIf="bankName === 'BFSL'" type="button" (click)="openGiftInfoDialog($event, data.id)" class="btn m-auto btn-primary mr-4 sendmail">View Gift Card</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<pagination-controls (pageChange)="p = $event" autoHide="true" responsive="true"></pagination-controls>
+
+<!-- CSS File: _shared.scss -->

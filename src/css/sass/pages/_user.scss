@@ -1,0 +1,360 @@
+.page_account {
+  .back {
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.9rem;
+
+    .icon {
+      width: 18px;
+      height: 18px;
+      fill: #428af6;
+    }
+
+    &.no-pointer-event {
+      display: none;
+    }
+  }
+
+  .account {
+    @include page_layout_one;
+
+    .account_sidebar {
+      .sidebar {
+        padding: 1rem;
+        ul {
+          border-bottom: 1px solid #ccc;
+          padding: 0.75rem 0;
+
+          span {
+            padding: 0.5rem 1rem;
+            color: #a0a0a0;
+            display: block;
+            font-weight: 100;
+          }
+          li.nav-item.active{
+            @include themed() {
+              color: t(primary-btn);
+            }
+            font-weight: 500;
+          }
+          a {
+            color: inherit;
+
+            &.active {
+              font-weight: 500;
+              @include themed() {
+                color: t(theme-color);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .overview {
+      .BFSL{
+        .redeembtn{
+          background-color: #045FB4;
+          border-radius: 2px;
+        }
+
+        .banner-card-overview {
+          background-image: none;
+          background-color: #045FB4;
+          color: #FFF;
+
+          h2 {
+            span {
+              font-size: 1.5rem !important;
+
+              @include tablet {
+                font-size: 1.5rem !important;
+              }
+            }
+          }
+        }
+      }
+      .nonBFSL {
+        .redeembtn{
+          background-color: #7cb544;
+          border-radius: 25px;
+        }
+        .banner-card-overview {
+          background-image: url("assets/images/giftcardbanner3.jpg");
+          background-color: #ffde85;
+        }
+        h2 {
+          span {
+            font-size: 2.3rem;
+
+            @include tablet {
+              font-size: 2.5rem;
+            }
+          }
+        }
+      }
+      .welcome-note {
+        color: #FF8000;
+      }
+      .redeembtn{
+        color: #fff;
+        position: relative;
+      }
+      .redeemgift{
+      background-color: #fff;
+      border-radius: 6px;
+      padding: 20px;
+      }
+
+      h3{
+        font-weight: 200;
+        position: relative;
+        @include tablet {
+          font-size: 1.1rem;
+        }
+      }
+
+      .banner-card-overview {
+        @extend .banner-card;
+      
+        h2 {
+          font-size: 1.5rem !important;
+          font-weight: 200;
+          margin-bottom: 1rem;
+          position: relative;
+
+          @include tablet {
+            font-size: 1.8rem;
+          }
+          span {
+            font-weight: 500;
+          }
+        }
+      }
+
+      .banner-left-overview {
+        @extend .banner-card-overview;
+        @extend .banner-two;
+        background-color: #FF8000 !important;
+      }
+
+      .banner-right-overview {
+        @extend .banner-card-overview;
+        @extend .banner-two;
+        background-color: #045FB4 !important;
+      }
+    }
+
+    .hr {
+      .wallet {
+        width: 60px;
+        height: 60px;
+        fill: #03a9f4;
+      }
+      .hr-card {
+        border-radius: 5px;
+        padding: 1.1rem;
+        border: 1px solid #fff;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+        a {
+          color: #3a3a3a;
+          text-decoration: none;
+          .icon {
+            width: 35px;
+            height: 35px;
+
+            &.log {
+              fill: #fd6c9d;
+            }
+
+            &.reward {
+              fill: #ffb446;
+            }
+
+            &.gift {
+              fill: #00bcd4;
+            }
+
+            &.award {
+              fill: #58b15c;
+            }
+          }
+
+          &:hover {
+            .icon {
+              -webkit-animation: tada 1s;
+              animation: tada 1s;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.page_rewards {
+  .page_banner {
+    position: relative;
+    padding: 1rem;
+    background: #ffe8c3;
+    border: 1px solid #f7c980;
+    border-radius: 5px;
+    @include tablet {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .info {
+      z-index: 10;
+    }
+    .image {
+      height: 120px;
+      position: relative;
+
+      @include tablet {
+        height: 200px;
+      }
+
+      img {
+        position: absolute;
+        right: 0;
+        bottom: -17px;
+        max-height: 150px;
+
+        @include laptop {
+          max-height: 250px;
+        }
+      }
+    }
+
+    .btn-redeem {
+      max-width: 180px;
+      color: #fff;
+      border-radius: 30px;
+      @include themed() {
+        background-color: t(primary-btn);
+      }
+    }
+  }
+
+  .page_content {
+    .tabs {
+      .nav {
+        .nav-link {
+          color: #9a9a9a;
+          font-size: 1.2rem;
+          cursor: pointer;
+
+          &.active {
+            color: #000;
+            font-weight: bold;
+            border-bottom: 2px solid #ff7752;
+          }
+        }
+      }
+    }
+  }
+
+  .shoptrips,
+  .paymenthistory {
+    margin: 1.5rem 0 2rem;
+    .card {
+      padding: 1rem;
+
+      &__row {
+        margin-bottom: 0.5rem;
+        display: flex;
+        flex-direction: column;
+
+        @include tablet {
+          align-items: center;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+
+        .info {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 1rem;
+          border-bottom: 1px solid #ddd;
+          padding-bottom: 0.8rem;
+          @include tablet {
+            margin-bottom: 0;
+            border: none;
+            padding-bottom: 0;
+          }
+        }
+
+        .status_st {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row;
+          @include tablet {
+            justify-content: end;
+            flex-direction: column;
+          }
+
+          .ammount {
+            span {
+              font-size: 1.2rem;
+            }
+          }
+        }
+
+        .status_ph {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row;
+          align-items: center;
+
+          .credit {
+            font-size: 1.2rem;
+            color: #009a3e;
+          }
+
+          .debit {
+            font-size: 1.2rem;
+            color: #ff2222;
+          }
+
+          hr {
+            height: 40px;
+            border: none;
+            margin: 0 1.2rem;
+            opacity: 0.7;
+            border-left: 1px solid #ccc;
+            display: none;
+            @include tablet {
+              display: block;
+            }
+          }
+
+          .balance {
+            min-width: 90px;
+            text-align: right;
+            span {
+              font-size: 1.2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.gifts-dialog_front{
+  .sendmail{
+    border-radius: 25px;
+    border: 0;
+  }
+}
+.gift_card_info {
+  .sendmail, .redeem, .view-details{
+    border-radius: 5px;
+    border: 0;
+  }
+}
+.highlight {
+  border: 1px solid #c7edff;
+  background: #edf9ff;
+}

@@ -1,0 +1,7 @@
+div.collapsed {
+    max-height: 160px;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

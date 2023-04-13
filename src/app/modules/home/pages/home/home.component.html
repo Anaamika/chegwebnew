@@ -1,0 +1,258 @@
+<div #Banner *ngIf="homeBannersData.length == 0" class="d-none">
+  <div #Container class="container"></div>
+  <div *ngIf="isBank" class="banner">
+    <div class="slider__wrapper">
+      <div class="flex__container flex--shop flex--active" data-slide="1">
+        <div class="flex__item flex__item--left">
+          <div [ngStyle]="{'margin-left': mLeft + 'px' }" class="flex__content">
+            <h1 class="display-4">Shop Big, Save Bigger</h1>
+            <p class="lead mb-4">Let's Compare the best deals across multiple websites in one place & save!
+            </p>
+            <h4 class="mb-3">Popular Searches:</h4>
+            <app-tags-carousel [popularTagsData]="popularTagsData"></app-tags-carousel>
+          </div>
+        </div>
+        <div class="flex__item flex__item--right"></div>
+        <img class="slider__img" title="Shop Big, Save Bigger" src="/assets/images/banner002.png" />
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!isBank" class="banner banner_corp">
+    <div class="slider__wrapper">
+      <div class="flex__container flex--rewards flex--active" data-slide="1">
+        <div class="flex__item flex__item--left">
+          <div [ngStyle]="{'margin-left': mLeft + 'px' }" class="flex__content">
+            <h1 class="display-4">MRewards- your Rewards and Benefits</h1>
+            <p class="lead mb-4">Reward comes in all shapes and sizes. Why? Because we want you to enjoy
+              life outside of work just as much as you enjoy working</p>
+          </div>
+        </div>
+        <div class="flex__item flex__item--right"></div>
+        <img class="slider__img" title="Rewards and Benefits" src="/assets/images/banner001.png" />
+      </div>
+      <div class="flex__container flex--shop animate--start" data-slide="2">
+        <div class="flex__item flex__item--left">
+          <div [ngStyle]="{'margin-left': mLeft + 'px' }" class="flex__content">
+            <h1 class="display-4">Shop Big, Save Bigger</h1>
+            <p class="lead mb-4">Let's Compare the best deals across multiple websites in one place & save!
+            </p>
+            <h4 class="mb-3">Popular Searches:</h4>
+            <app-tags-carousel [popularTagsData]="popularTagsData"></app-tags-carousel>
+          </div>
+        </div>
+        <div class="flex__item flex__item--right"></div>
+        <img class="slider__img" title="Shop Big, Save Bigger" src="/assets/images/banner002.png" />
+      </div>
+      <!-- <div class="flex__container flex--blaziken animate--start" data-slide="3">
+                <div class="flex__item flex__item--left">
+                    <div class="flex__content">
+                        <h1 class="display-4">Get cashback every time you shop</h1>
+                        <p class="lead mb-4">Get cashback, online and in-store, from over 1,700 of your favourite brands.</p>
+                    </div>
+                    <p class="text__background">Blaziken</p>
+                </div>
+                <div class="flex__item flex__item--right"></div>
+                <img class="slider__img" src="https://s4.postimg.org/6795hnlql/blaziken.png" />
+            </div> -->
+      <!-- <div class="flex__container flex--dialga animate--start" data-slide="4">
+                <div class="flex__item flex__item--left">
+                    <div class="flex__content">
+                        <p class="text--sub">Pokemon Gen IV</p>
+                        <h1 class="text--big">Dialga</h1>
+                        <p class="text--normal">Dialga is a Steel/Dragon-type Legendary Pokémon. Dialga is a
+                            sauropod-like
+                            Pokémon. It is mainly blue with some gray, metallic portions, such as its chest plate, which
+                            has
+                            a diamond in the center. It also has various, light blue lines all over
+                            its body.</p>
+                    </div>
+                    <p class="text__background">Dialga</p>
+                </div>
+                <div class="flex__item flex__item--right"></div>
+                <img class="slider__img" src="https://s4.postimg.org/43yq9zlxp/dialga.png" />
+            </div>
+            <div class="flex__container flex--zekrom animate--start" data-slide="5">
+                <div class="flex__item flex__item--left">
+                    <div class="flex__content">
+                        <p class="text--sub">Pokemon Gen V</p>
+                        <h1 class="text--big">Zekrom</h1>
+                        <p class="text--normal">Zekrom is a Dragon/Electric-type Legendary Pokémon. It is part of the
+                            Tao
+                            Trio, along with Reshiram and Kyurem. Zekrom is a large, black draconian Pokémon that seems
+                            to
+                            share its theme with its counterpart, Reshiram. It has piercing red eyes and
+                            dark gray to black skin that seems to be armor-like.</p>
+                    </div>
+                    <p class="text__background">Zekrom</p>
+                </div>
+                <div class="flex__item flex__item--right"></div>
+                <img class="slider__img" src="https://s4.postimg.org/malmhgn9p/zekrom.png" />
+            </div> -->
+    </div>
+
+    <div class="slider__navi">
+      <a href="#" class="slide-nav active" data-slide="1">rewards</a>
+      <a href="#" class="slide-nav" data-slide="2">shop</a>
+      <!-- <a href="#" class="slide-nav" data-slide="3">blaziken</a> -->
+      <!-- <a href="#" class="slide-nav" data-slide="4">dialga</a>
+            <a href="#" class="slide-nav" data-slide="5">zekrom</a> -->
+    </div>
+  </div>
+</div>
+
+<div [ngClass]="{'home-banner py-4': !isBandhan,
+'home-banner-bandhan py-4': isBandhan}"class="home-banner py-4">
+  <div class="container" #bannerCarouselWrapper>
+    <div class="mb-3" [ngStyle]="{'width': bannerCarouselWrapper_Width +'px'}">
+      <app-banner-carousel [bannersData]=homeBannersData></app-banner-carousel>
+    </div>
+
+    <h4 class="mb-3">Popular Searches:</h4>
+    <app-tags-carousel [popularTagsData]="popularTagsData"></app-tags-carousel>
+  </div>
+</div>
+
+<div class="top-stores">
+  <div class="container" #StoreCarouselWrapper>
+    <div class="d-flex align-items-center justify-content-between mb-3 title">
+      <h2 class="mb-0" *ngIf="!isBandhan">Top <span class="text-theme">Cashback</span> Stores</h2>
+      <h2 class="mb-0" *ngIf="isBandhan">Exclusive Cashback offers for <span class="text-theme">Neo+ & Online Mutual Fund Customers</span></h2>
+      <a routerLink="/stores" class="btn btn-link pr-2">View All</a>
+    </div>
+    <div [ngStyle]="{'width': StoreCarouselWrapper_Width +'px'}">
+      <app-stores-carousel [storesData]=storesData></app-stores-carousel>
+    </div>
+  </div>
+</div>
+
+<div class="top-categories">
+  <div class="container" #CatCarouselWrapper>
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h2 class="mb-0">Top Categories</h2>
+      <a routerLink="/categories" class="btn btn-link pr-2">View All</a>
+    </div>
+    <div [ngStyle]="{'width': CatCarouselWrapper_Width +'px'}">
+      <app-categories-carousel [categoriesData]=categoriesData></app-categories-carousel>
+    </div>
+  </div>
+</div>
+
+<div class="features py-5">
+  <div class="container">
+    <h2>Four Smart Ways to Shop</h2>
+    <div class="scrolling-wrapper-flexbox">
+      <div routerLink="/gift-cards" class="card d-flex justify-content-center gifts p-3 pointer">
+        <div>
+          <h3>Gift Cards</h3>
+          <p class="m-0">
+            Buy Gift Vouchers with up to 10% off and no processing fee
+          </p>
+        </div>
+        <span class="num">1</span>
+      </div>
+      <div routerLink="/offers" class="card d-flex justify-content-center deals p-3 pointer">
+        <div>
+          <h3>Coupons & Deals</h3>
+          <p class="m-0">
+            Instant savings up to 40% with exclusive coupons & deals
+          </p>
+        </div>
+        <span class="num">2</span>
+      </div>
+      <div routerLink="/stores" class="card d-flex justify-content-center rewards p-3 pointer">
+        <div>
+          <h3>Reward Points</h3>
+          <p class="m-0">
+            <!-- <img src="/assets/images/rewards.png"> -->
+            Earn high Cashbacks every time you shop with us
+          </p>
+        </div>
+        <span class="num">3</span>
+      </div>
+      <div routerLink="/stores" class="card d-flex justify-content-center shop p-3 pointer">
+        <div>
+          <h3>Compare & Shop</h3>
+          <p class="m-0">
+            Compare prices, get the best deal and save
+          </p>
+        </div>
+        <span class="num">4</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div #OffCarouselWrapper>
+    <div [ngStyle]="{'width': offerCarouselWrapper_Width +'px'}">
+        <app-offers-carousel [offersData]=offersData></app-offers-carousel>
+    </div>
+</div> -->
+
+<div class="top-giftcards py-5">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h2 class="mb-0">Top Discount Vouchers</h2>
+      <a routerLink="/gift-cards" class="btn btn-link pr-2">View All</a>
+    </div>
+    <app-top-gift-cards [topGiftCardsData]=topGiftCardsData></app-top-gift-cards>
+  </div>
+</div>
+
+<div class="featured-categories py-5">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h2 class="mb-0">What's Trending!</h2>
+      <!-- <a routerLink="/categories" class="btn btn-link pr-2">View All</a> -->
+    </div>
+    <app-featured-categories [featuredCatData]=featuredCatData></app-featured-categories>
+  </div>
+</div>
+
+<div class="best-deals py-5">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-3 title">
+      <h2 class="mb-0">Best Deals</h2>
+      <a routerLink="/offers" class="btn btn-link pr-2">View All</a>
+    </div>
+    <div class="offers">
+      <div class="best_deals_tabs mt-2">
+        <ng-container *ngFor="let data of bestdealsData; let isFirst = first">
+          <input type="radio" id="tab{{data.categoryName | trim}}" name="tab-control" [checked]="isFirst"
+            (change)="toggleBestDeals($event)" value="{{data.id}}">
+        </ng-container>
+
+        <ul class="mb-3">
+          <ng-container *ngFor="let data of bestdealsData">
+            <li title="{{data.categoryName}}"><label for="tab{{data.categoryName | trim}}"
+                role="button">{{data.categoryName}}</label></li>
+          </ng-container>
+        </ul>
+
+        <div class="slider">
+          <div class="indicator"></div>
+        </div>
+
+        <app-best-deals-grid [bestdealsData]=bestOffersData></app-best-deals-grid>
+
+        <!-- <div class="tab_content d-none py-3">
+                    <ng-container *ngFor="let data of bestdealsData">
+                        <section class="px-md-2">
+                        </section>
+                    </ng-container>
+                </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- hidden best sellers from home page -->
+
+<!-- <div class="best-sellers py-5">
+  <div class="container">
+    <h2>Best Sellers</h2>
+    <app-best-sellers-grid [bestsellersData]=bestsellersData [instance]=1 [page]="0" [catName]="">
+    </app-best-sellers-grid>
+  </div>
+</div> -->
+
+<!-- CSS File: _home.scss -->

@@ -1,0 +1,16 @@
+<div #categoryCarousel class="categories_carousel">
+    <owl-carousel-o class="owl-carousel-outer" [options]="customOptions">
+        <ng-container class="owl-carousel" *ngFor="let data of categoriesData">
+            <ng-template *ngIf="data.nodeId != null && data.nodeId != ''" carouselSlide>
+                <div (click)="navigateToCategory(data)"  appObserveVisibility
+                    class="d-flex flex-column justify-content-center align-items-center" (visible)="onVisible(data, data.id, 'category','Impression')">
+                    <div class="category-tile" [ngStyle]="{'background-image': 'url(' + data.categoryLogo.split('.').slice(0, -1).join('.') + '.webp)'}">
+                    </div>
+                    <span class="text-center">{{data.categoryName}}</span>
+                </div>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+</div>
+
+<!-- CSS File: _shared.scss -->

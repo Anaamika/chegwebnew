@@ -1,0 +1,151 @@
+<ng-container *ngIf="giftCardDiscount == 0">
+    <h4>Select payment option</h4>
+    <div class="mb-2" *ngIf="isReward && userLoggedIn">
+        <p class="py-2 border-bottom d-flex">Your eWallet Balance <span class="ml-auto">total
+                balance:
+                <small>₹</small><strong>{{walletBalance}}</strong></span></p>
+        <div *ngIf="walletBalance > 0" class="d-flex flex-column">
+            <mat-radio-group aria-labelledby="payment methods" class="mat-payment-method d-flex flex-column"
+                [formControl]="eWalletMethod">
+                <mat-radio-button (click)="selectWalletBalance(walletBalance)" value="wallet">
+                    <div *ngIf="totalAmount >= walletBalance">Use your
+                        <small>₹</small><strong>{{walletBalance}}</strong> eWallet
+                        balance.
+                    </div>
+
+                    <div *ngIf="totalAmount < walletBalance">Use
+                        <small>₹</small><strong>{{totalAmount}}</strong> of your
+                        <small>₹</small>{{walletBalance}} eWallet
+                        balance.
+                        <br>
+                        <small class="msg">Remaining balance after this payment:
+                            <small>₹</small>{{walletBalance - totalAmount}} </small>
+                    </div>
+
+                </mat-radio-button>
+                <mat-radio-button (click)="selectWalletBalance(customFormControl.value)" value="custom">
+                    Enter custom amount from eWallet balance
+                    <div class="custom">
+                        <mat-form-field class="w-100 mb-3">
+                            <span matPrefix><small>₹</small>&nbsp;</span>
+                            <input type="number" matInput min="0" placeholder=""
+                                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                [formControl]="customFormControl" [value]="customFormControl.value"
+                                (keyup)="onCustomKeyUp($event)">
+                            <mat-error *ngIf="customFormControl.hasError('required')">
+                                please enter the ammount
+                            </mat-error>
+                            <mat-error *ngIf="customFormControl.hasError('max')">
+                                Amount should be less than eWallet balance
+                            </mat-error>
+                        </mat-form-field>
+                        <small class="msg">Remaining balance after this payment:
+                            <small>₹</small>{{(walletBalance - customFormControl.value).toFixed(2)}} </small>
+                    </div>
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div *ngIf="walletBalance <= 0">
+            <p class="text-danger">Insufficient Balance</p>
+        </div>
+    </div>
+
+    <div *ngIf="isReward && !userLoggedIn">
+        <a style="display: block;" class="link mb-2 py-3" (click)="login()">Login to
+            check your eWallet balance</a>
+    </div>
+</ng-container>
+<div class="p-2 mb-2 text-right bg-light">
+    <table class="w-75 ml-auto">
+        <tbody>
+            <tr *ngIf="finalTotal > 0">
+                <td>
+                    Subtotal:
+                </td>
+                <td class="text-right">
+                    <span><small>₹</small>{{finalTotal}}</span>
+                </td>
+            </tr>
+
+            <tr *ngIf="finalTotal > 0">
+                <ng-container *ngIf="processingAmount > 0">
+                    <td>
+                        Processing Fee({{processingFee}}%):
+                    </td>
+                    <td class="text-right">
+                        <strong><small>₹</small>{{processingAmount}}</strong>
+                    </td>
+                </ng-container>
+                <ng-container *ngIf="processingAmount == 0">
+                    <td>
+                        Processing Fee(2%):
+                    </td>
+                    <td class="text-right">
+                        <span><del><small>₹</small>{{processingAmountDummy}}</del></span>&nbsp;&nbsp;
+                        <strong class="text-success">FREE</strong>
+                    </td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Grand Total:</strong>
+                </td>
+                <td class="text-right">
+                    <strong><small>₹</small>{{payableAmount}}</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="alert alert-success py-0 px-2" role="alert">
+    <table class="ml-auto">
+        <tbody>
+            <tr>
+                <td class="pr-2">
+                    Your Savings:
+                </td>
+                <td class="text-right">
+                    <strong class="text-success"><small>₹</small>{{savings}}</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="other_payment" *ngIf="payableAmount !== 0">
+    <p class="py-2 border-bottom">Other Payment Methods</p>
+    <div class="d-flex flex-column">
+        <mat-radio-group aria-labelledby="payment methods" class="mat-payment-method d-flex flex-column"
+            [formControl]="paymentMethod">
+            <mat-radio-button value="card" *ngIf="paymentModes['card'] == '1'">
+                Card
+            </mat-radio-button>
+            <mat-radio-button value="netbanking" *ngIf="paymentModes['netbanking'] == '1'">
+                Net Banking
+            </mat-radio-button>
+            <mat-radio-button value="wallet" *ngIf="paymentModes['wallet'] == '1'">
+                Wallet
+            </mat-radio-button>
+            <mat-radio-button value="upi" *ngIf="paymentModes['upi'] == '1'">
+                UPI/QR
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+</div>
+
+<div class="d-flex mt-3">
+    <!-- <button mat-button class="mr-2" color="primary" matStepperPrevious>Back</button> -->
+
+    <button *ngIf="type == 'gift'" class="ml-auto mr-2 preview" mat-raised-button matStepperPreview
+        (click)="sendPreview()">Preview</button>
+
+    <button #btnCheckout [disabled]="!this.totalAmount" (mouseenter)="checkoutMouseEnter($event)"
+        (click)="checkout($event)" mat-raised-button color="accent" class="ml-lg-auto checkout">
+        <div class="loading no-pointer-events">
+            <div class=" d-flex align-items-center">
+                <div class="spinner"></div>
+                Please wait..
+            </div>
+        </div>
+        <label class="no-pointer-events m-0">Checkout</label>
+    </button>
+</div>

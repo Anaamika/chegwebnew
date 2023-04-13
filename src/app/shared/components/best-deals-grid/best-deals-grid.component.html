@@ -1,0 +1,115 @@
+<div class="offers">
+    <!-- <div class="card-columns">
+        <div class="card" *ngFor="let data of bestdealsData | paginate: { itemsPerPage: 24, currentPage: p }">
+            <div (click)="getOfferInfo($event, data)" class="w-100 text-center">
+                <img src="{{data.bannerImage}}" alt="{{data.merchantName}}" class="card-img-top">
+            </div>
+            <div class="card-body">
+                <span class="coupon_type">{{data.couponType}}</span>
+                <h5 class="card-title">{{data.offer}}</h5>
+                <div class="card-info d-flex flex-column flex-sm-row align-items-center justify-content-between">
+                    <div class="mb-3 mb-sm-0">
+                        <ng-container *ngIf="data.merchantLogo != null && data.merchantLogo != ''">
+                            <img src="{{data.merchantLogo}}" title="{{data.merchantName}}" alt="{{data.merchantName}}"
+                                class="store_logo">
+                        </ng-container>
+                        <ng-container *ngIf="data.merchantLogo == null || data.merchantLogo == ''">
+                            <strong>{{data.merchantName}}</strong>
+                        </ng-container>
+
+
+                    </div>
+                    <ng-container [ngSwitch]="[data.couponType | lowercase]">
+                        <a (click)="getSale($event, data)" class="btn btn-sm sale" *ngSwitchCase="'sale'">
+                            Get Sale
+                        </a>
+                        <a (click)="getSale($event, data)" target="_blank" class="btn btn-sm sale"
+                            *ngSwitchCase="'offer'">
+                            Get Offer
+                        </a>
+                        <a (click)="getOfferInfo($event, data)" class="btn btn-sm code" *ngSwitchCase="'code'">
+                            Get Code
+                        </a>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="best_deals d-flex flex-wrap">
+        <div *ngFor="let data of bestdealsData | paginate: { itemsPerPage: 24, currentPage: p }">
+
+            <div (click)="getOfferInfo($event, data)" class="card w-100 bg" title="{{data.merchantName}}"
+                appObserveVisibility (visible)="onVisible(data, data.id, 'offers','Impression')">
+
+
+
+                <!-- <ng-container *ngIf="data.bannerImage == null">
+                    <img title="{{data.siteName}}" class="img-fluid" src="/assets/images/no-image.png" loading="lazy">
+                </ng-container>
+                <ng-container *ngIf="data.bannerImage != null">
+                    <picture>
+                        <source srcset="{{data.bannerImage.split('.').slice(0, -1).join('.') + '.webp'}}"
+                            type="image/webp">
+                        <img (error)="onImgError($event)" title="{{data.siteName}}" class="img-fluid"
+                            src="{{data.bannerImage}}" loading="lazy">
+                    </picture>
+                </ng-container> -->
+
+                <ng-container *ngIf="data.redeemTitle && data.redeemTitle != '' && data.redeemTitle != 'null'">
+                    <!-- <div class="badge-overlay">
+                        <div class="top-right badge">
+                            {{data.redeemTitle}}
+                        </div>
+                    </div> -->
+                    <div class="redeem_badge">
+                        {{data.redeemTitle}}
+                    </div>
+                </ng-container>
+
+                <div class="d-flex align-items-center">
+                    <div *ngIf="data.offerTitle && data.offerTitle != ''" class="cash_ribbon">{{data.offerTitle}} 
+                        <img [ngClass]="{cash_rupee: bank === 'PNB'}" src="../assets/images/cashrupee.png"></div>
+                </div>
+                <div class="content">
+                    <ng-container [ngSwitch]="true">
+                        <a (click)="getOfferInfo($event, data)" target="_blank"
+                            *ngSwitchCase="(data.couponType | lowercase) == 'offer' || (data.couponType | lowercase)  == 'cashback' || (data.couponType | lowercase)  == 'sale'">
+                            <div class="logo">
+                                <ng-container *ngIf="data.merchantLogo != null && data.merchantLogo != ''">
+                                    <img src="{{data.merchantLogo}}" title="{{data.merchantName}}"
+                                        alt="{{data.merchantName}}" class="store_logo" [ngClass]="{pnb_store_logo: bank === 'PNB'}" loading="lazy">
+                                </ng-container>
+                                <ng-container *ngIf="data.merchantLogo == null || data.merchantLogo == ''">
+                                    <strong>{{data.merchantName}}</strong>
+                                </ng-container>
+                            </div>
+                        </a>
+                        <a (click)="postProductInfo($event, data)"
+                            *ngSwitchCase="(data.couponType | lowercase) == 'offer' || (data.couponType | lowercase)  == 'cashback' || (data.couponType | lowercase)  == 'sale'">
+                            <span>{{data.merchantName}}</span> {{data.couponType}}
+                        </a>
+                        <a (click)="getOfferInfo($event, data)" *ngSwitchCase="(data.couponType | lowercase) == 'code'">
+                            <div class="logo">
+                                <ng-container *ngIf="data.merchantLogo != null && data.merchantLogo != ''">
+                                    <img src="{{data.merchantLogo}}" title="{{data.merchantName}}"
+                                        alt="{{data.merchantName}}" class="store_logo" [ngClass]="{pnb_store_logo: bank === 'PNB'}" loading="lazy">
+                                </ng-container>
+                                <ng-container *ngIf="data.merchantLogo == null || data.merchantLogo == ''">
+                                    <strong>{{data.merchantName}}</strong>
+                                </ng-container>
+                            </div>
+                            <span>{{data.merchantName}}</span> {{data.couponType}}
+                        </a>
+                    </ng-container>
+                    <h5 class="card-title">{{data.offer}}</h5>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<pagination-controls (pageChange)="p = $event" autoHide="true" responsive="true"></pagination-controls>
+
+
+<!-- CSS File: _shared.scss -->

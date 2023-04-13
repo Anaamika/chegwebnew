@@ -1,0 +1,51 @@
+<footer>
+  <div class="container text-center">
+    <div class="links py-3">
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/about-us">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact-us">Contact Us</a>
+        </li>
+        <li class="nav-item" *ngIf="bank !== 'PNB'">
+          <a class="nav-link" routerLink="/contact-us">Register Complaint</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/terms-and-conditions">Terms & Condition</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/privacy-policy">Privacy Policy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/faq">FAQ</a>
+        </li>
+      </ul>
+    </div>
+    <!-- <div class="cat_links_wrapper py-4">
+            <div class="cat_links d-flex" *ngFor="let item of footerCategoriesData">
+                <ul>
+                    <li>
+                        <a class="cat_title">
+                            {{item.categoryName}} :
+                        </a>
+                    </li>
+                    <li *ngFor="let subitem of item.siteDetails">
+                        <a [routerLink]="['/stores/', subitem.siteid , subitem.merchantname]"
+                            title="{{subitem.merchantname}}">
+                            {{subitem.merchantname}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div> -->
+
+    <div class="disclaimer py-3 text-justify" *ngFor="let data of disclaimerData">
+      Disclaimer: <span class="blog-post" [innerHtml]="data.disclaimer | sanitizeHtml"></span>
+    </div>
+    <hr>
+    <p>
+      Copyright &copy; {{year}} - Powered by Cheggout
+    </p>
+  </div>
+</footer>

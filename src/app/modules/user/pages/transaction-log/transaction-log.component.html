@@ -1,0 +1,124 @@
+<div class="page_rewards">
+  <div class="container">
+    <div class="page_content">
+      <h3 class="d-flex align-items-center justify-content-between">
+        Transaction Log
+        <a routerLink="/account/hr-dashboard" class="back h5">
+          <svg class="icon">
+            <use xlink:href="/assets/icons/sprite.svg#DirectionLeft"></use>
+          </svg>
+          Back
+        </a>
+      </h3>
+
+      <div class="paymenthistory">
+
+        <button mat-stroked-button color="primary" class="mb-2" (click)="exportexcel()">
+          <mat-icon> cloud_download</mat-icon>&nbsp;Export
+        </button>
+
+        <table id="excel-table" mat-table [dataSource]="corpLedger" class="mat-elevation-z8 w-100 d-none">
+
+          <ng-container matColumnDef="info">
+            <th mat-header-cell *matHeaderCellDef> Info </th>
+            <td mat-cell *matCellDef="let element"> Credit </td>
+          </ng-container>
+
+          <ng-container matColumnDef="corpName">
+            <th mat-header-cell *matHeaderCellDef> Order ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.orderId}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="orderDate">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.orderDate | date}}</td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="rewardPoints">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="text-success" mat-line>
+                +&nbsp;<strong>₹{{element.rewardPoints.toLocaleString('en-IN')}}</strong>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="corpUserId">
+            <th mat-header-cell *matHeaderCellDef> Corp Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.corpUserId}} </td>
+          </ng-container> -->
+
+
+          <tr mat-header-row *matHeaderRowDef="awardDisplayColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: awardDisplayColumns;"></tr>
+
+        </table>
+
+        <mat-list-item *ngFor="let item of corpLedger">
+          <div class="d-flex align-items-center w-100 py-3">
+            <mat-icon class="mx-3" mat-list-icon>description</mat-icon>
+            <div class="d-flex w-100 align-items-center justify-content-between">
+              <div>
+                <p class="m-0" mat-line>Credit</p>
+                <p class="text-black-50 m-0">Order No: {{item.orderId}}</p>
+              </div>
+              <div class="text-right">
+                <div mat-line> {{item.orderDate | date}} </div>
+                <div class="text-success" mat-line>
+                  +&nbsp;<strong>₹{{item.rewardPoints.toLocaleString('en-IN')}}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class="d-flex align-items-center w-100 py-3">
+            <mat-icon class="mx-3" mat-list-icon>description</mat-icon>
+            <div class="d-flex w-100 align-items-center justify-content-between">
+              <div mat-line>Total Funds Transferred</div>
+              <div class="text-right">
+                <div mat-line><strong>₹{{totalFunds.toLocaleString('en-IN')}}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class="d-flex align-items-center w-100 py-3">
+            <mat-icon class="mx-3" mat-list-icon>description</mat-icon>
+            <div class="d-flex w-100 align-items-center justify-content-between">
+              <div mat-line>Rewards awarded as on {{currentDate | date}}</div>
+              <div class="text-right">
+                <div class="text-danger" mat-line>-&nbsp;<strong>₹{{rewardsAwarded.toLocaleString('en-IN')}}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class="d-flex align-items-center w-100 py-3">
+            <mat-icon class="mx-3" mat-list-icon>description</mat-icon>
+            <div class="d-flex w-100 align-items-center justify-content-between">
+              <div mat-line>Balance as on {{currentDate | date}}</div>
+              <div class="text-right">
+                <div class="text-primary" mat-line>&nbsp;<strong>₹{{corpRewardBalance.toLocaleString('en-IN')}}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CSS File: _user.scss -->

@@ -1,0 +1,51 @@
+<div class="page_stores page_store">
+    <div class="page_banner text_light">
+        <div class="container position-relative">
+            <app-breadcrumb></app-breadcrumb>
+            <div class="d-flex py-3">
+                <div (click)="postProductInfo($event, storeUrl)"
+                    class="store-thumb d-flex justify-content-center align-items-center mr-3">
+                    <img class="img-fluid" src="{{storeLogoUrl}}">
+                </div>
+                <div class="d-flex flex-column justify-content-around">
+                    <h5>{{storeName}}</h5>
+                    <div class="d-flex">
+                        <a (click)="postProductInfo($event, storeUrl)" target="_blank"
+                            class="d-none d-sm-block goto  btn btn-primary d-sm-flex align-items-center  mr-3"    
+                            type="button">Go to Site
+                            <svg class="icon light ml-2">
+                                <use xlink:href="/assets/icons/sprite.svg#external-link"></use>
+                            </svg>
+                        </a>
+                        <button (click)="addtoFavorites($event)" class="btn favbtn btn-light d-flex align-items-center"
+                            [class.fav]="isFav" type="button">Add to Favorite
+                            <svg class="icon ml-2">
+                                <use xlink:href="/assets/icons/sprite.svg#heart"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tabs d-flex">
+                <div class="tab" [routerLink]="['/stores/',  storeId , storeName]">
+                    <input type="radio" id="tab-1" name="tabCategory" value="Offers" [(ngModel)]="tabStore">
+                    <label for="tab-1">Offers</label>
+                </div>
+
+                <div class="tab"
+                    [routerLink]="['/stores/', storeId , storeName, 'giftcards', { sid: storeId, sname: storeName }]">
+                    <input type="radio" id="tab-2" name="tabCategory" value="Gifts" [(ngModel)]="tabStore">
+                    <label for="tab-2">Gift Cards</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page_content">
+        <div class="container">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+<!-- CSS File: _stores.scss -->

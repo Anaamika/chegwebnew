@@ -1,0 +1,62 @@
+.tabordion {
+    position: relative;
+    width: 100%;
+
+    input[name="sections"] {
+        left: -9999px;
+        position: absolute;
+        top: -9999px;
+    }
+
+    input[name="sections"]:checked + label {
+        background: #ffffff;
+        color: #222;
+    }
+
+    input[name="sections"]:checked ~ article {
+        display: block;
+    }
+
+    section {
+        display: block;
+
+        label {
+            background: #cbcbcb;
+            border-bottom: 1px solid #aaa;
+            cursor: pointer;
+            display: block;
+            padding: 15px 20px;
+            position: relative;
+            width: 150px;
+            z-index: 100;
+            margin-bottom: 0;
+        }
+
+        article {
+            display: none;
+            left: 150px;
+            position: absolute;
+            top: 0;
+            padding: 1rem;
+            height: 100vh;
+            width: calc(100vw - 150px);
+
+            &:after {
+                background-color: #e2e2e2;
+                bottom: 0;
+                content: "";
+                display: block;
+                left: -150px;
+                position: absolute;
+                top: 0;
+                width: 150px;
+                z-index: 1;
+            }
+
+            .list-group {
+                overflow-y: auto;
+                max-height: calc(100vh - 150px);
+            }
+        }
+    }
+}

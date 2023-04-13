@@ -1,0 +1,123 @@
+<div class="profile bg-white p-3">
+  <h3 class="mb-4">My Profile</h3>
+
+  <!-- <div class="mb-4 p-3 rounded" style="max-width: 450px;">
+    <h4>Name</h4>
+    <div style="border-bottom: 1px solid rgba(0, 0, 0, 0.42);padding: .5rem 0;" class="w-100">
+      {{nameFormControl.value}}</div>
+  </div> -->
+  <div class="mb-4 p-3 rounded" style="max-width: 450px;" [class.highlight]="editName">
+    <h4>Name
+      <a *ngIf="!editName" class="link ml-3 small" (click)="edit_Name()">Edit</a>
+      <a *ngIf="editName" class="link ml-3 small" (click)="cancel_Name()">Cancel</a>
+    </h4>
+    <mat-form-field class="w-100" *ngIf="!editName">
+      <input matInput placeholder="" [formControl]="nameFormControl" [value]="nameFormControl.value">
+    </mat-form-field>
+
+    <div *ngIf="editName">
+      <mat-form-field class="w-100 mb-3 mt-2">
+        <input matInput #name placeholder="Enter new name" [formControl]="newNameFormControl" tabindex="0"
+          [value]="newNameFormControl.value" type="text">
+        <mat-error *ngIf="newNameFormControl.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <div *ngIf="showLoader" class="py-2 loader d-flex">
+        <mat-spinner class="mr-2" [diameter]="20"></mat-spinner>
+        Please Wait...
+      </div>
+
+      <button mat-raised-button
+        [disabled]="showLoader ||newNameFormControl.hasError('required')"
+        color="primary" class="ml-auto" (click)="updateName()">
+        Update
+      </button>
+    </div>
+  </div>
+
+  <div class="mb-4 p-3 rounded" style="max-width: 450px;" [class.highlight]="editMobile">
+    <h4>Mobile
+      <a *ngIf="!editMobile" class="link ml-3 small" (click)="edit_Mobile()">Edit</a>
+      <a *ngIf="editMobile" class="link ml-3 small" (click)="cancel_Mobile()">Cancel</a>
+    </h4>
+    <mat-form-field class="w-100" *ngIf="!editMobile">
+      <input matInput placeholder="" [formControl]="mobileFormControl" [value]="mobileFormControl.value">
+    </mat-form-field>
+
+    <div *ngIf="editMobile">
+      <mat-form-field class="w-100 mb-3 mt-2">
+        <input #mobNumber onkeypress="return event.charCode >= 48 && event.charCode <= 57" type="tel" minlength="10"
+          maxlength=10 tabindex="0" matInput placeholder="Enter new mobile number" [formControl]="newMobileFormControl"
+          [value]="newMobileFormControl.value">
+        <mat-error
+          *ngIf="newMobileFormControl.hasError('required') || newMobileFormControl.hasError('minlength') || newMobileFormControl.hasError('pattern')">
+          Please enter valid Mobile Number <strong>(10 digits)</strong>
+        </mat-error>
+        <mat-error *ngIf="newMobileFormControl.hasError('confirmMobile')">
+          New number can not be the same as your old mobile number.
+        </mat-error>
+      </mat-form-field>
+
+      <div *ngIf="editMobile && sentOTP">
+        <p class="text-primary">OTP has been sent to your new mobile for verification</p>
+        <mat-form-field class="w-100">
+          <input matInput placeholder="Please enter the OTP" (focusout)="validateOTP()" [formControl]="otpFormControl">
+          <mat-icon class="text-success" *ngIf="otpTried && validOTP" matSuffix>done</mat-icon>
+          <mat-icon class="text-danger" *ngIf="otpTried && !validOTP" matSuffix>clear</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="showLoader" class="py-2 loader d-flex">
+        <mat-spinner class="mr-2" [diameter]="20"></mat-spinner>
+        Please Wait...
+      </div>
+
+      <button *ngIf="!sentOTP" mat-stroked-button color="primary" class="ml-auto" (click)="sendOTP('Create')"
+        [disabled]="showLoader || newMobileFormControl.hasError('confirmMobile') || newMobileFormControl.hasError('required') || newMobileFormControl.hasError('minlength') || newMobileFormControl.hasError('pattern')">
+        Continue
+      </button>
+
+      <button *ngIf="sentOTP" [disabled]="!validOTP" mat-raised-button color="primary" class="ml-auto"
+        (click)="updateMobile()">
+        Update
+      </button>
+    </div>
+  </div>
+
+  <div class="mb-4 p-3 rounded" style="max-width: 450px;" [class.highlight]="editEmail">
+    <h4>Email
+      <a *ngIf="!editEmail" class="link ml-3 small" (click)="edit_Email()">Edit</a>
+      <a *ngIf="editEmail" class="link ml-3 small" (click)="cancel_Email()">Cancel</a>
+    </h4>
+    <mat-form-field class="w-100" *ngIf="!editEmail">
+      <input matInput placeholder="" [formControl]="emailFormControl" [value]="emailFormControl.value">
+    </mat-form-field>
+
+    <div *ngIf="editEmail">
+      <mat-form-field class="w-100 mb-3 mt-2">
+        <input matInput #emailID placeholder="Enter new email" [formControl]="newEmailFormControl" tabindex="0"
+          [value]="newEmailFormControl.value" type="email">
+        <mat-error *ngIf="newEmailFormControl.hasError('email') || newEmailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="newEmailFormControl.hasError('confirmEmail')">
+          New email can not be the same as your old email id.
+        </mat-error>
+      </mat-form-field>
+
+      <div *ngIf="showLoader" class="py-2 loader d-flex">
+        <mat-spinner class="mr-2" [diameter]="20"></mat-spinner>
+        Please Wait...
+      </div>
+
+      <button mat-raised-button
+        [disabled]="showLoader || newEmailFormControl.hasError('email') || newEmailFormControl.hasError('required') || newEmailFormControl.hasError('confirmEmail')"
+        color="primary" class="ml-auto" (click)="updateEmail()">
+        Update
+      </button>
+    </div>
+  </div>
+
+</div>

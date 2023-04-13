@@ -1,0 +1,139 @@
+<div class="page_rewards">
+  <div class="container">
+    <div class="page_content">
+      <h3 class="d-flex align-items-center justify-content-between">
+        Rewards Awarded
+        <a routerLink="/account/hr-dashboard" class="back h5">
+          <svg class="icon">
+            <use xlink:href="/assets/icons/sprite.svg#DirectionLeft"></use>
+          </svg>
+          Back
+        </a>
+      </h3>
+
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <span class="mb-2 mr-3">Filter by:</span>
+          <mat-form-field class="mr-3 mat-date" color="accent">
+            <mat-label>Start date:</mat-label>
+            <input [formControl]="startDateFormControl" matInput [matDatepicker]="startDate" (click)="startDate.open()"
+              (dateChange)="eventStartDate('change', $event)">
+            <mat-icon *ngIf="startDateFormControl.value" matDatepickerToggleIcon class="clear"
+              (click)="clearStartDate()">
+              clear</mat-icon>
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="mr-3 mat-date" color="accent">
+            <mat-label>End date:</mat-label>
+            <input [formControl]="endDateFormControl" matInput [matDatepicker]=" endDate" (click)="endDate.open()"
+              (dateChange)="eventEndDate('change', $event)">
+            <mat-icon *ngIf="endDateFormControl.value" matDatepickerToggleIcon class="clear" (click)="clearEndDate()">
+              clear</mat-icon>
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field style="width: 170px;">
+            <mat-label>Select award</mat-label>
+            <mat-select [formControl]="awardsFormControl" (selectionChange)="filterAward($event.value)">
+              <mat-option value="All">All</mat-option>
+              <mat-option *ngFor="let list of awardsList" [value]="list">
+                {{list}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="search_wrap">
+          <button mat-stroked-button color="primary" class="ml-auto" (click)="exportexcel()">
+            <mat-icon> cloud_download</mat-icon>&nbsp;Export
+          </button>
+
+          <!-- <input [(ngModel)]="firstName" name="search" type="text" placeholder="Search by name">
+          <a title="clear" class="clear" *ngIf="firstName.length > 0" (click)="firstName = ''">
+            <svg class="icon">
+              <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+            </svg>
+          </a>
+          <svg class="icon">
+            <use xlink:href="/assets/icons/sprite.svg#Search003"></use>
+          </svg> -->
+        </div>
+      </div>
+
+      <div class="paymenthistory" >
+
+        <table id="excel-table" mat-table 
+          [dataSource]="filteredData | paginate: { itemsPerPage: itemsPerPage, currentPage: p } | filterObject : firstName : 'firstName'"
+          class="mat-elevation-z8 w-100" matSort (matSortChange)="sortData($event)">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="firstName">Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="userName">Email</th>
+            <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="debit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="debit">Amount</th>
+            <td mat-cell *matCellDef="let element"> {{element.debit.toLocaleString('en-IN')}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ledgerDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="ledgerDate">Credited Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.ledgerDate | date: 'd MMM y'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="comments">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="comments">Award</th>
+            <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="paymentStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="paymentStatus">Status</th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="element.paymentStatus == 'Processed'">
+                <div class="alert alert-success p-0 m-0 text-center w-auto d-inline-block px-2" role="alert">
+                  {{element.paymentStatus}}
+                </div>
+                <!-- <span class="badge badge-pill badge-success">  {{element.paymentStatus}}</span> -->
+              </ng-container>
+
+              <ng-container *ngIf="element.paymentStatus == 'Pending'">
+                <div class="alert alert-danger p-0 m-0 text-center w-auto d-inline-block px-2" role="alert">
+                  &nbsp;{{element.paymentStatus}}&nbsp;
+                </div>
+                <!-- <span class="badge badge-pill badge-warning">  {{element.paymentStatus}}</span> -->
+              </ng-container>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <table *ngIf="enableNoRecords" class="table">
+          <tr *ngIf="!filteredData.length">
+            <td style="text-align: center;" [attr.colspan]="displayedColumns.length">
+              No Records Found!
+            </td>
+          </tr>
+        </table>
+
+        <pagination-controls (pageChange)="p = $event" autoHide="true" responsive="true"></pagination-controls>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CSS File: _user.scss -->

@@ -1,0 +1,20 @@
+<ngx-loading-bar [includeSpinner]="false" [height]="'3px'" color="red"></ngx-loading-bar>
+<!-- <div class="theme--{{bank | lowercase}}"> -->
+<div class="wrapper">
+    <app-header></app-header>
+    <div class="main_content">
+        <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+</div>
+
+<div class="init">
+    <div class="loading-screen">
+        <div class="loading-animation">
+            <img src="/assets/images/{{bank | lowercase}}-loading.gif" alt="" class="logo">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+</div>
+
+<!-- </div> -->

@@ -1,0 +1,261 @@
+<link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
+<div class="d-flex login-dialog">
+  <div class="intro">
+    <div class="d-flex flex-column">
+      <!-- <h2>Your one-stop shopping destination </h2> -->
+      <div class="compare d-flex align-items-center mb-4 pt-3">
+        <img src="/assets/images/shop.svg" alt="Compare & Shop" class="img-fluid vector mr-4">
+        <div>
+          <h3>Compare & Shop</h3>
+          <p>Search for a product & compare prices from over 10 different websites in one place & save.
+          </p>
+        </div>
+      </div>
+      <div class="rewards d-flex align-items-center mb-4">
+        <img src="/assets/images/reward_points.svg" alt="Earn Reward Points" class="img-fluid vector mr-4">
+        <div>
+          <h3>Earn Reward Points</h3>
+          <p>Its rewarding! Shop on Cheggout and save extra by earning Reward Points.
+          </p>
+        </div>
+      </div>
+      <div class="rewards d-flex align-items-center mb-4">
+        <img src="/assets/images/gift_card.svg" alt="Earn Reward Points" class="img-fluid vector mr-4">
+        <div>
+          <h3>Gift Cards</h3>
+          <p>Redeem & purchase Gift Cards for you & your loved ones.
+          </p>
+        </div>
+      </div>
+      <div class="deals d-flex align-items-center mb-4">
+        <img src="/assets/images/discount.svg" alt="Coupons & Deals" class="img-fluid vector mr-4">
+        <div>
+          <h3>Coupons & Deals</h3>
+          <p>Save while you shop. Explore offers from over 200+ stores in one place.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div #Content class="content">
+    <div #Login class="login d-flex flex-column align-items-start h-100">
+      <h4 class="d-flex align-items-center justify-content-between w-100">
+        <span>Sign In/Sign Up</span>
+        <button type="button" (click)="close(false)" class="close" aria-label="Close">
+          <svg class="icon">
+            <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+          </svg>
+        </button>
+      </h4>
+      <mat-form-field class="w-100 mb-3">
+        <input matInput #emailID placeholder="{{bankFullName}} email id" [formControl]="emailFormControl" tabindex="0"
+          (keyup.enter)="captchaRef.execute();" [value]="emailFormControl.value" type="email">
+        <mat-error *ngIf="emailFormControl.hasError('email') || emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('emailDomain')">
+          Enter your valid {{bankFullName}} id
+        </mat-error>
+      </mat-form-field>
+
+      <!-- <ng-container *ngIf="isLoginPage">
+                <div class="captcha d-none" *ngIf="!isCaptchaVerified">
+                    <re-captcha [(ngModel)]="formModel.captcha" (resolved)="resolved($event)" name="captcha" required
+                        siteKey="6Leq4OEZAAAAAGFz6LVgI6jwHW1HiRdA10q8fgWV" #captchaControl="ngModel">
+                    </re-captcha>
+                    <div [hidden]="captchaControl.valid || captchaControl.pristine" class="error">Captcha must be solved
+                    </div>
+                </div>
+            </ng-container> -->
+
+      <ng-container *ngIf="!ifLogin">
+        <div *ngIf="showLoader" class="py-2 loader d-flex">
+          <mat-spinner class="mr-2" [diameter]="20"></mat-spinner>
+          Please Wait...
+        </div>
+
+        <small class="mt-4">By continuing, you agree to our <a target="_blank" routerLink="/terms-and-conditions">Terms
+            of Use</a> and
+          <a target="_blank" routerLink="/privacy-policy">Privacy Policy</a>.</small>
+
+        <re-captcha #captchaRef="reCaptcha" siteKey="6Lc6UyIcAAAAANsEWUSbdloPq1qYVPUbr1Edgjpd" size="invisible"
+          (resolved)="$event && resolved($event)"></re-captcha>
+        <button (keydown.Tab)="onTabKey($event)" (click)="captchaRef.execute();" mat-raised-button color="primary"
+          class="w-100 mt-2 mb-3"
+          [disabled]="showLoader || emailFormControl.hasError('email') || emailFormControl.hasError('required') || emailFormControl.hasError('emailDomain')">
+          CONTINUE</button>
+
+        <div *ngIf="canSkip" class="skip d-flex align-items-center justify-content-center w-100 mt-auto">
+          <a (click)="skipLogin($event)" (mouseenter)="skipMouseEnter($event)" (mouseleave)="skipMouseLeave($event)"
+            class="link">Skip & lose Reward Points
+            <i class="em em-expressionless" aria-role="presentation" aria-label="DISAPPOINTED FACE">
+            </i>
+          </a>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="ifLogin">
+        <mat-form-field class="w-100 mb-2">
+          <div class="pwd">
+            <input matInput #password placeholder="Password" value="" [formControl]="pwdFormControl"
+              (keydown.enter)="cheggLogin()" [type]=" pwdhide ? 'password' : 'text'">
+            <a class=" eye" (click)="pwdhide = !pwdhide">
+              <svg *ngIf="!pwdhide" class="icon mr-3">
+                <use xlink:href="/assets/icons/sprite.svg#View002"></use>
+              </svg>
+              <svg *ngIf="pwdhide" class="icon mr-3">
+                <use xlink:href="/assets/icons/sprite.svg#Hide"></use>
+              </svg>
+            </a>
+          </div>
+          <mat-error *ngIf="pwdFormControl.hasError('required')">
+            Please enter password
+          </mat-error>
+        </mat-form-field>
+
+
+        <p class="d-flex align-items-center">Forgot password? <a class="btn btn-link link pl-0"
+            (click)="forgotPassword()">Click here</a></p>
+
+        <div *ngIf="showLoader" class="py-2 loader d-flex">
+          <mat-spinner class="mr-2" [diameter]="20"></mat-spinner>
+          Please Wait...
+        </div>
+        <button (keydown.Tab)="onTabKey($event)" mat-raised-button color="primary" (click)="cheggLogin()"
+          [disabled]="showLoader" class="w-100 mt-3">LOGIN</button>
+
+      </ng-container>
+      <p class="mt-auto d-none text-center w-100 mb-0">
+        Copyright &copy; {{year}} - Powered by Cheggout
+      </p>
+    </div>
+
+    <div #Register class="register d-flex flex-column align-items-start">
+      <h4 class="d-flex align-items-center justify-content-between w-100">
+        <span>Sign Up</span>
+        <button type="button" (click)="close(false)" class="close" aria-label="Close">
+          <svg class="icon">
+            <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+          </svg>
+        </button>
+      </h4>
+
+      <div style="border-bottom: 1px solid rgba(0, 0, 0, 0.42);padding: .5rem 0;" class="w-100">
+        {{emailFormControl.value}}</div>
+
+      <div class="d-flex flex-column align-items-start w-100">
+        <div class="d-flex w-100 align-items-center mb-3 justify-content-between">
+          <label class="m-0 small">OTP sent to {{ emailFormControl.value }}</label>
+          <!-- <a (click)="resendOTP('Create')" class="btn btn-link link">Resend?</a> -->
+        </div>
+        <mat-form-field class="w-100 mb-2">
+          <input matInput placeholder="OTP" (focusout)="validateOTP()" [formControl]="otpFormControl">
+          <mat-icon class="text-success" *ngIf="otpTried && validOTP" matSuffix>done</mat-icon>
+          <mat-icon class="text-danger" *ngIf="otpTried && !validOTP" matSuffix>clear</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 mb-2">
+          <input matInput placeholder="Name" [formControl]="nameFormControl">
+          <mat-error *ngIf="nameFormControl.hasError('required')">
+            Please enter Name
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 mb-2">
+          <div class="pwd">
+            <input matInput minlength="4" [type]="pwdhide ? 'password' : 'text'" placeholder="Set Password"
+              [formControl]="setpwdFormControl">
+            <a class="eye" (click)="pwdhide = !pwdhide">
+              <svg *ngIf="!pwdhide" class="icon mr-3">
+                <use xlink:href="/assets/icons/sprite.svg#View002"></use>
+              </svg>
+              <svg *ngIf="pwdhide" class="icon mr-3">
+                <use xlink:href="/assets/icons/sprite.svg#Hide"></use>
+              </svg>
+            </a>
+          </div>
+          <mat-error *ngIf="setpwdFormControl.hasError('required')">
+            Please enter password <strong>(must be of 4 characters atleast)</strong>
+          </mat-error>
+          <mat-error *ngIf="setpwdFormControl.hasError('minlength')">
+            Password must be of 4 characters atleast
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 mb-2">
+          <span matPrefix>+91 &nbsp;</span>
+          <input onkeypress="return event.charCode >= 48 && event.charCode <= 57" type="tel" minlength="10" maxlength=10
+            matInput placeholder="Mobile Number" [formControl]="mobileFormControl" [value]="mobileFormControl.value">
+          <mat-error
+            *ngIf="mobileFormControl.hasError('required') || mobileFormControl.hasError('minlength') || mobileFormControl.hasError('pattern')">
+            Please enter valid Mobile Number <strong>(10 digits)</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="showLoader" class="py-2 loader d-flex">
+        <mat-spinner class="mr-2" [diameter]="20"></mat-spinner>
+        Please Wait...
+      </div>
+
+      <button (keydown.Tab)="onTabKey($event)" [disabled]="!validOTP" (click)="signUp()" mat-raised-button
+        color="primary" class="w-100 mt-3">SIGN UP</button>
+
+    </div>
+
+    <div #ForgotPWD class="forgotpwd d-flex flex-column align-items-start">
+      <h4 class="d-flex align-items-center"> <a (click)="login()" class="pointer">
+          <svg class="icon mr-3">
+            <use xlink:href="/assets/icons/sprite.svg#DirectionLeft"></use>
+          </svg>
+        </a>Change Password</h4>
+
+      <div style="border-bottom: 1px solid rgba(0, 0, 0, 0.42);padding: .5rem 0;" class="w-100 mb-3">
+        {{emailFormControl.value}}</div>
+
+      <div class="d-flex flex-column align-items-start w-100">
+
+        <div class="d-flex w-100 align-items-center justify-content-between" *ngIf="!validOTP">
+          <label class="m-0 small">OTP sent to {{ emailFormControl.value }}</label>
+          <!-- <a (click)="resendOTP('Forgot')" class="btn btn-link link">Resend?</a> -->
+        </div>
+
+        <mat-form-field class="w-100">
+          <input matInput placeholder="OTP" (focusout)="validateOTP()" [formControl]="otpFormControl">
+          <mat-icon class="text-success" *ngIf="otpTried && validOTP" matSuffix>done</mat-icon>
+          <mat-icon class="text-danger" *ngIf="otpTried && !validOTP" matSuffix>clear</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="w-100">
+          <div class="pwd">
+            <input matInput minlength="4" [type]="pwdhide ? 'password' : 'text'" placeholder="Set Password"
+              [formControl]="setpwdFormControl">
+            <a class="eye" (click)="pwdhide = !pwdhide">
+              <svg *ngIf="!pwdhide" class="icon mr-3">
+                <use xlink:href="/assets/icons/sprite.svg#View002"></use>
+              </svg>
+              <svg *ngIf="pwdhide" class="icon mr-3">
+                <use xlink:href="/assets/icons/sprite.svg#Hide"></use>
+              </svg>
+            </a>
+          </div>
+          <mat-error *ngIf="setpwdFormControl.hasError('required')">
+            Please enter password <strong>(must be of 4 characters atleast)</strong>
+          </mat-error>
+          <mat-error *ngIf="setpwdFormControl.hasError('minlength')">
+            Password must be of 4 characters atleast
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="showLoader" class="py-2 loader d-flex">
+        <mat-spinner class="mr-2" [diameter]="20"></mat-spinner>
+        Please Wait...
+      </div>
+
+      <button (keydown.Tab)="onTabKey($event)" [disabled]="!validOTP" mat-raised-button color="primary"
+        (click)="changePassword()" class="w-100 mt-3">CHANGE PASSWORD</button>
+    </div>
+  </div>
+</div>
+<!-- CSS File: _login.scss -->

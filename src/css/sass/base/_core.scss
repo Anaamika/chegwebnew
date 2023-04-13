@@ -1,0 +1,734 @@
+/**
+ * Core CSS properties for universal elements.
+ */
+html,
+body {
+  height: 100%;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  position: relative;
+}
+
+body {
+ background-color: $body-bg-color;
+//  @include themed() {
+//   background-color: t(body-bg-color) !important;
+// }
+  //font-family: $font-family;
+  &.mobile {
+    font-size: 14px;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @include themed() {
+    font-family: t(font-family);
+  }
+}
+
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.75em;
+}
+h3 {
+  font-size: 1.5em;
+}
+h4 {
+  font-size: 1.25em;
+}
+h5 {
+  font-size: 1em;
+}
+h6 {
+  font-size: 0.75em;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.no-pointer-events {
+  pointer-events: none;
+}
+
+.no-pointer-event {
+  pointer-events: none;
+  cursor: none !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+a:not([href]),
+a:not([href]):hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link {
+  cursor: pointer !important;
+  color: #428af6 !important;
+  &:hover {
+    color: #0b60e1 !important;
+    text-decoration: underline !important;
+  }
+}
+
+.wrapword {
+  white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+  white-space: -webkit-pre-wrap; /* Chrome & Safari */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  white-space: pre-wrap; /* CSS3 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+  word-break: break-all;
+  white-space: normal;
+}
+
+.underline_pointer {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline !important;
+  }
+}
+
+*:focus {
+  outline: none;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: #444444;
+
+  &.light {
+    fill: #fff;
+  }
+}
+
+.btn {
+  .icon {
+    width: 18px;
+    height: 18px;
+    fill: #b3b3b3;
+  }
+
+  &.fav {
+    .icon {
+      fill: #ff2e2e;
+    }
+  }
+
+  &.btn-primary {
+    color: #fff;
+    @include themed() {
+      background-color: t(primary-btn);
+      border-color: t(theme-secondary) !important;
+    }
+    &:hover {
+      color: #fff;
+      @include themed() {
+        background-color: t(theme-secondary);
+      }
+    }
+    .icon {
+      fill: #fff;
+    }
+  }
+
+  &.btn-float {
+    @include themed() {
+      background-color: t(theme-color);
+    }
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 1.2rem;
+    border-radius: 50%;
+    z-index: 100;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    .icon {
+      fill: #fff;
+      height: 21px;
+      width: 21px;
+    }
+  }
+}
+button:focus {
+  outline: none;
+}
+
+button.close {
+  .icon {
+    height: 16px;
+    width: 16px;
+    fill: #444;
+  }
+}
+
+.buynowicon{
+  height: 16px;
+  width: 16px;
+  fill: #fd6c9d;
+}
+.sendgifticon{
+  height: 16px;
+  width: 16px;
+  fill: #ffb446;
+}
+@media (min-width: 992px) {
+  .container {
+    max-width: 972px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1180px;
+  }
+}
+
+@media (min-width: 1300px) {
+  //old
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1380px;
+  }
+}
+
+input,
+textarea {
+  font-size: 16px !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+//Iphone Zoom FIx
+/*** iPhone and iOS Form Input Zoom Fixes ***/
+/* Fix Input Zoom on devices older than iPhone 5: */
+@media screen and (device-aspect-ratio: 2/3) {
+  select,
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="search"],
+  input[type="url"] {
+    font-size: 16px;
+  }
+}
+
+/* Fix Input Zoom on iPhone 5, 5C, 5S, iPod Touch 5g */
+@media screen and (device-aspect-ratio: 40/71) {
+  select,
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="search"],
+  input[type="url"] {
+    font-size: 16px;
+  }
+}
+
+/* Fix Input Zoom on iPhone 6, iPhone 6s, iPhone 7  */
+@media screen and (device-aspect-ratio: 375/667) {
+  select,
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"] {
+    font-size: 16px;
+  }
+}
+
+/* Fix Input Zoom on iPhone 6 Plus, iPhone 6s Plus, iPhone 7 Plus, iPhone 8, iPhone X, XS, XS Max  */
+@media screen and (device-aspect-ratio: 9/16) {
+  select,
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"] {
+    font-size: 16px;
+  }
+}
+
+.swal2-content {
+  font-size: inherit !important;
+}
+
+.swal2-title {
+  font-size: 1.5em !important;
+}
+
+.swal2-image {
+  margin: 0 auto !important;
+}
+
+.swal2-confirm {
+  font-size: inherit !important;
+  font-weight: normal !important;
+  font-family: "Jost", sans-serif !important;
+  padding: 0.375rem 0.75rem !important;
+  margin: 0;
+  @include themed() {
+    background-color: t(theme-color) !important;
+  }
+}
+
+.swal2-cancel {
+  font-size: inherit !important;
+  font-weight: normal !important;
+  font-family: "Jost", sans-serif !important;
+  padding: 0.375rem 0.75rem !important;
+  margin: 0;
+  background-color: #7a858b;
+}
+
+.swal2-deny {
+  font-size: inherit !important;
+  font-weight: normal !important;
+  font-family: "Jost", sans-serif !important;
+  padding: 0.375rem 0.75rem !important;
+  margin: 0;
+  background-color: #7a858b;
+}
+
+.banner-two {
+  position: relative;
+  border-radius: 5px;
+  padding: 1.1rem;
+  overflow: hidden;
+  border: 1px solid #fff;
+  margin-bottom: 1rem;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: none !important;
+
+    @include tablet {
+      background: none;
+    }
+  }
+}
+
+.banner-card {
+  position: relative;
+  border-radius: 5px;
+  padding: 1.1rem;
+  overflow: hidden;
+  border: 1px solid #fff;
+  margin-bottom: 1rem;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(252 223 143 / 80%);
+
+    @include tablet {
+      background: none;
+    }
+  }
+}
+
+//Dialog Styles
+.cdk-global-scrollblock {
+  &.login_page {
+    position: static;
+    overflow: hidden !important;
+  }
+  .mat-dialog-container {
+    padding: 0;
+    overflow: hidden;
+
+    .mat-dialog-title {
+      font: inherit;
+      letter-spacing: inherit;
+      padding: 24px;
+    }
+
+    .mat-dialog-content {
+      @include scroll_custom;
+      padding: 24px;
+      margin: 0;
+    }
+    .mat-dialog-actions {
+      padding: 8px 24px;
+      margin-bottom: 0;
+    }
+  }
+
+  .mobile {
+    .cdk-overlay-pane {
+      max-width: 100vw !important;
+      width: 100vw;
+    }
+
+    .mat-dialog-container {
+      background: rgb(255 255 255 / 70%);
+      @-moz-document url-prefix() {
+        background-color: rgba(255, 255, 255);
+      }
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(40px);
+      height: 100vh;
+    }
+
+    &.ios {
+      .mat-dialog-container {
+        overflow: inherit;
+      }
+    }
+  }
+
+  &.gift_dialog {
+    .mat-dialog-container {
+      padding: 0;
+      background: none;
+      box-shadow: none;
+    }
+  }
+}
+
+.dont-break-out {
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-row {
+  height: auto;
+}
+
+.mat-cell,
+.mat-header-cell {
+  padding: 0 8px !important;
+}
+
+th.mat-header-cell:first-of-type,
+td.mat-cell:first-of-type,
+td.mat-footer-cell:first-of-type {
+  padding-left: 20px !important;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+.mat-date {
+  position: relative;
+  width: 160px;
+  display: flex;
+  align-items: center;
+  .clear {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.5;
+    right: -5px;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.text-success {
+  color: #1bcda9 !important;
+}
+
+.text-theme {
+  @include themed() {
+    color: t(theme-primary);
+  }
+}
+.btn-success, .btn-success:active, .btn-success:focus {
+  @include themed() {
+    background-color: t(login-btn) !important;
+    border-color: t(login-btn) !important;
+    color: #ffffff;
+    box-shadow: none;
+  }
+}
+.btn-success:hover{
+  @include themed() {
+    background-color: t(login-btn-hover) ;
+  }  
+}
+// .mat-flat-button.mat-primary[disabled], .mat-flat-button.mat-accent[disabled], .mat-flat-button.mat-warn[disabled], .mat-flat-button[disabled][disabled], .mat-raised-button.mat-primary[disabled], .mat-raised-button.mat-accent[disabled], .mat-raised-button.mat-warn[disabled], .mat-raised-button[disabled][disabled], .mat-fab.mat-primary[disabled], .mat-fab.mat-accent[disabled], .mat-fab.mat-warn[disabled], .mat-fab[disabled][disabled], .mat-mini-fab.mat-primary[disabled], .mat-mini-fab.mat-accent[disabled], .mat-mini-fab.mat-warn[disabled], .mat-mini-fab[disabled][disabled] {
+//   background-color: rgba(0, 0, 0, 0.12) !important;
+// }
+.mat-raised-button{
+  @include themed() {
+    background-color: t(continuebtn-color);
+    font-family: t(font-family);
+  } 
+}
+// .mat-raised-button.mat-primary[disabled], .mat-flat-button.mat-primary[disabled]{
+//   @include themed() {
+//     // background-color: rgba(0,0,0,.12);
+//     background-color: rgb(243 243 243) !important;
+//   }
+// }
+body{
+  @include themed() {
+    font-family: t(font-family);
+}
+}
+.theme--bandhan{
+  @include themed() {
+    background: t(aboutpage-color) !important;
+  }
+}
+.card-gift h5{
+  @include themed() {
+    background: t(giftcard-color) !important;
+}
+}
+.head-alert.info{
+  @include themed() {
+    background: t(topribbon-color) ;
+}
+}
+.head-alert.info .text-highlight{
+  @include themed() {
+    color: t(topribbontext-color);
+} 
+}
+.head-alert.info{
+  @include themed() {
+    color: t(topribbonfirst-color);
+} 
+}
+.offers .best_deals .bg .redeem_badge{
+  @include themed() {
+    background: t(deals-color) !important;
+} 
+}
+.page_search .page_banner{
+  @include themed() {
+    background: t(pagesearch-color) !important;
+}
+}
+.buynowicon{
+  @include themed() {
+    fill: t(buynow-color) !important;
+} 
+}
+.sendgifticon{
+  @include themed() {
+    fill: t(sendgift-color) !important;
+}
+}
+.featured .page_banner{
+  @include themed() {
+    background: t( featured-color);
+}  
+}
+.page_categories.page_category .page_banner .tabs .tab label{
+  @include themed() {
+    background: t(dealtab-color);
+    color:  t(storetab-color);
+}
+}
+.page_stores.page_store .page_banner .tabs .tab label{
+  @include themed() {
+    background: t(dealtab-color);
+    color:  t(storetab-color);
+} 
+}
+.page_gift_banner_bandhan{
+  @include themed() {
+    color:  t(giftcardbanner-color);
+}
+}
+.page_gift_banner_bandhan .bannerctm .breadcrumb li a, .page_gift .text_dark .bannerctm .breadcrumb li::after, .page_gift .text_dark .bannerctm .breadcrumb span {
+  @include themed() {
+    color:  t(giftcardbread-color);
+} 
+}
+.gifts-dialog .text-success, .gift_card_details_steps .text-success{
+  @include themed() {
+    color:  t(successtext-color) !important;
+}  
+}
+.gifts-dialog .alert-success, .gift_card_details_steps .alert-success{
+  @include themed() {
+    color:  t(successalert-color) !important;
+}
+}
+.mat-checkbox {
+  @include themed() {
+    font-family: t(font-family);
+}
+}
+.mat-stroked-button {
+  @include themed() {
+    font-family: t(font-family);
+}
+}
+.mat-tab-group{
+  @include themed() {
+    font-family: t(font-family);
+} 
+}
+.mat-stepper-vertical{
+  @include themed() {
+    font-family: t(font-family);
+} 
+}
+.mat-form-field{
+  @include themed() {
+    font-family: t(font-family) !important;
+}   
+}
+.offer-dialog{
+  @include themed() {
+    font-family: t(font-family);
+} 
+}
+.mat-input-element{
+  @include themed() {
+    font-family: t(font-family);
+}
+}
+.mat-flat-button{
+  @include themed() {
+    background-color: t(theme-primary) ;
+    font-family: t(font-family);
+}
+}
+
+.mat-button.mat-primary{
+  @include themed() {
+   color: t(theme-primary) !important;
+} 
+}
+.mat-dialog-container{
+  @include themed() {
+    font-family: t(font-family);
+}  
+}
+.mat-tab-label{
+  @include themed() {
+    font-family: t(font-family);
+} 
+}
+.mat-radio-button{
+  @include themed() {
+    font-family: t(font-family);
+}   
+}
+.mat-button{
+  @include themed() {
+    font-family: t(font-family);
+} 
+}
+.mat-expansion-panel-header{
+  @include themed() {
+    font-family: t(font-family);
+} 
+}
+.mat-option{
+  @include themed() {
+    font-family: t(font-family);
+} 
+} 
+.mat-raised-button.mat-accent{
+  @include themed() {
+    background-color: t(checkoutbtn-color);
+} 
+}
+.mat-raised-button.mat-accent[disabled]{
+  background-color: rgba(0, 0, 0, 0.12);
+}
+.mat-raised-button.mat-primary[disabled]{
+  color: rgba(0, 0, 0, 0.6);
+}

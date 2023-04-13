@@ -1,0 +1,17 @@
+<div class="featured_cats">
+    <div class="scrolling-wrapper-flexbox">
+        <ng-container *ngFor="let data of featuredCatData">
+            <div class="card border-0" (click)="navigateTocustom(data)"  appObserveVisibility (visible)="onVisible(data, data.id, 'Custom category','Impression')">
+                <img class="card-img-top" src="{{data.categoryLogo}}" alt="{{data.categoryName}}">
+                <div class="card-body">
+                    <strong class="card-title">{{data.categoryName}}</strong>
+                    <p style="min-height: 45px;" class="m-0">
+                        {{data.catDescrp}} &nbsp;
+                    </p>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<!-- CSS File: _shared.scss -->

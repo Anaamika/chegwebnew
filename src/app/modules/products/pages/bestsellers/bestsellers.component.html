@@ -1,0 +1,79 @@
+<div class="bestsellers">
+    <div class="bestsellers_sidebar">
+        <div #filterBlock class="h-100">
+            <app-product-filter [categoriesSidebarData]="categoriesSidebarData" (filterEvent)="receiveFilter($event)"
+                [productFilters]=productFilters [filterRemoved]=filterRemoved>
+            </app-product-filter>
+            <!-- [filterChanged]=filterChanged  -->
+        </div>
+    </div>
+    <div class="bestsellers_content">
+        <ng-container *ngIf="!isSelectedFiltersEmpty">
+            <div class="d-inline-flex flex-wrap filter_tags" *ngFor="let item of selectedFilters | keyvalue">
+                <a class="d-flex align-items-center" *ngFor="let subitem of item.value">
+                    {{subitem}}
+                    <span (click)="removeFilter(subitem, item.key)" class="remove ml-2">
+                        <svg class="icon">
+                            <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </ng-container>
+        <app-best-sellers-grid [bestsellersData]=bestsellersData [instance]=1 [page]=pageName [catName]=catName>
+        </app-best-sellers-grid>
+        <div *ngIf="noProducts" class="no-data d-flex flex-column align-items-center justify-content-center">
+            <ng-lottie width="300px" height="340px" containerClass="moving-box" [styles]="styles" [options]="options"
+                (animationCreated)="animationCreated($event)" (loopComplete)="onLoopComplete()">
+            </ng-lottie>
+            <h5>Sorry! No products found matching the filter criteria.</h5>
+        </div>
+        <div *ngIf="showPagination">
+            <ul *ngIf="isBestSellers" role="navigation" class="ngx-pagination responsive" aria-label="Pagination">
+                <li class="pagination-previous"><a (click)="prevBestSellers()" tabindex="0"
+                        [class.disabled]="pageCount == 1" aria-label="Previous page"> Previous <span
+                            class="show-for-sr">page</span></a>
+                </li>
+                <li class="pagination-next"><a (click)="nextBestSellers()" tabindex="0" [class.disabled]="disableNextBS"
+                        aria-label="Next page"> Next <span class="show-for-sr">page</span></a>
+                </li>
+            </ul>
+            <ul *ngIf="isBestSellersSuggestion" role="navigation" class="ngx-pagination responsive"
+                aria-label="Pagination">
+                <li class="pagination-previous"><a (click)="prevBestSellersSuggestion()" tabindex="0"
+                        [class.disabled]="pageCount == 1" aria-label="Previous page"> Previous <span
+                            class="show-for-sr">page</span></a>
+                </li>
+                <li class="pagination-next"><a (click)="nextBestSellersSuggestion()" tabindex="0"
+                        [class.disabled]="disableNextBS" aria-label="Next page"> Next <span
+                            class="show-for-sr">page</span></a>
+                </li>
+            </ul>
+            <ul *ngIf="isPopularprod" role="navigation" class="ngx-pagination responsive" aria-label="Pagination">
+                <li class="pagination-previous"><a (click)="prevPopularProducts()" tabindex="0"
+                        [class.disabled]="pageCount == 1" aria-label="Previous page"> Previous <span
+                            class="show-for-sr">page</span></a>
+                </li>
+                <li class="pagination-next"><a (click)="nextPopularProducts()" tabindex="0"
+                        [class.disabled]="disableNextPP" aria-label="Next page"> Next <span
+                            class="show-for-sr">page</span></a>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="description !== '' && description !== null && description !== 'null'"
+            class="mt-5 card p-3 dont-break-out">
+            <h6 class="mb-3">About {{rootCatTitle}}:</h6>
+            <div [innerHtml]="description | sanitizeHtml"></div>
+        </div>
+
+        <a *ngIf="catName !=='null' && catName !==null" (click)="showFilters($event)"
+            class="btn btn-float btn-float-filter">
+            <svg class="icon">
+                <use xlink:href="/assets/icons/sprite.svg#Filter"></use>
+            </svg>
+        </a>
+  
+    </div>
+</div>
+
+<!-- CSS File: _products.scss -->

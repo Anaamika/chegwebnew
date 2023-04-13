@@ -1,0 +1,70 @@
+<div class="amount rounded-left border">
+  <h4>Choose an amount</h4>
+
+  <div class="d-flex align-items-center flex-wrap">
+    <mat-radio-group aria-labelledby="gift card amount" class="mat-gift-amount d-flex flex-wrap"
+      [formControl]="giftCardAmount">
+      <ng-container *ngFor="let data of giftCardDenominations; let last = last;">
+        <mat-radio-button *ngIf="data >= giftCardMinPrice && data <= giftCardMaxPrice" (click)="giftCardAmountClick()"
+          [value]="data" [checked]="last">
+          {{data}}
+        </mat-radio-button>
+      </ng-container>
+      <ng-container *ngIf="!isSlab">
+        <div *ngIf="giftCardMinPrice != giftCardMaxPrice" #otherAmount class="other"
+          (click)="customAmountClick($event)">
+          {{giftCardCustomAmount.value}}
+          <input (focusout)="setCustomAmount($event)" (click)="setCustomAmount($event)" type="number"
+            class="form-control" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+            [formControl]="giftCardCustomAmount" [value]="giftCardCustomAmount.value">
+        </div>
+      </ng-container>
+    </mat-radio-group>
+
+    <ng-container *ngIf="!isSlab">
+      <mat-error *ngIf="giftCardCustomAmount.hasError('max')">
+        <span class="ml-2">Amount should be between {{giftCardMinPrice}} to
+          {{giftCardMaxPrice}}</span>
+      </mat-error>
+      <mat-error *ngIf="giftCardCustomAmount.hasError('min')">
+        <span class="ml-2">Amount should be between {{giftCardMinPrice}} to
+          {{giftCardMaxPrice}}</span>
+      </mat-error>
+    </ng-container>
+  </div>
+  <small *ngIf="giftCardMinPrice != giftCardMaxPrice">(Minimum Rs. {{giftCardMinPrice}} & Maximum Rs.
+    {{giftCardMaxPrice}})</small>
+
+  <ng-container *ngIf="giftCardOfferValue === 0">
+    <div class="d-flex align-items-center mt-3 justify-content-end">
+      You pay:<h4 class="mb-0 ml-2" style="font-weight: 600;"><small>₹</small>{{amountAfterDiscount}}</h4>
+    </div>
+  </ng-container>
+</div>
+
+<div *ngIf="giftCardOfferValue !== 0" class="details d-flex flex-column rounded-right border border-left-0"
+  style="border-color: #c2eac4 !important;">
+  <h4>Price details</h4>
+  <table class="w-auto">
+    <tbody>
+      <tr>
+        <td scope="row">Gift card value</td>
+        <td class="text-right">
+          <h4 class="mb-0"><small>₹</small>{{giftCardAmount.value}}</h4>
+        </td>
+      </tr>
+      <tr>
+        <td class="pr-2" scope="row">Discount (<strong class="text-success">{{giftCardOfferValue}}%</strong>)
+        </td>
+        <td class="text-right">
+          <h4 class="text-success mb-0">−&nbsp;<small>₹</small>{{giftCardDiscount}} </h4>
+        </td>
+      </tr>
+      <tr>
+        <td class="border-top" scope="row">Subtotal</td>
+        <td class="border-top text-right">
+          <h4 class="mb-0" style="font-weight: 600;"><small>₹</small>{{amountAfterDiscount}}</h4>
+        </td>
+      </tr>
+  </table>
+</div>

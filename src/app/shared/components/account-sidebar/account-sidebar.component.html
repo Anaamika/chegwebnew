@@ -1,0 +1,57 @@
+<div class="sidebar">
+  <ul class="nav flex-column">
+    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+      <a class="nav-link" routerLink="/account/redeem" >Redeem Points</a>
+    </li>
+    <li class="nav-item"  [routerLinkActive]="['active']">
+      <a class="nav-link" routerLink="/account/profile" *ngIf="ifProfile">Profile</a>
+    </li>
+  </ul>
+
+  <ul class="nav flex-column" *ngIf="type.toLowerCase() ==='corp' || bankName.toLowerCase() === 'bfsl'">
+    <!-- <ul class="nav flex-column" *ngIf="(type.toLowerCase() ==='corp') || (bankName.toLowerCase() === 'bfsl')"> -->
+    <li class="nav-item"><span>BENEFITS</span></li>
+    <!-- <li class="nav-item">
+      <a class="nav-link" routerLink="/account/gift-cards">Vouchers</a>
+    </li> -->
+    <li class="nav-item" [routerLinkActive]="['active']">
+      <a class="nav-link" routerLink="/account/offers" >Exclusive Offers</a>
+      <!-- <a class="nav-link" (click)="getRedeemTab('Offers')">Exclusive Offers</a> -->
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']">
+      <a class="nav-link" routerLink="/account/stores">Cashback Stores</a>
+    </li>
+  </ul>
+
+  <ul class="nav flex-column">
+    <li class="nav-item"><span>ORDERS</span></li>
+    <li class="nav-item d-none"  [routerLinkActive]="['active']">
+      <a class="nav-link" routerLink="/account/orders">Orders</a>
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']">
+      <a class="nav-link" routerLink="/account/mygiftcards">My Gift Cards</a>
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']">
+      <a *ngIf="bankName === 'BFSL'" class="nav-link" routerLink="/account/rewards">Transaction History</a>
+      <a *ngIf="bankName !== 'BFSL'" class="nav-link" routerLink="/account/rewards">Shopping Trips</a>
+    </li>
+  </ul>
+
+  <ul class="nav flex-column" *ngIf="(isHR && type.toLowerCase() ==='corp') || (isHR && bankName.toLowerCase() === 'bfsl')">
+    <!-- <ul class="nav flex-column" *ngIf="(isHR && type.toLowerCase() ==='corp') || ((isHR && bankName.toLowerCase() === 'bfsl')"> -->
+    <li class="nav-item"  [routerLinkActive]="['active']"><span>HR</span></li>
+
+    <li class="nav-item"  [routerLinkActive]="['active']">
+      <a class="nav-link" routerLink="/account/hr-dashboard">Admin</a>
+    </li>
+    <!-- <li class="nav-item">
+            <a class="nav-link">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link">My Lists</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link">My Wishlists</a>
+        </li> -->
+  </ul>
+</div>

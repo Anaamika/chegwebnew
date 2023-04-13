@@ -1,0 +1,7 @@
+<div #contentBlock class="content_block" [class.collapsed]="isCollapsed">
+    <ng-content></ng-content>
+</div>
+<div class="btn btn-link pl-0" (click)="isCollapsed = !isCollapsed">
+    {{ isCollapsed == true ? 'Read more' : 'Read less' }}</div>
+
+<!-- *ngIf="btnShow" -->

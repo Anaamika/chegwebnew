@@ -1,0 +1,62 @@
+<div #giftsContainer class="theme--{{bank | lowercase}} page_gift ">
+    <div #giftsDialog class="gifts-dialog">
+        <div #giftsDialogFront class="gifts-dialog_front">
+            <div mat-dialog-title class="header border-bottom d-flex align-items-center">
+                <img style="height: 80px;" class="img-fluid mr-2" src={{giftCardImage}} />
+                <div class="d-flex flex-column">
+                    <h3>{{giftCardName}} | <span *ngIf="!isRedeem" style="color: #ff5722;">{{giftCardOffer}}</span></h3>
+                    <small class="mb-2">EXPIRY DATE | {{giftCardExpiry}}</small>
+                    <a class="link" (click)="viewDetail('B')">VIEW DETAILS</a>
+                </div>
+                <button type="button" (click)="close(false)" class="close ml-auto" aria-label="Close">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                    </svg>
+                </button>
+            </div>
+            <div mat-dialog-content>
+                <div class="gift_card_details_steps mat-dialog-gift-section pl-0" [style.height.px]="sectionHeight">
+                    <app-gift-card-amount (amountEvent)="receiveAmount($event)" class="step1"
+                        [giftCardAmountData]=giftCardAmountData>
+                    </app-gift-card-amount>
+                    <br>
+                    <hr><br>
+                    <app-payment (paymentEvent)="receivePayment($event)" [paymentData]=paymentData [giftCardName]="giftCardName"
+                        [removeClass]=removeClass type="self" class="step2"></app-payment>
+                </div>
+            </div>
+        </div>
+
+        <div #giftsDialogBack class="gifts-dialog_back">
+            <div mat-dialog-title class="header d-flex align-items-center justify-content-between mb-0">
+                <a class="pointer" (click)="viewDetail('F')">
+                    <svg class="icon" style="height: 20px; width: 20px;">
+                        <use xlink:href="/assets/icons/sprite.svg#ArrowLeft001"></use>
+                    </svg>
+                    Back
+                </a>
+                <button type="button" (click)="close(false)" class="close ml-auto" aria-label="Close">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                    </svg>
+                </button>
+            </div>
+            <div mat-dialog-content class="pt-0">
+                <mat-tab-group animationDuration="0ms">
+                    <mat-tab label="Gift Card Details">
+                        <div class="py-3" [innerHtml]="giftCardDescription | sanitizeHtml"></div>
+                    </mat-tab>
+                    <mat-tab label="How to Redeem">
+                        <div class="py-3" [innerHtml]="giftHowToRedeem | sanitizeHtml"></div>
+                    </mat-tab>
+                    <mat-tab label="Terms & Conditions">
+                        <div class="py-3" [innerHtml]="giftCardTerms | sanitizeHtml"></div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>
+<app-confetti [runConfetti]=runConfetti></app-confetti>
+
+<!-- CSS File: _gifts.scss -->

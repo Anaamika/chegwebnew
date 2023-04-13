@@ -1,0 +1,26 @@
+<div #offerCarousel>
+    <owl-carousel-o class="owl-carousel-outer" [options]="customOptions">
+        <!-- [ngStyle]="{'width': carousel_outer_width +'px'}" -->
+        <ng-container class="owl-carousel" *ngFor="let data of offersData">
+            <ng-template carouselSlide>
+                <div class="offer-card pointer" (click)="postProductInfo($event, data)"
+                    [ngStyle]="{'background-image':'url('+data.bannerImage.split('.').slice(0, -1).join('.') + '.webp)'}">
+                    <ng-container *ngIf="data.redeemTitle != null && data.redeemTitle != ''">
+                        <!-- <a target="_blank" (click)="insertBannerInfo($event, data)" class="offer-card__title">
+                            <h5>{{data.marchantName}}</h5>
+                            <p class="m-0">{{data.bannerTitle}}</p>
+                        </a> -->
+                        <a (click)="openTermsDialog($event, data)" title="Reward Rates & Terms"
+                            class="offer-card__title">
+                            <svg class="icon">
+                                <use xlink:href="/assets/icons/sprite.svg#Information"></use>
+                            </svg>
+                            <span>terms</span>
+                        </a>
+                    </ng-container>
+                </div>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+</div>
+<!-- <div class="offer-card" style="background-image: url('https://assets.myntassets.com/f_webp,w_980,c_limit,fl_progressive,dpr_2.0/assets/images/2020/9/27/0f677db7-d392-4cb3-9f29-8f3a2631d8901601230310133-Pantaloons-desktop-banner--1-.jpg');"> -->

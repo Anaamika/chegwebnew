@@ -1,0 +1,29 @@
+.compare_page{
+    // background-color: #fff;
+    height: 100%;
+    .left-colmn {
+        width: 15%;
+    }
+    .right-column{
+        background-color: #fff;
+       
+    }
+    .border-style{
+        border: 1px solid #e2e2e2;
+        border-left: 0;
+        border-right: 0;
+    }
+    .break-style{
+        word-break: break-all;
+        min-height: 60px;
+        p{
+            margin-bottom: 0;
+        }
+    }
+    .copare_img{
+        text-align: center;
+    }
+        .heading-detail{
+            font-weight: bold;
+        }
+}

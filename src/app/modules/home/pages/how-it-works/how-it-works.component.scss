@@ -1,0 +1,375 @@
+.top-introsection{
+    position: relative;
+    img{
+        max-width: 100%;
+    }
+    .content-sec {
+        position: absolute;
+    top: 50%;
+    z-index: 99;
+    right: 0;
+    text-align: right;
+    margin-top: -20%;
+    padding: 0 4vw;
+    width: 45%;
+        h3{
+            font-family: 'Merriweather', serif;
+            font-size:60px;
+            font-weight: bold;
+            color: #16215c;
+        }
+        p{
+            font-size: 23px;
+        }
+    }
+}
+.compare-section{
+    margin-top: 0px;
+    position: relative;
+    min-height: 360px;
+    background-color: #f6f5fb;
+    h3{
+        font-size: 45px;
+        font-weight: 100;
+        margin-top: -38px;
+        margin-bottom: 48px;
+    }
+    .copare-searchcstm{
+        width: 40%;
+        position: absolute;
+        z-index: 9;
+        left: 60%;
+        margin-left: -30%;
+        top: 135px;
+        input.form-control {
+            border-radius: 50px;
+            padding: 22px;
+        }
+        .fancy-div{
+            position: relative;
+            .search-tag{
+                color: #ff7e3d;
+                font-family: 'Cookie', cursive;
+                font-size: 35px;
+                position: absolute;
+                top: 2vw;
+                left: 4vw;
+            }
+        }
+        
+        button.btn.btn-outline-secondary {
+            background-color: #ff5b35;
+            color: #fff;
+            border-radius: 50px !important;
+            padding: 12px 38px;
+            position: absolute;
+            right: 0;
+            border: 0px;
+            z-index: 10;
+        }
+    }
+}
+.for-mobile{
+    display: none;
+}
+.back-first-section {
+    position: absolute;
+    top:0px;
+    z-index: 0;
+    width: 100%;
+    img{
+        width: 100%;
+    }
+}
+.compare-info {
+    background-color: #f6f5fb;
+    text-align: center;
+    position: relative;
+    h5{
+        width: 60%;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 23px;
+        font-weight: 400;
+        margin-bottom: 25px;
+    }
+    .search-resultcstm{
+        position: relative;
+        z-index: 9;
+    }
+    .back-img {
+        width: 100%;
+        position: absolute;
+        bottom: -80px;
+        left: 0;
+        z-index: 0;
+    }
+}
+.cstm-container{
+    background-color: #16215c;
+    .cstm-row{
+        display: flex;
+    }
+    .columnstyle {
+        position: relative;
+        z-index: 9;
+        color: #fff;
+        width: 90%;
+        margin: 0 auto;
+        h5{
+            color: #ff7e3d;
+            font-family: 'Cookie', cursive;
+            font-size: 56px;
+        }
+        .left-column, .right-column{
+            width: 45%;
+            float: left;
+            padding: 1vw;
+            margin: 2vw;
+            p{
+                width: 80%;
+                font-weight: 100;
+                font-size: 20px;
+            }
+            .shop-mobile{          
+                margin-left: -48px;
+            }
+        }
+        .right-column{
+            text-align: right;
+            background-color: #16215c;
+            padding-top: 8vw;
+            p{
+                float: right;
+            }
+        }
+       
+    }
+    .rewards-section{
+        position: relative;
+        .how-works{
+            text-align: center;
+            h5{
+                color: #ff7e3d;
+                font-family: 'Cookie', cursive;
+                font-size: 56px;
+            }
+            .account-reward {
+                position: relative;
+                z-index: 10;
+            }  
+        }
+        .reward-info {
+            width: 18%;
+            color: #fff;
+            position: absolute;
+            left: 2vw;
+            font-weight: 100;
+            font-size: 20px;
+            top: 22%;
+            .orange-arrow {
+                position: absolute;
+                right: -8vw;
+                margin-top: -38px;
+                z-index: 99;
+            }
+        } 
+        .cloud-art {
+            position: absolute;
+            right: 0;
+            top: -161px;
+            z-index: 9;
+        } 
+        .sofa-art {
+            position: absolute;
+            right: 0;
+            bottom: 70px;
+        }  
+    }
+}
+.meeting-art{
+    max-width: 100%;
+    margin-top: -2px;
+    width: 100%;
+}
+.redeem-section{
+    text-align: center;
+    h5{
+        color: #ff7e3d;
+        font-family: 'Cookie', cursive;
+        font-size: 56px;
+        margin-top: 70px;
+        margin-bottom: 20px;
+    }
+    p{
+        margin-bottom: 0;
+    color: #fff;
+    font-size: 20px;
+    width: 55%;
+    margin: 0 auto;
+    padding: 27px 0;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .top-introsection{
+        background-color: #fff;
+        margin-top: -20px;
+        padding-top: 25px;
+        img{
+            margin-top: -69px;
+        }
+        .content-sec {
+            position: relative;
+            top: 50%;
+            z-index: 99;
+            right: 0;
+            text-align: left;
+            margin-top: 15px;
+            padding: 0 1vw;
+            width: 98%;
+            h3{
+                font-size:30px;
+            }
+            p{
+                font-size: 16px;
+            }
+        }
+    }
+    
+   img{
+       max-width: 100%;
+   }
+   .back-first-section{
+       display: none;
+   }
+   .compare-section{
+       margin-top: 0;
+       min-height: 198px;
+       h3{
+        font-size: 25px;
+        padding-top: 25px;
+        font-weight: 400;
+        margin-bottom: 14px;
+       }
+    .copare-searchcstm{
+        width: 95%;
+        position: relative;
+        z-index: 9;
+        left: 0;
+        margin-left: 0;
+        top: 0;
+        margin: 0 auto;
+        .fancy-div{
+            position: relative;
+            img{
+                width: 37px;
+                margin-left: 17px;
+                margin-top: -23px;
+            }
+            .search-tag{
+                font-size: 30px;
+                position: absolute;
+                top: 1vw;
+                left: 18vw;
+            }
+        }
+    }
+   }
+   .compare-info {
+    h5{
+        width: 95%;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 25px;
+    }
+    .back-img{
+        display: none;
+    }
+
+}
+.cstm-container{
+    .cstm-row{
+        display:block;
+    }
+    .columnstyle {
+        position: relative;
+        z-index: 9;
+        color: #fff;
+        width: 90%;
+        margin: 0 auto;
+        h5{
+            color: #ff7e3d;
+            font-family: 'Cookie', cursive;
+            font-size: 40px;
+        }
+        .left-column, .right-column{
+            width: 100%;
+            float: none;
+            padding: 1vw;
+            margin: 1vw;
+            p{
+                width: 98%;
+                font-weight: 100;
+                font-size: 16px;
+            }
+            .shop-mobile{          
+                margin-left: 0;
+                width: 50%;
+                margin: 0 auto;
+                text-align: center;
+                display: block;
+            }
+        }
+        .right-column{
+            text-align: right;
+            background-color: #16215c;
+            padding-top: 8vw;
+            p{
+                float: right;
+            }
+        }
+       
+    }
+    .rewards-section {
+        .how-works{
+            h5{
+                font-size: 40px;
+            }
+        }
+        .reward-info{
+            p{
+                font-size: 16px;
+            }
+        }
+        .cloud-art {
+            display: none;
+        }
+        .for-mobile{
+            display: block;
+            position: relative ;
+            width: 95% ;
+            margin: 0 auto;
+            
+        }
+        .sofa-art{
+            display: none;
+        }
+        .for-desktop{
+            display: none;
+        }
+    }
+    .redeem-section{
+        h5{
+            font-size: 40px;
+        }
+        p{
+            width: 98%;
+            font-size: 16px;
+        }
+    }
+}
+
+  }

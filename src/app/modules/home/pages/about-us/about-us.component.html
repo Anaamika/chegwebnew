@@ -1,0 +1,10 @@
+<div class="page_content">
+    <div class="container">
+        <app-breadcrumb></app-breadcrumb>
+        <div class="row">
+            <div class="col" *ngFor="let data of aboutData">
+                <span class="blog-post" [innerHtml]="data.aboutUs | sanitizeHtml"></span>
+            </div>
+        </div>
+    </div>
+</div>

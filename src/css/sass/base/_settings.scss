@@ -1,0 +1,713 @@
+/**
+ * Variable settings styles
+ */
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700&display=swap');
+// @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
+
+//Overirding Bootsrtap variables
+$body-bg-color: #eaebef;
+
+// Typography
+$font-size-base: 12px; // this changes the font-size throughout bootstrap
+//$font-family: "Open Sans", sans-serif !important;
+//$font-family--title: "Jost", sans-serif;
+$font-size-base: 0.875rem;
+$line-height-base: 1.6;
+
+// *** Bootsrtrap overrides ***
+$theme-colors: (
+    "primary": #428af6,
+    "secondary": #515867,
+    "info": #54d8ff,
+    "success": #8bc734,
+    "warning": #f9c700,
+    "danger": #fd4401,
+);
+
+// *** Custom Variables ***
+
+//Cheggout
+$font-family--cheggout: "Jost", sans-serif;
+$theme-color--cheggout: #ff715b;
+$theme-primary--cheggout: #ff715b;
+$theme-secondary--cheggout: #e77c6c;
+$body-bg--cheggout: #eaeef0;
+$body-color--cheggout: #3d444a;
+$header-bg--cheggout: #fff;
+$theme-headerback--cheggout: #fff;
+$header-color--cheggout: #3d444a;
+$header-btn-bg--cheggout: #3d444a;
+$header-search-bg--cheggout: #eaeaea;
+$header-search-border--cheggout: #dbdcdd;
+
+$login-intro-bg--cheggout: #0c6a9a;
+
+$banner-bg--cheggout: #fff;
+$primary-btn-bg--cheggout: #ff715b;
+
+$footer-bg--cheggout: #444;
+$footer-color--cheggout: #ff715b;
+
+$search-pagetitle--cheggout: #607d8b;
+$gradient-navbar--cheggout: linear-gradient(to right, #f46b45, #eea849);
+$gradient-category--cheggout: linear-gradient(to right, #43cea2, #185a9d);
+$gradient-store--cheggout: linear-gradient(to left, #134e5e, #71b280);
+
+$btn-success--cheggout:#8bc734;
+$btn-success-hover--cheggout:#76a92c;
+$buynow--cheggout:#fd6c9d;
+$sendgift--cheggout:#ffb446;
+$giftcard--cheggout:rgba(76, 175, 80, 0.8);
+$deals--cheggout:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--cheggout:rgba(255, 255, 255, 0.45);
+$continue-login--cheggout:#3f51b5;
+$topribbon-back--cheggout:#ffd166;
+$topribbon-text--cheggout:#e85348;
+$aboutpage--cheggout:#eaebef;
+$featured--cheggout:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--cheggout:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--cheggout:#000000;
+$storetab--cheggout:#212529;
+$giftcardtopbanner--cheggout:#ffffff;
+$giftcardtopbread--cheggout:#555;
+$checkoutbtn--cheggout:#ff4081;
+$successtext--cheggout:#1bcda9;
+$sucessalert--cheggout:#48671b;
+
+//Canara
+$font-family--canara: "Jost", sans-serif; //"Open Sans", sans-serif;
+$theme-color--canara: #2196f3;
+$theme-primary--canara: #2196f3;
+$theme-secondary--canara: #ffc430;
+$body-bg--canara: #eaeef0;
+$body-color--canara: #3d444a;
+$header-bg--canara: #b2deff;
+$theme-headerback--canara: #b2deff;
+$header-color--canara: #26223d;
+$header-btn-bg--canara: #26223d;
+$header-search-bg--canara: #eaeaea;
+$header-search-border--canara: #dbdcdd;
+
+$login-intro-bg--canara: #0c6a9a;
+
+$banner-bg--canara: #e1e5e8;
+$primary-btn-bg--canara: #004b86;
+
+$footer-bg--canara: #302c45;
+$footer-color--canara: #fff;
+
+$search-pagetitle--canara: #302c45;
+$gradient-navbar--canara: linear-gradient(to right, #00b4db, #0083b0);
+$gradient-category--canara: linear-gradient(to left, #3498db, #2c3e50);
+$gradient-store--canara: linear-gradient(to left, #c4e0e5, #4ca1af);
+
+$btn-success--canara:#8bc734;
+$btn-success-hover--canara:#76a92c;
+$buynow--canara:#fd6c9d;
+$sendgift--canara:#ffb446;
+$giftcard--canara:rgba(76, 175, 80, 0.8);
+$deals--canara:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--canara:rgba(255, 255, 255, 0.45);
+$continue-login--canara:#3f51b5;
+$topribbon-back--canara:#ffd166;
+$topribbon-text--canara:#e85348;
+$aboutpage--canara:#eaebef;
+$featured--canara:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--canara:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--canara:#000000;
+$storetab--canara:#212529;
+$giftcardtopbanner--canara:#ffffff;
+$giftcardtopbread--canara:#555;
+$checkoutbtn--canara:#ff4081;
+$successtext--canara:#1bcda9;
+$sucessalert--canara:#48671b;
+
+//PunjabSind
+$font-family--psb: "Jost", sans-serif;
+$theme-color--psb: #007c3d;
+$theme-primary--psb: #007c3d;
+$theme-secondary--psb: #fff200;
+$body-bg--psb: #eaeef0;
+$body-color--psb: #3d444a;
+$header-bg--psb: #008f4c;
+$theme-headerback--psb: #008f4c;
+$header-color--psb: #fff200;
+$header-btn-bg--psb: #036333;
+$header-search-bg--psb: #eaeaea;
+$header-search-border--psb: #dbdcdd;
+
+$login-intro-bg--psb: #0c6a9a;
+
+$banner-bg--psb: #e1e5e8;
+$primary-btn-bg--psb: #007c3d;
+
+$footer-bg--psb: #036333;
+$footer-color--psb: #fff200;
+
+$search-pagetitle--psb: #32614a;
+$gradient-navbar--psb: linear-gradient(to right, #134e5e, #71b280);
+$gradient-category--psb: linear-gradient(to left, #44a08d, #093637);
+$gradient-store--psb: linear-gradient(to left, #134e5e, #71b280);
+
+$btn-success--psb:#8bc734;
+$btn-success-hover--psb:#76a92c;
+$buynow--psb:#fd6c9d;
+$sendgift--psb:#ffb446;
+$giftcard--psb:rgba(76, 175, 80, 0.8);
+$deals--psb:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--psb:rgba(255, 255, 255, 0.45);
+$continue-login--psb:#3f51b5;
+$topribbon-back--psb:#ffd166;
+$topribbon-text--psb:#e85348;
+$aboutpage--psb:#eaebef;
+$featured--psb:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--psb:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--psb:#000000;
+$storetab--psb:#212529;
+$giftcardtopbanner--psb:#ffffff;
+$giftcardtopbread--psb:#555;
+$checkoutbtn--psb:#ff4081;
+$successtext--psb:#1bcda9;
+$sucessalert--psb:#48671b;
+
+//Bank Of Baroda
+$font-family--bob: "Jost", sans-serif;
+$theme-color--bob: #ff6633;
+$theme-primary--bob: #ff6633;
+$theme-secondary--bob: #ff6633;
+$body-bg--bob: #eaeef0;
+$body-color--bob: #3d444a;
+
+$header-bg--bob: #ff6633;
+$theme-headerback--bob: #ff6633;
+$header-color--bob: #fff;
+$header-btn-bg--bob: #c53a0b;
+$header-search-bg--bob: #eaeaea;
+$header-search-border--bob: #dbdcdd;
+
+$login-intro-bg--bob: #0c6a9a;
+
+$banner-bg--bob: #e1e5e8;
+$primary-btn-bg--bob: #ff6633;
+
+$footer-bg--bob: #fff;
+$footer-color--bob: #424242;
+
+$search-pagetitle--bob: #5993a9;
+$gradient-navbar--bob: linear-gradient(to right, #f46b45, #eea849);
+$gradient-category--bob: linear-gradient(to left, #2980b9, #2c3e50);
+$gradient-store--bob: linear-gradient(to left, #134e5e, #71b280);
+
+$btn-success--bob:#8bc734;
+$btn-success-hover--bob:#76a92c;
+$buynow--bob:#fd6c9d;
+$sendgift--bob:#ffb446;
+$giftcard--bob:rgba(76, 175, 80, 0.8);
+$deals--bob:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--bob:rgba(255, 255, 255, 0.45);
+$continue-login--bob:#3f51b5;
+$topribbon-back--bob:#ffd166;
+$topribbon-text--bob:#e85348;
+$aboutpage--bob:#eaebef;
+$featured--bob:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--bob:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--bob:#000000;
+$storetab--bob:#212529;
+$giftcardtopbanner--bob:#ffffff;
+$giftcardtopbread--bob:#555;
+$checkoutbtn--bob:#ff4081;
+$successtext--bob:#1bcda9;
+$sucessalert--bob:#48671b;
+
+//Bank Of Maharashtra
+$font-family--bom: "Jost", sans-serif;
+$theme-color--bom: #0089cf;
+$theme-primary--bom: #004882;
+$theme-secondary--bom: #003a69;
+$body-bg--bom: #eaeef0;
+$body-color--bom: #3d444a;
+
+$header-bg--bom: #fff;
+$theme-headerback--bom: #fff;
+$header-color--bom: #3d444a;
+$header-btn-bg--bom: #3d444a;
+$header-search-bg--bom: #eaeaea;
+$header-search-border--bom: #dbdcdd;
+
+$login-intro-bg--bom: #0c6a9a;
+
+$banner-bg--bom: #e1e5e8;
+$primary-btn-bg--bom: #0089cf;
+
+$footer-bg--bom: #006599;
+$footer-color--bom: #fff;
+
+$search-pagetitle--bom: #34546d;
+$gradient-navbar--bom: linear-gradient(to right, #f46b45, #eea849);
+$gradient-category--bom: linear-gradient(to left, #2980b9, #2c3e50);
+$gradient-store--bom: linear-gradient(to right, #ff8903, #ffc001, #ff8903);
+
+$btn-success--bom:#8bc734;
+$btn-success-hover--bom:#76a92c;
+$buynow--bom:#fd6c9d;
+$sendgift--bom:#ffb446;
+$giftcard--bom:rgba(76, 175, 80, 0.8);
+$deals--bom:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--bom:rgba(255, 255, 255, 0.45);
+$continue-login--bom:#3f51b5;
+$topribbon-back--bom:#ffd166;
+$topribbon-text--bom:#e85348;
+$aboutpage--bom:#eaebef;
+$featured--bom:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--bom:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--bom:#000000;
+$storetab--bom:#212529;
+$giftcardtopbanner--bom:#ffffff;
+$giftcardtopbread--bom:#555;
+$checkoutbtn--bom:#ff4081;
+$successtext--bom:#1bcda9;
+$sucessalert--bom:#48671b;
+
+//Punjab National bank
+$font-family--pnb: "Jost", sans-serif;
+$theme-color--pnb: #a20a3a;
+$theme-primary--pnb: #a20a3a;
+$theme-secondary--pnb: #f6b801;
+$body-bg--pnb: #eaeef0;
+$body-color--pnb: #3d444a;
+
+$header-bg--pnb: #a20a3a;
+$theme-headerback--pnb: #a20a3a;
+$header-color--pnb: #f6b801;
+$header-btn-bg--pnb: #ffffff;
+$header-search-bg--pnb: #eaeaea;
+$header-search-border--pnb: #dbdcdd;
+
+$login-intro-bg--pnb: #a20a3a;
+
+$banner-bg--pnb: #e1e5e8;
+$primary-btn-bg--pnb: #a20a3a;
+
+$footer-bg--pnb: #940b36;
+$footer-color--pnb: #ffffff;
+
+$search-pagetitle--pnb: #f6b801;
+$gradient-navbar--pnb: linear-gradient(to right, #f46b45, #eea849);
+$gradient-category--pnb: linear-gradient(to left, #2980b9, #2c3e50);
+$gradient-store--pnb: linear-gradient(to right, #ff8903, #ffc001, #ff8903);
+
+$btn-success--pnb:#8bc734;
+$btn-success-hover--pnb:#76a92c;
+$buynow--pnb:#fd6c9d;
+$sendgift--pnb:#ffb446;
+$giftcard--pnb:rgba(76, 175, 80, 0.8);
+$deals--pnb:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--pnb:rgba(255, 255, 255, 0.45);
+$continue-login--pnb:#3f51b5;
+$topribbon-back--pnb:#ffd166;
+$topribbon-text--pnb:#e85348;
+$aboutpage--pnb:#eaebef;
+$featured--pnb:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--pnb:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--pnb:#000000;
+$storetab--pnb:#212529;
+$giftcardtopbanner--pnb:#ffffff;
+$giftcardtopbread--pnb:#555;
+$checkoutbtn--pnb:#ff4081;
+$successtext--pnb:#1bcda9;
+$sucessalert--pnb:#48671b;
+
+
+//Indian Bank
+$font-family--ib: "Jost", sans-serif;
+$theme-color--ib: #034ea1;
+$theme-primary--ib: #034ea1;
+$theme-secondary--ib: #003a69;
+$body-bg--ib: #eaeef0;
+$body-color--ib: #3d444a;
+
+$header-bg--ib: #034ea1;
+$theme-headerback--ib: #034ea1;
+$header-color--ib: #fff;
+$header-btn-bg--ib: #fff;
+$header-search-bg--ib: #eaeaea;
+$header-search-border--ib: #dbdcdd;
+
+$login-intro-bg--ib: #034ea1;
+
+$banner-bg--ib: #e1e5e8;
+$primary-btn-bg--ib: #0089cf;
+
+$footer-bg--ib: #034ea1;
+$footer-color--ib: #fff;
+
+$search-pagetitle--ib: #034ea1;
+$gradient-navbar--ib: linear-gradient(to right, #f46b45, #eea849);
+$gradient-category--ib: linear-gradient(to left, #2980b9, #2c3e50);
+$gradient-store--ib: linear-gradient(to right, #ff8903, #ffc001, #ff8903);
+
+$btn-success--ib:#8bc734;
+$btn-success-hover--ib:#76a92c;
+$buynow--ib:#fd6c9d;
+$sendgift--ib:#ffb446;
+$giftcard--ib:rgba(76, 175, 80, 0.8);
+$deals--ib:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--ib:rgba(255, 255, 255, 0.45);
+$continue-login--ib:#3f51b5;
+$topribbon-back--ib:#ffd166;
+$topribbon-text--ib:#e85348;
+$aboutpage--ib:#eaebef;
+$featured--ib:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--ib:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--ib:#000000;
+$storetab--ib:#212529;
+$giftcardtopbanner--ib:#ffffff;
+$giftcardtopbread--ib:#555;
+$checkoutbtn--ib:#ff4081;
+$successtext--ib:#1bcda9;
+$sucessalert--ib:#48671b;
+
+//CSB Bank
+$font-family--csb: "Jost", sans-serif;
+$theme-color--csb: #ff6600;
+$theme-primary--csb: #004882;
+$theme-secondary--csb: #ff6600;
+$body-bg--csb: #eaeef0;
+$body-color--csb: #3d444a;
+$header-bg--csb: #fff;
+$theme-headerback--csb: #fff;
+$header-color--csb: #09428f;
+$header-btn-bg--csb: #09428f;
+$header-search-bg--csb: #eaeaea;
+$header-search-border--csb: #dbdcdd;
+
+$login-intro-bg--csb: #0c6a9a;
+
+$banner-bg--csb: #e1e5e8;
+$primary-btn-bg--csb: #ff6600;
+
+$footer-bg--csb: #003c87;
+$footer-color--csb: #fff;
+
+$search-pagetitle--csb: #014e84;
+$gradient-navbar--csb: linear-gradient(to right, #f46b45, #eea849);
+$gradient-category--csb: linear-gradient(to left, #2980b9, #2c3e50);
+$gradient-store--csb: linear-gradient(to right, #ff6600, #fdc830);
+
+$btn-success--csb:#8bc734;
+$btn-success-hover--csb:#76a92c;
+$buynow--csb:#fd6c9d;
+$sendgift--csb:#ffb446;
+$giftcard--csb:rgba(76, 175, 80, 0.8);
+$deals--csb:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--csb:rgba(255, 255, 255, 0.45);
+$continue-login--csb:#3f51b5;
+$topribbon-back--csb:#ffd166;
+$topribbon-text--csb:#e85348;
+$aboutpage--csb:#eaebef;
+$featured--csb:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--csb:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--csb:#000000;
+$storetab--csb:#212529;
+$giftcardtopbanner--csb:#ffffff;
+$giftcardtopbread--csb:#555;
+$checkoutbtn--csb:#ff4081;
+$successtext--csb:#1bcda9;
+$sucessalert--csb:#48671b;
+
+//MResult
+$font-family--mresult: "Jost", sans-serif;
+$theme-color--mresult: #f89738;
+$theme-primary--mresult: #f89738;
+$theme-secondary--mresult: #f89738;
+$body-bg--mresult: #eaeef0;
+$body-color--mresult: #3d444a;
+$header-bg--mresult: #fff;
+$theme-headerback--mresult: #fff;
+$header-color--mresult: #3d444a;
+$header-btn-bg--mresult: #3d444a;
+$header-search-bg--mresult: #eaeaea;
+$header-search-border--mresult: #dbdcdd;
+
+$login-intro-bg--mresult: #0c6a9a;
+
+$banner-bg--mresult: #fff;
+$primary-btn-bg--mresult: #f89738;
+
+$footer-bg--mresult: #202020;
+$footer-color--mresult: #ccc;
+
+$search-pagetitle--mresult: #607d8b;
+$gradient-navbar--mresult: linear-gradient(to right, #f46b45, #eea849);
+$gradient-category--mresult: linear-gradient(to right, #43cea2, #185a9d);
+$gradient-store--mresult: linear-gradient(to left, #134e5e, #71b280);
+
+$btn-success--mresult:#8bc734;
+$btn-success-hover--mresult:#76a92c;
+$buynow--mresult:#fd6c9d;
+$sendgift--mresult:#ffb446;
+$giftcard--mresult:rgba(76, 175, 80, 0.8);
+$deals--mresult:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--mresult:rgba(255, 255, 255, 0.45);
+$continue-login--mresult:#3f51b5;
+$topribbon-back--mresult:#ffd166;
+$topribbon-text--mresult:#e85348;
+$aboutpage--mresult:#eaebef;
+$featured--mresult:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--mresult:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--mresult:#000000;
+$storetab--mresult:#212529;
+$giftcardtopbanner--mresult:#ffffff;
+$giftcardtopbread--mresult:#555;
+$checkoutbtn--mresult:#ff4081;
+$successtext--mresult:#1bcda9;
+$sucessalert--mresult:#48671b;
+
+//Posist
+$font-family--posist: "Jost", sans-serif;
+$theme-color--posist: #006db7;
+$theme-primary--posist: #006db7;
+$theme-secondary--posist: #006db7;
+$body-bg--posist: #eaeef0;
+$body-color--posist: #3d444a;
+$header-bg--posist: #fff;
+$theme-headerback--posist: #fff;
+$header-color--posist: #3d444a;
+$header-btn-bg--posist: #3d444a;
+$header-search-bg--posist: #eaeaea;
+$header-search-border--posist: #dbdcdd;
+
+$login-intro-bg--posist: #0c6a9a;
+
+$banner-bg--posist: #fff;
+$primary-btn-bg--posist: #006db7;
+
+$footer-bg--posist: #444;
+$footer-color--posist: #006db7;
+
+$search-pagetitle--posist: #607d8b;
+$gradient-navbar--posist: linear-gradient(to right, #f46b45, #eea849);
+$gradient-category--posist: linear-gradient(to right, #43cea2, #185a9d);
+$gradient-store--posist: linear-gradient(to left, #134e5e, #71b280);
+
+$btn-success--posist:#8bc734;
+$btn-success-hover--posist:#76a92c;
+$buynow--posist:#fd6c9d;
+$sendgift--posist:#ffb446;
+$giftcard--posist:rgba(76, 175, 80, 0.8);
+$deals--posist:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--posist:rgba(255, 255, 255, 0.45);
+$continue-login--posist:#3f51b5;
+$topribbon-back--posist:#ffd166;
+$topribbon-text--posist:#e85348;
+$aboutpage--posist:#eaebef;
+$featured--posist:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--posist:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--posist:#000000;
+$storetab--posist:#212529;
+$giftcardtopbanner--posist:#ffffff;
+$giftcardtopbread--posist:#555;
+$checkoutbtn--posist:#ff4081;
+$successtext--posist:#1bcda9;
+$sucessalert--posist:#48671b;
+
+//prokids
+$font-family--prokids: "Jost", sans-serif;
+$theme-color--prokids: #462e54;
+$theme-primary--prokids: #462e54;
+$theme-secondary--prokids: #7c5295;
+$body-bg--prokids: #eaeef0;
+$body-color--prokids: #3d444a;
+$header-bg--prokids: #fff;
+$theme-headerback--prokids: #fff;
+$header-color--prokids: #3d444a;
+$header-btn-bg--prokids: #3d444a;
+$header-search-bg--prokids: #eaeaea;
+$header-search-border--prokids: #dbdcdd;
+
+$login-intro-bg--prokids: #7c5295;
+
+$banner-bg--prokids: #fff;
+$primary-btn-bg--prokids: #7c5295;
+
+$footer-bg--prokids: #444;
+$footer-color--prokids: #7c5295;
+
+$search-pagetitle--prokids: #607d8b;
+$gradient-navbar--prokids: linear-gradient(to right, #f46b45, #eea849);
+$gradient-category--prokids: linear-gradient(to right, #43cea2, #185a9d);
+$gradient-store--prokids: linear-gradient(to left, #134e5e, #71b280);
+
+$btn-success--prokids:#8bc734;
+$btn-success-hover--prokids:#76a92c;
+$buynow--prokids:#fd6c9d;
+$sendgift--prokids:#ffb446;
+$giftcard--prokids:rgba(76, 175, 80, 0.8);
+$deals--prokids:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--prokids:rgba(255, 255, 255, 0.45);
+$continue-login--prokids:#3f51b5;
+$topribbon-back--prokids:#ffd166;
+$topribbon-text--prokids:#e85348;
+$aboutpage--prokids:#eaebef;
+$featured--prokids:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--prokids:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--prokids:#000000;
+$storetab--prokids:#212529;
+$giftcardtopbanner--prokids:#ffffff;
+$giftcardtopbread--prokids:#555;
+$checkoutbtn--prokids:#ff4081;
+$successtext--prokids:#1bcda9;
+$sucessalert--prokids:#48671b;
+
+//pristyncare
+$font-family--pristyncare: "Jost", sans-serif;
+$theme-color--pristyncare: #ff8300;
+$theme-primary--pristyncare: #965ec7;
+$theme-secondary--pristyncare: #f7be00;
+$body-bg--pristyncare: #eaeef0;
+$body-color--pristyncare: #3d444a;
+$header-bg--pristyncare: #00263e;
+$theme-headerback--pristyncare: #00263e;
+$header-color--pristyncare: #fff;
+$header-btn-bg--pristyncare: #50a5da;
+$header-search-bg--pristyncare: #eaeaea;
+$header-search-border--pristyncare: #dbdcdd;
+
+$login-intro-bg--pristyncare: #7c5295;
+
+$banner-bg--pristyncare: #fff;
+$primary-btn-bg--pristyncare: #7c5295;
+
+$footer-bg--pristyncare: #444;
+$footer-color--pristyncare: #7c5295;
+
+$search-pagetitle--pristyncare: #607d8b;
+$gradient-navbar--pristyncare: linear-gradient(to right, #f46b45, #eea849);
+$gradient-category--pristyncare: linear-gradient(to right, #43cea2, #185a9d);
+$gradient-store--pristyncare: linear-gradient(to left, #134e5e, #71b280);
+
+$btn-success--pristyncare:#8bc734;
+$btn-success-hover--pristyncare:#76a92c;
+$buynow--pristyncare:#fd6c9d;
+$sendgift--pristyncare:#ffb446;
+$giftcard--pristyncare:rgba(76, 175, 80, 0.8);
+$deals--pristyncare:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--pristyncare:rgba(255, 255, 255, 0.45);
+$continue-login--pristyncare:#3f51b5;
+$topribbon-back--pristyncare:#ffd166;
+$topribbon-text--pristyncare:#e85348;
+$aboutpage--pristyncare:#eaebef;
+$featured--pristyncare:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--pristyncare:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--pristyncare:#000000;
+$storetab--pristyncare:#212529;
+$giftcardtopbanner--pristyncare:#ffffff;
+$giftcardtopbread--pristyncare:#555;
+$checkoutbtn--pristyncare:#ff4081;
+$successtext--pristyncare:#1bcda9;
+$sucessalert--pristyncare:#48671b;
+
+//Bandhan
+$font-family--bandhan: "Lato", sans-serif; //"Open Sans", sans-serif;
+$theme-color--bandhan: #004880;
+$theme-primary--bandhan: #004880;
+$theme-secondary--bandhan: #3399e8;
+$body-bg--bandhan: #f3f3f3;
+$body-color--bandhan: #3d444a;
+$header-bg--bandhan: #ffffff;
+$theme-headerback--bandhan:#ffffff;
+$header-color--bandhan: #004880;
+$header-btn-bg--bandhan: #004880;
+$header-search-bg--bandhan: #f3f3f3;
+$header-search-border--bandhan: #dbdcdd;
+$theme-bandhan-red:#CA282F;
+$page-background:#ffffff;
+$login-intro-bg--bandhan: #004880;
+$theme-bandhan-grey:#707070;
+
+$banner-bg--bandhan: #f3f3f3;
+$primary-btn-bg--bandhan: #004880;
+
+$footer-bg--bandhan: #004880;
+$footer-color--bandhan: #fff;
+
+$search-pagetitle--bandhan: #004880;
+$gradient-navbar--bandhan: linear-gradient(to right, #004880, #004880);
+$gradient-category--bandhan: linear-gradient(to left, #004880, #004880);
+$gradient-store--bandhan: linear-gradient(to left, #004880, #004880);
+
+$btn-success--bandhan:#004880;
+$btn-success-hover--bandhan:#004880;
+$buynow--bandhan:#3399E8;
+$sendgift--bandhan:#CA282F;
+$giftcard--bandhan:#004880;
+$deals--bandhan:#CA282F;
+$store-tab--bandhan:#707070;
+$continue-login--bandhan:#004880;
+$topribbon-back--bandhan:#CA282F;
+$topribbon-text--bandhan:#ffffff;
+$aboutpage--bandhan:#ffffff;
+$featured--bandhan:linear-gradient(to right, #004880, #004880);
+$pagesearch--bandhan:linear-gradient(to right, #004880, #004880);
+$topribbon-textfirst--bandhan:#ffffff;
+$storetab--bandhan:#ffffff;
+$giftcardtopbanner--bandhan:#ffffff;
+$giftcardtopbread--bandhan:#ffffff;
+$checkoutbtn--bandhan:#CA282F;
+$successtext--bandhan:#004880;
+$sucessalert--bandhan:#004880;
+
+//BFSL
+$font-family--bfsl: "Jost", sans-serif;
+$theme-color--bfsl: #ff6633;
+
+$theme-primary--bfsl: #ff6633;
+$theme-secondary--bfsl: #ff6633;
+$body-bg--bfsl: #eaeef0;
+$body-color--bfsl: #3d444a;
+$header-bg--bfsl: #ff6633;
+$theme-headerback--bfsl: #e74922;
+$header-color--bfsl: #fff;
+$header-btn-bg--bfsl: #fff;
+$header-search-bg--bfsl: #eaeaea;
+$header-search-border--bfsl: #dbdcdd;
+
+$login-intro-bg--bfsl: #0c6a9a;
+
+$banner-bg--bfsl: #e1e5e8;
+$primary-btn-bg--bfsl: #ff6633;
+
+$footer-bg--bfsl: #fff;
+$footer-color--bfsl: #424242;
+
+$search-pagetitle--bfsl: #5993a9;
+$gradient-navbar--bfsl: linear-gradient(to right, #f46b45, #eea849);
+$gradient-category--bfsl: linear-gradient(to left, #2980b9, #2c3e50);
+$gradient-store--bfsl: linear-gradient(to left, #134e5e, #71b280);
+
+$btn-success--bfsl:#8bc734;
+$btn-success-hover--bfsl:#76a92c;
+$buynow--bfsl:#fd6c9d;
+$sendgift--bfsl:#ffb446;
+$giftcard--bfsl:rgba(76, 175, 80, 0.8);
+$deals--bfsl:linear-gradient(90deg,#ff4b2b,#ff416c);
+$store-tab--bfsl:rgba(255, 255, 255, 0.45);
+$continue-login--bfsl:#3f51b5;
+$topribbon-back--bfsl:#ffd166;
+$topribbon-text--bfsl:#e85348;
+$aboutpage--bfsl:#eaebef;
+$featured--bfsl:linear-gradient(to right, #3a6073, #16222a);
+$pagesearch--bfsl:linear-gradient(to left, #4ca2cd, #67b26f);
+$topribbon-textfirst--bfsl:#000000;
+$storetab--bfsl:#212529;
+$giftcardtopbanner--bfsl:#ffffff;
+$giftcardtopbread--bfsl:#555;
+$checkoutbtn--bfsl:#ff4081;
+$successtext--bfsl:#1bcda9;
+$sucessalert--bfsl:#48671b;
+
+
+
+
+

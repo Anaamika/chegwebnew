@@ -1,0 +1,27 @@
+<div class="d-flex login-dialog">
+
+    <div #Content class="content">
+        <div class="d-flex flex-column align-items-start h-100">
+            <h3>Withdraw</h3>
+            <p>eWallet Balance Rs.{{walletBalance}}</p>
+
+            <mat-form-field class="w-100 mb-3">
+                <span matPrefix>Rs &nbsp;</span>
+                <input type="number" matInput min="0" placeholder="Please enter Withdraw Amount"
+                    [formControl]="ammountFormControl" [value]="ammountFormControl.value">
+                <mat-error *ngIf="ammountFormControl.hasError('required')">
+                    please enter the ammount
+                </mat-error>
+                <mat-error *ngIf="ammountFormControl.hasError('max')">
+                    Amount should be less than eWallet balance
+                </mat-error>
+            </mat-form-field>
+
+            <button (click)="withdrawAmmount()" mat-raised-button color="primary" class="w-100 mt-3">Withdraw</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- CSS File: _user.scss -->

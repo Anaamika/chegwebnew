@@ -1,0 +1,346 @@
+<div class="mobile-filter" #filterBlock>
+    <div class="p-3 border-bottom d-flex align-items-center">
+        <h3 class="m-0">Filters</h3>
+        <a class="underline_pointer btn btn-link ml-auto mr-1" (click)="clearFilters()">Clear all</a>
+        <a class="btn btn-link" (click)="hideFilters()">Done</a>
+    </div>
+    <div>
+        <div class="tabordion">
+            <section id="section1" *ngIf="!hideCategory">
+                <input type="radio" name="sections" id="option1" checked>
+                <label for="option1">Category</label>
+                <article>
+                    <div class="d-flex align-items-center pb-2">
+                        <div class="filter-search">
+                            <input [(ngModel)]="searchCategories" type="text" class="form-control"
+                                placeholder="Category">
+                            <a title="clear" class="clear" *ngIf="searchCategories.length > 0"
+                                (click)="searchCategories = ''">
+                                <svg class="icon">
+                                    <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush filter--category">
+                        <li class="list-group-item" *ngFor="let data of categoriesList | filterList : searchCategories">
+                            <mat-checkbox #chkbxCategory [checked]=isCatSelected(data) [value]=data
+                                (change)="toggleCategory($event)">{{data}}</mat-checkbox>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+            <section id="section2" *ngIf="!hideStore">
+                <input type="radio" name="sections" id="option2" [checked]="hideCategory">
+                <label for="option2">Store</label>
+                <article>
+                    <div class="d-flex align-items-center pb-2">
+                        <div class="filter-search">
+                            <input [(ngModel)]="searchStores" type="text" class="form-control" placeholder="Store">
+                            <a title="clear" class="clear" *ngIf="searchStores.length > 0" (click)="searchStores = ''">
+                                <svg class="icon">
+                                    <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush filter--store">
+                        <li class="list-group-item" *ngFor="let data of storesList | filterList : searchStores">
+                            <mat-checkbox #chkbxStore [checked]=isStoSelected(data) (change)="toggleStore($event)">
+                                {{data}}
+                            </mat-checkbox>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+            <section id="section3">
+                <input type="radio" name="sections" id="option3">
+                <label for="option3">Offer Type</label>
+                <article>
+                    <ul class="list-group list-group-flush filter--offertype">
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxOfferType [checked]="isOffSelected('Code')"
+                                (change)="toggleOfferType($event)" title="Code">Online Coupon Code</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxOfferType [checked]="isOffSelected('Sale')"
+                                (change)="toggleOfferType($event)" title="Sale">Online Sale</mat-checkbox>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+            <section id="section4" *ngIf="bank !== 'PNB'">
+                <input type="radio" name="sections" id="option4">
+                <label for="option4">Discount Range (% Off)</label>
+                <article>
+                    <ul class="list-group list-group-flush filter--discountrange">
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(0)"
+                                (change)="toggleDiscountRange($event)" title="0">10% and below</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(10)"
+                                (change)="toggleDiscountRange($event)" title="10">10% and above</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(20)"
+                                (change)="toggleDiscountRange($event)" title="20">20% and above</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(30)"
+                                (change)="toggleDiscountRange($event)" title="30">30% and above</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(40)"
+                                (change)="toggleDiscountRange($event)" title="40">40% and above</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(50)"
+                                (change)="toggleDiscountRange($event)" title="50">50% and above</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(60)"
+                                (change)="toggleDiscountRange($event)" title="60">60% and above</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(70)"
+                                (change)="toggleDiscountRange($event)" title="70">70% and above</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(80)"
+                                (change)="toggleDiscountRange($event)" title="80">80% and above</mat-checkbox>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+            <section id="section5" *ngIf="bank !== 'PNB'">
+                <input type="radio" name="sections" id="option5">
+                <label for="option5">Discount Range (Rs. Off)</label>
+                <article>
+                    <ul class="list-group list-group-flush filter--discountrange">
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(100)"
+                                (change)="toggleDiscountRange($event)" title="100">Below 100</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(500)"
+                                (change)="toggleDiscountRange($event)" title="500">Between 100 to 500</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(1000)"
+                                (change)="toggleDiscountRange($event)" title="1000">Between 500 to 1,000</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(5000)"
+                                (change)="toggleDiscountRange($event)" title="5000">Between 1,000 to 5,000
+                            </mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(10000)"
+                                (change)="toggleDiscountRange($event)" title="10000">Between 5,000 to 10,000
+                            </mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(10001)"
+                                (change)="toggleDiscountRange($event)" title="10001">Above 10,000</mat-checkbox>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+            <section id="section6" *ngIf="bank !== 'PNB'">
+                <input type="radio" name="sections" id="option6">
+                <label for="option6">Card Type</label>
+                <article>
+                    <ul class="list-group list-group-flush filter--cardtype">
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxCardType [checked]="isCardSelected('Rupay')"
+                                (change)="toggleCardType($event)" title="Rupay">RuPay Card</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxCardType [checked]="isCardSelected('Visa')"
+                                (change)="toggleCardType($event)" title="Visa">VISA Card</mat-checkbox>
+                        </li>
+                        <li class="list-group-item">
+                            <mat-checkbox #chkbxCardType [checked]="isCardSelected('Master card')"
+                                (change)="toggleCardType($event)" title="Master card">Master Card</mat-checkbox>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+        </div>
+    </div>
+</div>
+<div class="sidebar filter">
+    <div class="sidebar_title d-flex align-items-center justify-content-between">
+        <h5 class="m-0">Filters</h5>
+        <a *ngIf="arrCat.length > 0 || arrSto.length > 0 || arrOffTy.length > 0 || arrDisc.length > 0 || arrCardTy.length > 0"
+            class="underline_pointer" (click)="clearFilters()">Clear all</a>
+    </div>
+
+    <div class="sidebar_content">
+        <ng-container *ngIf="bank !== 'PNB'">
+            <div class="d-flex align-items-center justify-content-between py-3">
+                <strong>Card Type</strong>
+            </div>
+            <ul class="list-group list-group-flush filter--cardtype">
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxCardType [checked]="isCardSelected('Rupay')" (change)="toggleCardType($event)"
+                        title="Rupay">RuPay Card</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxCardType [checked]="isCardSelected('Visa')" (change)="toggleCardType($event)"
+                        title="Visa">VISA Card</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxCardType [checked]="isCardSelected('Master card')"
+                        (change)="toggleCardType($event)" title="Master card">Master Card</mat-checkbox>
+                </li>
+            </ul>
+        </ng-container>
+
+        <hr *ngIf="bank !== 'PNB'">
+
+        <ng-container *ngIf="!hideStore">
+            <div class="d-flex align-items-center pb-2">
+                <!-- <strong>Store</strong> -->
+                <div class="filter-search">
+                    <input [(ngModel)]="searchStores" type="text" class="form-control" placeholder="Store">
+                    <a title="clear" class="clear" *ngIf="searchStores.length > 0" (click)="searchStores = ''">
+                        <svg class="icon">
+                            <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush filter--store">
+                <li class="list-group-item" *ngFor="let data of storesList | filterList : searchStores">
+                    <mat-checkbox #chkbxStore [checked]=isStoSelected(data) (change)="toggleStore($event)">{{data}}
+                    </mat-checkbox>
+                </li>
+            </ul>
+        </ng-container>
+
+        <hr *ngIf="!hideStore">
+
+        <ng-container *ngIf="!hideCategory">
+            <div class="d-flex align-items-center pb-2">
+                <!-- <strong>Category</strong> -->
+                <div class="filter-search">
+                    <input [(ngModel)]="searchCategories" type="text" class="form-control" placeholder="Category">
+                    <a title="clear" class="clear" *ngIf="searchCategories.length > 0" (click)="searchCategories = ''">
+                        <svg class="icon">
+                            <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush filter--category">
+                <li class="list-group-item" *ngFor="let data of categoriesList | filterList : searchCategories">
+                    <mat-checkbox #chkbxCategory [checked]=isCatSelected(data) [value]=data
+                        (change)="toggleCategory($event)">{{data}}</mat-checkbox>
+                </li>
+            </ul>
+        </ng-container>
+
+        <hr *ngIf="!hideCategory">
+
+        <ng-container>
+            <div class="d-flex align-items-center justify-content-between py-3">
+                <strong>Offer Type</strong>
+            </div>
+            <ul class="list-group list-group-flush filter--offertype">
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxOfferType [checked]="isOffSelected('Code')" (change)="toggleOfferType($event)"
+                        title="Code">Online Coupon Code</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxOfferType [checked]="isOffSelected('Sale')" (change)="toggleOfferType($event)"
+                        title="Sale">Online Sale</mat-checkbox>
+                </li>
+            </ul>
+        </ng-container>
+
+        <hr>
+
+        <ng-container *ngIf="bank !== 'PNB'">
+            <div class="d-flex align-items-center justify-content-between py-3">
+                <strong>Discount Range (% Off)</strong>
+            </div>
+            <ul class="list-group list-group-flush filter--discountrange">
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(0)"
+                        (change)="toggleDiscountRange($event)" title="0">10% and below</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(10)"
+                        (change)="toggleDiscountRange($event)" title="10">10% and above</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(20)"
+                        (change)="toggleDiscountRange($event)" title="20">20% and above</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(30)"
+                        (change)="toggleDiscountRange($event)" title="30">30% and above</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(40)"
+                        (change)="toggleDiscountRange($event)" title="40">40% and above</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(50)"
+                        (change)="toggleDiscountRange($event)" title="50">50% and above</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(60)"
+                        (change)="toggleDiscountRange($event)" title="60">60% and above</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(70)"
+                        (change)="toggleDiscountRange($event)" title="70">70% and above</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(80)"
+                        (change)="toggleDiscountRange($event)" title="80">80% and above</mat-checkbox>
+                </li>
+            </ul>
+        </ng-container>
+
+        <hr *ngIf="bank !== 'PNB'">
+
+        <ng-container *ngIf="bank !== 'PNB'">
+            <div class="d-flex align-items-center justify-content-between py-3">
+                <strong>Discount Range (Rs. Off)</strong>
+            </div>
+            <ul class="list-group list-group-flush filter--discountrange">
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(100)"
+                        (change)="toggleDiscountRange($event)" title="100">Below 100</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(500)"
+                        (change)="toggleDiscountRange($event)" title="500">Between 100 to 500</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(1000)"
+                        (change)="toggleDiscountRange($event)" title="1000">Between 500 to 1,000</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(5000)"
+                        (change)="toggleDiscountRange($event)" title="5000">Between 1,000 to 5,000</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(10000)"
+                        (change)="toggleDiscountRange($event)" title="10000">Between 5,000 to 10,000</mat-checkbox>
+                </li>
+                <li class="list-group-item">
+                    <mat-checkbox #chkbxDiscountRange [checked]="isDiscSelected(10001)"
+                        (change)="toggleDiscountRange($event)" title="10001">Above 10,000</mat-checkbox>
+                </li>
+            </ul>
+        </ng-container>
+    </div>
+</div>
+
+
+<!-- CSS File: _shared.scss -->

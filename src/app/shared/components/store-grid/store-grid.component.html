@@ -1,0 +1,45 @@
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h4 class="mb-0">Shop & Win</h4>   
+</div>
+<div class="stores-grid">
+    <ng-container
+        *ngFor="let data of storesgridData | filterObject : searchStores : 'siteName'; trackBy:trackBystoreId">
+        <div class="item" title="{{data.offerTitle}}" *ngIf="data.siteID != null && data.siteID != ''">
+            <div (click)="postProductInfo($event, data)"
+                class="stores-grid_tile d-flex align-items-center">
+                <div class="store_img">
+                    <!-- <img title="{{data.siteName}}" class="img-fluid" src="{{data.logo}}"> -->
+                    <ng-container *ngIf="data.logo == null">
+                        <img title="{{data.siteName}}" class="img-fluid" src="/assets/images/no-image.png">
+                    </ng-container>
+                    <ng-container *ngIf="data.logo != null">
+                        <picture>
+                            <source srcset="{{data.logo.split('.').slice(0, -1).join('.') + '.webp'}}"
+                                type="image/webp">
+                            <img (error)="onImgError($event)" title="{{data.siteName}}" class="img-fluid"
+                                src="{{data.logo}}">
+                        </picture>
+                    </ng-container>
+
+
+                </div>
+                <hr>
+                <h5 class="wrapword">{{data.siteName}}
+                    <!-- <span>{{data.offerTitle}}</span> -->
+                    <!-- <small *ngIf="data.offerCount != 0">{{data.offerCount}}
+                        <span *ngIf="data.offerCount > 1">offers</span> <span *ngIf="data.offerCount == 1">offer</span>
+                    </small> -->
+
+                    
+                </h5>
+                <!-- <a class="ml-auto" [class.fav]="data.isFav">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#heart"></use>
+                    </svg>
+                </a> -->
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<!-- CSS File: _stores.scss -->

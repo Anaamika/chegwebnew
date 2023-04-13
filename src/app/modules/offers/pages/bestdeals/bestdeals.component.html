@@ -1,0 +1,116 @@
+<div class="bestdeals" *ngIf="!noData">
+    <div class="bestdeals_sidebar">
+        <div #filterBlock class="h-100">
+            <app-filters-sidebar (filterEvent)="receiveFilter($event)" [categoriesList]=categoriesList
+                [storesList]=storesList [hideCategory]=hideCategory [hideStore]=hideStore [filterChanged]=filterChanged>
+            </app-filters-sidebar>
+        </div>
+    </div>
+
+    <div class="bestdeals_content">    
+            <app-category-icons (filterEvent)="receiveCatFilter($event)" [filterChanged]=filtertopChanged [categories]=favcategoriesData ></app-category-icons>
+        <div *ngIf="rewardTitle !== '' && rewardTitle !== null" class="alert alert-success">
+            <div class="d-flex align-items-center mb-3">
+                <svg class="icon mr-2">
+                    <use xlink:href="/assets/icons/sprite.svg#OfferBadge"></use>
+                </svg>
+                <h4 class="alert-heading m-0">{{rewardTitle}}</h4>
+            </div>
+            <ng-template [ngIf]="rewardDescription != '' && rewardDescription != null">
+                <div class="description" [innerHtml]="rewardDescription | sanitizeHtml"></div>
+                <a (click)="openTermsDialog($event)" title="Reward Rates & Terms" class="link mt-2">
+                    View details
+                </a>
+            </ng-template>
+        </div>
+        <div class="d-flex flex-wrap filter_tags"
+            *ngIf="CategoryFilter.length > 0 || StoreFilter.length > 0 || OfferTypeFilter.length > 0 || DiscountRangeFilter.length > 0 || CardTypeFilter.length > 0">
+            <a class="d-flex align-items-center" *ngFor="let data of CategoryFilter">
+                {{data}}
+                <span (click)=removeCat(data) class="remove ml-2">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                    </svg>
+                </span>
+            </a>
+            <a class="d-flex align-items-center" *ngFor="let data of StoreFilter">
+                {{data}}
+                <span (click)=removeSto(data) class="remove ml-2">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                    </svg>
+                </span>
+            </a>
+            <a class="d-flex align-items-center" *ngFor="let data of OfferTypeFilter">
+                {{data}}
+                <span (click)=removeOff(data) class="remove ml-2">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                    </svg>
+                </span>
+            </a>
+            <a class="d-flex align-items-center" *ngFor="let data of CardTypeFilter">
+                {{data}}
+                <span (click)=removeCard(data) class="remove ml-2">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                    </svg>
+                </span>
+            </a>
+            <a class="d-flex align-items-center" *ngFor="let data of DiscountRangeFilter">
+                <ng-container *ngIf="data == 0">10% and below</ng-container>
+                <ng-container *ngIf="data > 0 && data < 100">{{data}}% and above</ng-container>
+                <ng-container *ngIf="data == 100">Below 100</ng-container>
+                <ng-container *ngIf="data == 500">Between 100 to 500</ng-container>
+                <ng-container *ngIf="data == 1000">Between 500 to 1,000</ng-container>
+                <ng-container *ngIf="data == 5000">Between 1,000 to 5,000</ng-container>
+                <ng-container *ngIf="data == 10000">Between 5,000 to 10,000</ng-container>
+                <ng-container *ngIf="data == 10001">Above 10,000</ng-container>
+                <span (click)=removeDisc(data) class="remove ml-2">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                    </svg>
+                </span>
+            </a>
+        </div>
+        <div class="d-flex flex-wrap filter_tags"
+            *ngIf="TopCategoryFilter.length > 0 ">
+            <a class="d-flex align-items-center" *ngFor="let data of TopCategoryFilter">
+                {{data}}
+                <span (click)=removeTopCat(data) class="remove ml-2">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                    </svg>
+                </span>
+            </a>
+        </div>
+        <app-best-deals-grid [bestdealsData]=filteredData></app-best-deals-grid>
+        <div *ngIf="noOffers" class="no-data d-flex flex-column align-items-center justify-content-center">
+            <ng-lottie width="300px" height="340px" containerClass="moving-box" [styles]="styles" [options]="options"
+                (animationCreated)="animationCreated($event)" (loopComplete)="onLoopComplete()">
+            </ng-lottie>
+            <h5>Sorry! Currently we do not have any offers for you.</h5>
+        </div>
+
+        <div *ngIf="description !== '' && description !== null" class="mt-5 card p-3">
+            <h6 class="mb-3">About {{title}}:</h6>
+            <div [innerHtml]="description | sanitizeHtml"></div>
+        </div>
+
+    
+        <!-- <a (click)="showFilters($event)" class="btn btn-float btn-filter" *ngIf="mobileView">
+            <svg class="icon">
+                <use xlink:href="/assets/icons/sprite.svg#Filter"></use>
+            </svg>
+        </a> -->
+    </div>
+</div>
+
+<div *ngIf="showError" class="no-data d-flex flex-column align-items-center justify-content-center">
+    <ng-lottie width="300px" height="340px" containerClass="moving-box" [styles]="styles" [options]="options"
+        (animationCreated)="animationCreated($event)" (loopComplete)="onLoopComplete()">
+    </ng-lottie>
+    <h5>Sorry! Currently we do not have any offers for you.</h5>
+</div>
+
+<!-- CSS File: _offers.scss -->

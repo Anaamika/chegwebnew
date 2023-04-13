@@ -1,0 +1,70 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$custom-typography: mat-typography-config(
+    $font-family: '"Jost", sans-serif;',
+);
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core($custom-typography);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$chegwebnew-primary: mat-palette($mat-indigo);
+$chegwebnew-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$chegwebnew-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$chegwebnew-theme: mat-light-theme($chegwebnew-primary, $chegwebnew-accent, $chegwebnew-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($chegwebnew-theme);
+
+// *** Settings ***
+@import "./css/sass/base/settings";
+
+// *** Vendor ***
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/animate.css/animate.min.css";
+@import "~ngx-owl-carousel-o/lib/styles/scss/owl.carousel";
+@import "~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
+
+// *** Mixins ***
+@import "./css/sass/utils/mixins";
+
+// *** Themes ***
+@import "./css/sass/themes/color-themes";
+
+// *** Base ***
+@import "./css/sass/base/core";
+
+// *** Components ***
+@import "./css/sass/components/shared";
+@import "./css/sass/components/material";
+
+// *** Layouts ***
+@import "./css/sass/layout/layout";
+
+// *** Pages ***
+@import "./css/sass/pages/login";
+@import "./css/sass/pages/home";
+@import "./css/sass/pages/categories";
+@import "./css/sass/pages/stores";
+@import "./css/sass/pages/product";
+@import "./css/sass/pages/products";
+@import "./css/sass/pages/offers";
+@import "./css/sass/pages/search";
+@import "./css/sass/pages/user";
+@import "./css/sass/pages/gifts";
+@import "./css/sass/pages/about-us";

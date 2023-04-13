@@ -1,0 +1,57 @@
+<div class="d-flex justify-content-end  mb-4">
+    <div class="search_wrap">
+        <input [(ngModel)]="searchStores" name="search" type="text" placeholder="Search Store">
+        <a title="clear" class="clear" *ngIf="searchStores.length > 0" (click)="searchStores = ''">
+            <svg class="icon">
+                <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+            </svg>
+        </a>
+        <svg class="icon">
+            <use xlink:href="/assets/icons/sprite.svg#Search003"></use>
+        </svg>
+    </div>
+</div>
+<div class="stores-grid">
+    <ng-container
+        *ngFor="let data of storesgridData | filterObject : searchStores : 'siteName'; trackBy:trackBystoreId">
+        <div class="item" title="{{data.offerTitle}}" *ngIf="data.siteID != null && data.siteID != ''"  appObserveVisibility  (visible)="onVisible(data, data.siteID, 'site','Impression')">
+            <div  (click)="navigateToStore(data)"
+                class="stores-grid_tile">
+                <div class="store_img">
+                    <!-- <img title="{{data.siteName}}" class="img-fluid" src="{{data.logo}}"> -->
+                    <ng-container *ngIf="data.logo == null">
+                        <img title="{{data.siteName}}" class="img-fluid" src="/assets/images/no-image.png">
+                    </ng-container>
+                    <ng-container *ngIf="data.logo != null">
+                        <picture>
+                            <source srcset="{{data.logo.split('.').slice(0, -1).join('.') + '.webp'}}"
+                                type="image/webp">
+                            <img (error)="onImgError($event)" title="{{data.siteName}}" class="img-fluid"
+                                src="{{data.logo}}">
+                        </picture>
+                    </ng-container>
+
+
+                </div>
+     
+                <!-- <h5 class="wrapword">{{data.siteName}} -->
+                    <!-- <span>{{data.offerTitle}}</span> -->
+                    <!-- <small *ngIf="data.offerCount != 0">{{data.offerCount}}
+                        <span *ngIf="data.offerCount > 1">offers</span> <span *ngIf="data.offerCount == 1">offer</span>
+                    </small> -->  
+                <!-- </h5> -->
+
+                <div class="offer_title cash_ribbon"  *ngIf="data.offerTitle !== '' && data.offerTitle !== null" >
+                   {{data.offerTitle}} <img src="../assets/images/cashrupee.png">
+                </div>
+                <!-- <a class="ml-auto" [class.fav]="data.isFav">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#heart"></use>
+                    </svg>
+                </a> -->
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<!-- CSS File: _stores.scss -->

@@ -1,0 +1,29 @@
+<div class="d-flex login-dialog">
+
+  <div #Content class="content" style="min-height: inherit;">
+    <div class="d-flex flex-column align-items-start h-100">
+      <h3 class="mb-3">{{title}}</h3>
+
+      <mat-form-field class="w-100 mb-3">
+        <mat-label>Enter award name</mat-label>
+        <input matInput placeholder="Award name" [formControl]="awardFormControl" (keyup.enter)="enterEvent($event)">
+        <mat-error *ngIf="awardFormControl.hasError('required') || awardFormControl.hasError('pattern')">
+          Please enter award name
+        </mat-error>
+      </mat-form-field>
+
+      <button *ngIf="opType == 'I'"
+        [disabled]="awardFormControl.hasError('required') || awardFormControl.hasError('pattern')"
+        (click)="addAwardTitle()" mat-raised-button color="primary" class="w-100 mt-3">Submit</button>
+
+      <button *ngIf="opType == 'U'"
+        [disabled]="awardFormControl.hasError('required') || awardFormControl.hasError('pattern')"
+        (click)="editAwardTitle()" mat-raised-button color="primary" class="w-100 mt-3">Update</button>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- CSS File: _user.scss -->

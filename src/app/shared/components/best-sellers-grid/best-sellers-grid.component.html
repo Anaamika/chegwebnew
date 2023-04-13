@@ -1,0 +1,104 @@
+<ng-container *ngIf="catName !== undefined && catName !== 'null'">
+    <div class="compare_products" *ngIf="arrForCompare.length > 0">
+        <button (click)="compareProducts()" mat-raised-button color="primary" class="btn-compare mb-3">COMPARE
+            {{arrForCompare.length}}</button>
+
+        <div class="products_grid">
+            <div class=" d-flex">
+                <a class="ml-auto removeall link" title="Remove All" (click)="removeAll()">
+                    Remove all
+                </a>
+                <div class="item" *ngFor="let item of arrForCompareData">
+                    <a class="ml-auto clear" title="clear" (click)="clearCompareData(item.id)">
+                        <svg class="icon clear">
+                            <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                        </svg>
+                    </a>
+                    <img class="img-fluid" alt="{{item.title}}" src="{{item.img}}">
+                    <p>{{item.title}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<section class="d-flex align-items-center justify-content-between"
+    *ngIf="page === 3 && bestsellersData.length > 16">
+    <!-- <span style="padding: 0.7em 1em 0.7em 0; display: inline-block;">
+        Sort By:
+    </span>
+    <div class="sort-radio-tabs-wrapper">
+        <input type="radio" class="sort-radio-tab" name="radioSort" value="REL" id="REL"
+            (change)="toggleBestDeals($event)" checked />
+        <label for="REL">Relevance</label>
+        <input type="radio" class="sort-radio-tab" name="radioSort" value="LTH" id="LTH"
+            (change)="toggleBestDeals($event)" />
+        <label for="LTH">Price: Low To High</label>
+        <input type="radio" class="sort-radio-tab" name="radioSort" value="HTL" id="HTL"
+            (change)="toggleBestDeals($event)" />
+        <label for="HTL">Price: High To Low</label>
+    </div> -->
+    <h5 class="m-0">{{bestsellersData.length}} products</h5>
+    <div class="d-flex align-items-center sort_select">
+        Sort by:
+        <mat-form-field class="ml-2">
+            <mat-select (selectionChange)="toggleBestDeals($event.value)" [(value)]="selected">
+                <mat-option value="REL">Relevance</mat-option>
+                <mat-option value="LTH">Price: Low To High</mat-option>
+                <mat-option value="HTL">Price: High To Low</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+</section>
+
+<div class="products d-flex flex-wrap">
+    <div *ngFor="let data of bestsellersData | paginate: { itemsPerPage: 24, currentPage: p[instance], id: instance }">
+        <div class="product-card"  appObserveVisibility  (visible)="onVisible(data, data.id, 'products','Impression')">
+            <!-- (click)="compare(data)" -->
+            <div class="product-card__img d-flex align-items-center justify-content-center pointer"
+                (click)="navigateToProduct(data,page,catName)">
+                <img class="img-fluid" alt="{{data.productName}}" src="{{data.imgSrc}}" loading="lazy">
+            </div>
+            <div class="product-card__body d-flex flex-column">
+                <div class="info">
+                    <ng-template #siteName>
+                        <h5 *ngIf="data.siteName">By {{data.siteName}}</h5>
+                    </ng-template>
+                    <p title="{{data.productName}}" class="title wrapword mb-3">{{data.productName}}</p>
+                    <div class="shop">
+                        <span class="price">{{data.price | currency:'INR':'symbol':'2.0'}}</span>
+                        <ng-container *ngIf="page === 3">
+                            <!-- <span class="site ml-2">View on {{data.siteName}}</span> -->
+                            <div class="site pointer" (click)="postProductInfo($event, data)">
+                                View on
+                                <img *ngIf="data.siteLogo; else siteName" class="site_logo ml-2"
+                                    title="{{data.siteName}}" [src]="data.siteLogo" alt="{{data.siteName}}"
+                                    loading="lazy" />
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div *ngIf="page === 3" class="compare">
+                        <button (click)="compare(data)"
+                            [routerLink]="['/product/', data.productName, { page: page, store: data.siteName,catName:catName }]"
+                            mat-button class="w-100">
+                            <svg class="icon mr-1 d-none d-md-block d-lg-inline-block">
+                                <use xlink:href="/assets/icons/sprite.svg#Compare"></use>
+                            </svg>
+                            <span>Compare Price</span>
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="catName !== undefined && catName !== 'null'" class="pt-3 d-none">
+                    <mat-checkbox #chkbxAddToCompare [checked]="isSelectedForCompare(data.id)"
+                        (change)="toggleAddToCompare($event, data)">Add to Compare
+                    </mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<pagination-controls (pageChange)="p[instance] = $event" [id]="instance" autoHide="true" responsive="true">
+</pagination-controls>
+
+<!-- CSS File: _shared.scss -->

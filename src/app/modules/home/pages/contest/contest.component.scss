@@ -1,0 +1,16 @@
+.page_banner {
+    width:100%;
+    position: relative;
+  //  background-image:url("assets/images/Mrewards3.png")!important;
+    // background-repeat:no-repeat !important;
+    // background-size: cover !important;
+
+}
+img.leaderboard, img.terms{
+    height:100%;
+    width: 100%;
+    object-fit: contain;
+}
+.terms{
+  padding:2rem 0;
+}

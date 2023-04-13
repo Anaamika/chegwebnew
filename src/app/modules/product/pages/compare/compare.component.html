@@ -1,0 +1,152 @@
+<div class="page_search compare_page">
+    <div class="page_content">
+        <div class="container">
+            <div class="row">
+                <div class="left-colmn">
+                    <div class="px-2 mx-2">
+
+                    </div>
+                    
+                </div>
+                <div class="col right-column">
+                    <div class="d-flex flex-row">
+
+                        <div class="px-2 py-2 mx-2 compare_item col col-1-4 common-style"
+                            *ngFor="let data of compareData | keyvalue">
+                            <div *ngFor="let item of data.value | keyvalue">
+                                <ng-container *ngIf="item.key == 'ImgSrc'">
+                                    <div class="copare_img">
+                                        <img class="img-fluid mb-2" style="height: 150px;" src="{{item.value}}">
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="item.key == 'Product Name'">
+                                    <p>{{item.value}}</p>
+                                </ng-container>
+                                <ng-container *ngIf="item.key == 'Price'">
+                                    <strong>₹{{item.value}}</strong>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="left-colmn">
+                    <div class="px-2 mx-2 py-2" *ngFor="let data of compareData | keyvalue ; first as isFirst">
+                        <div *ngFor="let item of data.value | keyvalue" class="break-style">
+                            <div *ngIf="isFirst" >
+                                <p>{{item.key}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+                <div class="col right-column">
+                    <div class="d-flex flex-row">
+
+                        <div class="px-2 py-2 mx-2 compare_item col col-1-4 common-style"
+                        *ngFor="let data of compareData | keyvalue ; first as isFirst">
+                            <div *ngFor="let item of data.value | keyvalue" class="break-style">
+                                
+
+                                    <p>{{item.value}}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+
+
+
+
+
+
+
+
+
+            <!-- <div class="row">
+                <div class="d-flex flex-row ">
+                <div class="left-colmn">
+                    <div class="px-2 mx-2" *ngFor="let data of compareData | keyvalue ; first as isFirst">
+                        <div *ngFor="let item of data.value | keyvalue">
+                            <div *ngIf="isFirst" class="col-3">
+                                <p>{{item.key}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class=" right-column">
+                    <div class="d-flex flex-row ">
+                        <div *ngFor="let data of compareData | keyvalue ; first as isFirst">
+                            <div class="col col-1-4 compare_item common-style">
+                                <div *ngFor="let item of data.value | keyvalue">
+
+                                    <p>{{item.value}}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div> -->
+            <!-- <div class="row" >
+                <div class="left-colmn py-2" >
+                    <div class="px-2 mx-2" *ngFor="let data of compareData | keyvalue">
+                        <div *ngFor="let item of data.value | keyvalue" class="repeat-style">
+                            <div *ngIf="item.key == 'Capacity'">
+                                <p>{{item.key}}</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col right-column py-2 border-style " >
+                    <div class="d-flex flex-row">
+                       
+                        <div class="px-2 mx-2 col col-1-4 common-style" *ngFor="let data of compareData | keyvalue">
+                            <div *ngFor="let item of data.value | keyvalue">
+                                <ng-container *ngIf="item.key == 'Capacity'">
+                                    <p>{{item.value}}</p>
+                                </ng-container>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="row" >
+                <div class="left-colmn py-2" >
+                    <div class="px-2 mx-2" *ngFor="let data of compareData | keyvalue">
+                        <div *ngFor="let item of data.value | keyvalue" class="repeat-style">
+                            <div *ngIf="item.key == 'Colour'">
+                                <p>{{item.key}}</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col right-column py-2 border-style " >
+                    <div class="d-flex flex-row">
+                       
+                        <div class="px-2 mx-2 col col-1-4 common-style" *ngFor="let data of compareData | keyvalue">
+                            <div *ngFor="let item of data.value | keyvalue">
+                                <ng-container *ngIf="item.key == 'Colour'">
+                                    <p>{{item.value}}</p>
+                                </ng-container>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

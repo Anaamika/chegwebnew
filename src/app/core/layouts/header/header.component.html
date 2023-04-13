@@ -1,0 +1,464 @@
+<div *ngIf="isBank && bank !== 'PNB'"
+  class="alert alert-warning alert-dismissible head-alert info d-flex justify-content-center fade show m-0"
+  role="alert">
+  <span class="mr-2">{{cashbackText}}</span> <strong  *ngIf="isBFSL" class="text-highlight">&nbsp; Exxxtra Cashback!</strong><div *ngIf="isBFSL" class="headcash"><img src="../assets/images/cashrupee.png"></div>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true" (click)="remove($event)">&times;</span>
+  </button>
+</div>
+
+<header *ngIf="mobileView" class="w-100 d-flex flex-column mob-header" (scroll)="scrolling($event)"
+  [ngClass]="{'fixed': scroll}">
+  <div class="d-flex align-items-center p-3">
+    <a #showSideNavBtn (click)="showSideNav($event)" class="menu mr-1" >
+      <button class="hamb no-pointer-event" onclick="" aria-label="Main Menu">
+        <svg width="50" height="50" viewBox="0 0 100 100">
+          <path class="line line1"
+            d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+          <path class="line line2" d="M 20,50 H 80" />
+          <path class="line line3"
+            d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+        </svg>
+      </button>
+    </a>
+    <a routerLink="GetRouterLink()" (click)="navigateHome()" class="logo d-flex align-items-center mr-5" [ngClass]="{'BFSLVisible': isBFSLbanner}">
+      <!-- <a routerLink="GetRouterLink()" class="logo d-flex align-items-center mr-5"> -->
+      <img alt="Cheggout" src="/assets/images/{{bank | lowercase}}_logo.png" />
+    </a>
+
+    <!-- <div  *ngIf="isBFSLbanner">
+      <a   class="logobanner d-flex" >
+        <img alt="{{bank | lowercase}}" title="{{bankFullName | uppercase}} - Compare & Shop"
+          src="/assets/images/{{bank | lowercase}}_logo.png" />
+        <hr>
+    </a>
+  </div> -->
+
+    <a routerLink="/gift-cards" type="button" title="Gifts"
+      class="btn btn-action btn-gifts d-flex align-items-center ml-auto mr-2" *ngIf="type?.toLowerCase() ==='bank' && isBFSL">
+      <svg class="icon">
+        <use xlink:href="/assets/icons/sprite.svg#Gift"></use>
+      </svg>
+    </a>
+    <a routerLink="/offers" type="button" title="Offers" class="btn btn-action btn-offers d-flex align-items-center" *ngIf="type?.toLowerCase() ==='bank' && isBFSL">
+      <svg class="icon">
+        <use xlink:href="/assets/icons/sprite.svg#OfferBadge"></use>
+      </svg>
+      <img  *ngIf="!isBandhan"src="/assets/images/new_badge.png">
+      <img  *ngIf="isBandhan" src="/assets/images/new_1.png">
+    </a>
+  </div>
+
+  <div class="d-flex align-items-center" *ngIf="(type?.toLowerCase() ==='bank' && bankName !== 'BFSL') && bankName !== 'PNB'">
+    <div class="searchbox">
+      <app-autocomplete-searchbox></app-autocomplete-searchbox>
+    </div>
+  </div>
+  <div class="searchbox item mr-3 flex-grow-1" *ngIf="type?.toLowerCase() ==='bank' && bankName === 'PNB'">
+    <div class="searchbox">
+      <app-auto-searchbox></app-auto-searchbox>
+    </div>
+  </div>
+
+  <div #sideNav class="sidenav">
+    <div class="bg border-bottom">
+      <ng-container *ngIf="isAccountTypeA">
+        <div class="header">
+          <a *ngIf="!userLoggedIn" (click)="loginDialog()" class="btn btn-login">Login / SignUp</a>
+
+          <div class="userinfo d-flex flex-column" *ngIf="userLoggedIn">
+            <h6>Hello {{userName}}</h6>
+            <span class="mb-2">{{mobileNum}}</span>
+            <small class="mb-2">Your eWallet balance is, ₹ <strong>{{walletBalance}}</strong></small>
+            <a *ngIf="walletBalance > 0" class="btn btn-login" (click)="hideSideNav()" routerLink="/account/redeem">
+              <span *ngIf="bankName.toLowerCase() === 'bfsl'">Redeem Points</span>
+              <span *ngIf="bankName.toLowerCase() !== 'bfsl'">Redeem Credit</span>
+            </a>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="sidenav_content">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item p-0">
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header *ngIf="type?.toLowerCase() ==='bank' && isBFSL">
+                <mat-panel-title >
+                  Categories
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="mat-categories">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" *ngFor="let data of mainCategories">
+                    <ng-container *ngIf="(data.isBestSeller == true)" appObserveVisibility (visible)="onVisible(data.categoryName, 'Impression')">
+                      <ng-container *ngIf="data.isPopular">
+                        <a class="d-flex align-items-center" title="{{data.categoryName}}"
+                          [attr.data-nodeId]="data.nodeId"
+                          (click)="navigateToCategory(data.id, data.nodeId, data.categoryName, data.isPopular, data.popularName, data.parentNodeId, data.categoryName)">
+                          <!-- <img alt="{{data.categoryName}}" src="{{data.categoryLogo}}"> -->
+                          <picture>
+                            <source srcset="{{data.categoryLogo.split('.').slice(0, -1).join('.') + '.webp'}}"
+                              type="image/webp">
+                            <img (error)="onImgError($event)" title="{{data.categoryName}}" alt="{{data.categoryName}}"
+                              src="{{data.categoryLogo}}">
+                          </picture>
+                          <span>{{data.categoryName}}</span>
+                        </a>
+                      </ng-container>
+                      <ng-container *ngIf="!data.isPopular">
+                        <a class="d-flex align-items-center" title="{{data.categoryName}}"
+                          [attr.data-nodeId]="data.nodeId"
+                          (click)="showSideNavExtended($event, data.categoryName, data.nodeId, data.id, data.isPopular, data.popularName)">
+                          <!-- <img alt="{{data.categoryName}}" src="{{data.categoryLogo}}"> -->
+                          <picture>
+                            <source srcset="{{data.categoryLogo.split('.').slice(0, -1).join('.') + '.webp'}}"
+                              type="image/webp">
+                            <img (error)="onImgError($event)" title="{{data.categoryName}}" alt="{{data.categoryName}}"
+                              src="{{data.categoryLogo}}">
+                          </picture>
+                          <span>{{data.categoryName}}</span>
+                          <small class="ml-auto link"
+                            (click)="navigateToCategory(data.id, data.nodeId, data.categoryName, data.isPopular, data.popularName, data.parentNodeId, data.categoryName)">
+                            <!--[routerLink]="['categories/category', data.categoryName , { id: data.nodeId}]"-->
+                            <svg class="icon">
+                              <use xlink:href="/assets/icons/sprite.svg#external-link">
+                              </use>
+                            </svg>
+                          </small>
+                        </a>
+                      </ng-container>
+                    </ng-container>
+                  </li>
+                </ul>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
+        <li class="list-group-item d-none" *ngIf="userLoggedIn">
+          <a (click)="hideSideNav()" routerLink="/account/orders">My Orders</a>
+        </li>
+        <li class="list-group-item" *ngIf="userLoggedIn && ifProfile">
+          <a (click)="hideSideNav()" routerLink="/account/profile">Profile</a>
+        </li>
+        <li class="list-group-item" *ngIf="userLoggedIn">
+          <a (click)="hideSideNav()" routerLink="/account/offers">Exclusive Offers</a>
+        </li>
+        <li class="list-group-item" *ngIf="userLoggedIn">
+          <a (click)="hideSideNav()" routerLink="/account/stores">Cashback Stores</a>
+        </li>
+        <li class="list-group-item" *ngIf="userLoggedIn">
+          <a (click)="hideSideNav()" routerLink="/account/mygiftcards">My Gift Cards</a>
+        </li>
+        <li class="list-group-item" *ngIf="(userLoggedIn && isHR && type?.toLowerCase() ==='corp') || (userLoggedIn && isHR && bankName.toLowerCase() === 'bfsl')">
+          <a (click)="hideSideNav()" routerLink="/account/hr-dashboard">Admin</a>
+        </li>
+        <li class="list-group-item" *ngIf="userLoggedIn &&  bankName.toLowerCase() === 'bfsl'">
+          <a (click)="hideSideNav()" routerLink="/account/rewards">Transaction History</a>
+        </li>
+        <li class="list-group-item" *ngIf="userLoggedIn &&  bankName.toLowerCase() !== 'bfsl'">
+          <a (click)="hideSideNav()" routerLink="/account/rewards">Shopping Trips</a>
+        </li>
+        <li class="list-group-item" *ngIf="type?.toLowerCase() ==='bank' && isBFSL">
+          <a (click)="hideSideNav()"  routerLink="/gift-cards">Vouchers</a>
+        </li>
+        <li class="list-group-item" *ngIf="type?.toLowerCase() ==='bank' && isBFSL">
+          <a (click)="hideSideNav()" routerLink="/offers">Offers</a>
+        </li>
+        <li class="list-group-item" *ngIf="bank !== 'PNB'">
+          <a (click)="hideSideNav()" routerLink="/about-us">About Us</a>
+        </li>
+        <li class="list-group-item">
+          <a (click)="hideSideNav()" routerLink="/contact-us">Contact Us</a>
+        </li>
+        <li class="list-group-item" *ngIf="ifProfile">
+          <a (click)="hideSideNav()" routerLink="/contact-us">Register Complaint</a>
+        </li>
+        <li class="list-group-item">
+          <a (click)="hideSideNav()" routerLink="/terms-and-conditions">Terms & Condition</a>
+        </li>
+        <li class="list-group-item">
+          <a (click)="hideSideNav()" routerLink="/privacy-policy">Privacy Policy</a>
+        </li>
+        <li class="list-group-item">
+          <a (click)="hideSideNav()" routerLink="/faq">FAQ</a>
+        </li>
+        <li *ngIf="userLoggedIn" class="list-group-item">
+          <a (click)="logout()" routerLink="GetRouterLink('logout')">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div #sideNavExtended class="sidenav_extended">
+    <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
+      <h5 class="m-0"><a
+          (click)="navigateToCategory(catUID, selctedCatNode, selctedcatTitle, isPopular, popularName, selctedCatNode, selctedcatTitle)"
+          class="animate__animated animate__fadeInUp d-flex align-items-center"
+          [attr.data-nodeId]="selctedCatNode">{{selctedcatTitle}}
+          <svg class="icon ml-2" style="height: 16px; width: 16px">
+            <use xlink:href="/assets/icons/sprite.svg#external-link"></use>
+          </svg>
+        </a>
+      </h5>
+      <a (click)="hideSideNavExtended()" class="back mr-3">
+        <svg class="icon">
+          <use xlink:href="/assets/icons/sprite.svg#DirectionLeft"></use>
+        </svg>
+      </a>
+    </div>
+    <div class="sidenav_extended_content">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item animate__animated animate__fadeIn" *ngFor="let data of subCategories">
+          <a (click)="navigateToCategory(data.id, data.nodeId, data.categoryName, data.isPopular, data.popularName, data.parentNodeId, data.parentCategoryName)"
+            title="{{data.categoryName}}" [attr.data-nodeId]="data.nodeId">
+            {{data.categoryName}}
+          </a>
+        </li>
+      </ul>
+      <hr>
+      <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
+        <h5 class="m-0">Related Stores</h5>
+        <a (click)="hideSideNavExtended()" routerLink="/stores">View all stores</a>
+      </div>
+      <div class="d-flex flex-wrap p-3">
+        <ng-container *ngFor="let data of relatedStores">
+          <div class="mb-3 items animate__animated animate__fadeIn ">
+            <a [routerLink]="['/stores/', data.siteID , data.siteName]" 
+              class="d-flex align-items-center justify-content-center py-3 rel_store" title="{{data.siteName}}">
+              <!-- <img alt="{{data.siteName}}" src="{{data.logo}}"> -->
+              <picture>
+                <source srcset="{{data.logo.split('.').slice(0, -1).join('.') + '.webp'}}" type="image/webp">
+                <img (error)="onImgError($event)" alt="{{data.siteName}}" title="{{data.siteName}}" src="{{data.logo}}">
+              </picture>
+            </a>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</header>
+
+<header #Header *ngIf="!mobileView" class="laptop-header w-100" [ngClass]="{'fixed': scroll}">
+  <div class="container d-flex align-items-center">
+    <a #showMenuBtn (click)="showMegaMenu($event)" title="CATEGORIES" class="menu mr-2 pointer" *ngIf="type?.toLowerCase() ==='bank' && isBFSL">
+      <button class="hamb no-pointer-event" onclick="" aria-label="Main Menu">
+        <svg width="50" height="50" viewBox="0 0 100 100">
+          <path class="line line1"
+            d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+          <path class="line line2" d="M 20,50 H 80" />
+          <path class="line line3"
+            d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+        </svg>
+      </button>
+    </a>
+    <!-- <a routerLink="/" class="logo d-flex align-items-center"> -->
+    <a [routerLink]="GetRouterLink()"  class="logo d-flex align-items-center"  *ngIf="isBFSLlogo" >
+        <img alt="{{bank | lowercase}}" title="{{bankFullName | uppercase}} - Compare & Shop"
+          src="/assets/images/{{bank | lowercase}}_logo.png" />
+        <hr>
+    </a>
+
+    <div class="d-flex ml-auto" *ngIf="isBFSLbanner">
+    <a   class="logobanner d-flex align-items-center" >
+      <img alt="{{bank | lowercase}}" title="{{bankFullName | uppercase}} - Compare & Shop"
+        src="/assets/images/bfsl-logo.png" />
+      <hr>
+  </a>
+</div>
+    
+    <div class="searchbox item mr-3 flex-grow-1" *ngIf="(type?.toLowerCase() ==='bank' && bankName !== 'BFSL') && bankName !== 'PNB'">
+      <app-autocomplete-searchbox></app-autocomplete-searchbox>
+    </div>
+    <div class="searchbox item mr-3 flex-grow-1" *ngIf="type?.toLowerCase() ==='bank' && bankName === 'PNB'">
+      <app-auto-searchbox></app-auto-searchbox>
+    </div>
+
+    <a routerLink="/gift-cards" type="button" title="Gifts"
+      class="btn btn-action btn-gifts item d-flex flex-column align-items-center" *ngIf="type?.toLowerCase() ==='bank' && isBFSL">
+      <svg class="icon mb-1">
+        <use xlink:href="/assets/icons/sprite.svg#Gift"></use>
+      </svg>
+      <span>Vouchers</span>
+    </a>
+
+    <a routerLink="/offers" type="button" title="Offers"
+      class="btn btn-action btn-offers d-flex flex-column align-items-center item" *ngIf="type?.toLowerCase() ==='bank' && isBFSL">
+      <svg class="icon mb-1">
+        <use xlink:href="/assets/icons/sprite.svg#OfferBadge"></use>
+      </svg>
+      <img  *ngIf="!isBandhan" src="/assets/images/new_badge.png">
+      <img  *ngIf="isBandhan" src="/assets/images/new_1.png">
+      <span>Offers</span>
+    </a>
+
+    <div class="dropdown select-dropdown show pointer ml-auto" *ngIf="isAccountTypeA">
+      <a #myAccount type="button" (click)="openLoginDialog($event)" title="My Account"
+        class="select-dropdown-toggle btn btn-action btn-myaccount d-flex flex-column align-items-center item"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <svg class="icon mb-1">
+          <use xlink:href="/assets/icons/sprite.svg#User"></use>
+        </svg>
+        <span style="pointer-events: none;" *ngIf="!userLoggedIn">Profile<small class="ml-1">▼</small></span>
+        <span style="pointer-events: none;" *ngIf="userLoggedIn && userName">{{userName}}<small class="ml-1">▼</small>
+          <a *ngIf="walletBalance > 0" class="wallet"><small>₹</small><strong>{{walletBalance}}</strong></a>
+        </span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+        <div>
+          <div class="p-3 border-bottom d-flex flex-column align-items-center justify-content-center"
+            *ngIf="!userLoggedIn">
+            <button type="button" (click)="loginDialog()" class="btn btn-success w-100">Login</button>
+            <span class="py-2">or</span>
+            <a (click)="loginDialog()" class="signup">Create an account</a>
+          </div>
+          <div class="dropdown-item border-bottom d-flex flex-column" *ngIf="userLoggedIn">
+            <h4>Hello {{userName}}</h4>
+            <span class="mb-2">{{mobileNum}}</span>
+            <small class="mb-2">Your eWallet balance is, <small>₹</small>
+              <strong>{{walletBalance}}</strong></small>
+            <a *ngIf="walletBalance > 0" class="btn btn-outline-success w-100" routerLink="/account/redeem">
+              <span *ngIf="bankName.toLowerCase() === 'bfsl'">Redeem Points</span>
+              <span *ngIf="bankName.toLowerCase() !== 'bfsl'">Redeem Credit</span>
+            </a>
+          </div>
+
+          <a class="dropdown-item d-none" routerLink="/account/orders" *ngIf="userLoggedIn">My Orders</a>
+          <a class="dropdown-item" routerLink="/account/profile" *ngIf="userLoggedIn && ifProfile">Profile</a>
+          <a class="dropdown-item" routerLink="/account/mygiftcards" *ngIf="userLoggedIn">My Gift Cards</a>
+
+          <!-- <a class="dropdown-item" routerLink="/account/hr-dashboard"
+            *ngIf="userLoggedIn && isHR && type.toLowerCase() ==='corp'">Admin</a> -->
+            <a class="dropdown-item" routerLink="/account/hr-dashboard"
+            *ngIf="(userLoggedIn && isHR && type?.toLowerCase() ==='corp') || (userLoggedIn && isHR && bankName.toLowerCase() === 'bfsl')">Admin</a>
+            <!-- <a class="dropdown-item" routerLink="/account/hr-dashboard"
+            *ngIf="(userLoggedIn && isHR && type.toLowerCase() ==='corp') || (userLoggedIn && isHR && bankName.toLowerCase() === 'bfsl')">Admin</a> -->
+          <!-- <a class="dropdown-item" routerLink="/account/rewards" *ngIf="userLoggedIn">Shopping
+                        Trips</a> -->
+          <a class="dropdown-item d-none" *ngIf="userLoggedIn" routerLink="/account/rewards">Manage
+            Cashbacks</a>
+
+          <a class="dropdown-item" routerLink="/about-us" *ngIf="bank !== 'PNB'">About Us</a>
+          <a class="dropdown-item" routerLink="/contact-us">Contact Us</a>
+          <a class="dropdown-item" routerLink="/contact-us"  *ngIf="ifProfile">Register Complaint</a>
+          <a *ngIf="userLoggedIn" (click)="logout()" class="dropdown-item" routerLink="()">
+            Logout
+          </a>
+          <div class="dropdown-item d-flex aliGetRouterLinkgn-items-center justify-content-center border-top">
+            <a class="px-2 py-0 text-secondary" routerLink="/terms-and-conditions">Terms</a> .
+            <a class="px-2 py-0 text-secondary" routerLink="/privacy-policy">Privacy</a> .
+            <a class="px-2 py-0 text-secondary" routerLink="/faq">FAQ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div #menuOverlay class="menu-overlay">
+  <!-- *ngIf="toggleMegaMenu" -->
+  <div class="menu-overlay__sidebar">
+    <div class="p-2">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let data of mainCategories">
+          <ng-container *ngIf="data.isBestSeller == true" appObserveVisibility (visible)="onVisible(data.categoryName, 'Impression')">
+            <ng-container *ngIf="data.isPopular">
+              <a class="d-flex align-items-center" title="{{data.categoryName}}" [attr.data-nodeId]="data.nodeId"
+                (click)="navigateToCategory(data.id, data.nodeId, data.categoryName, data.isPopular, data.popularName, data.parentNodeId, data.categoryName)">
+                <!-- <img alt="{{data.categoryName}}" src="{{data.categoryLogo}}"> -->
+                <ng-container *ngIf="data.categoryLogo != null">
+                  <picture>
+                    <source srcset="{{data.categoryLogo.split('.').slice(0, -1).join('.') + '.webp'}}"
+                      type="image/webp">
+                    <img (error)="onImgError($event)" title="{{data.categoryName}}" alt="{{data.categoryName}}"
+                      src="{{data.categoryLogo}}">
+                  </picture>
+                </ng-container>
+                <span>{{data.categoryName}}</span>
+              </a>
+            </ng-container>
+            <ng-container *ngIf="!data.isPopular">
+              <a class="d-flex align-items-center" title="{{data.categoryName}}" [attr.data-nodeId]="data.nodeId"
+                (click)="getAllSubCategories(data.categoryName, data.nodeId, data.id, data.isPopular, data.popularName)">
+                <ng-container *ngIf="data.categoryLogo != null">
+                  <picture>
+                    <source srcset="{{data.categoryLogo.split('.').slice(0, -1).join('.') + '.webp'}}"
+                      type="image/webp">
+                    <img (error)="onImgError($event)" title="{{data.categoryName}}" alt="{{data.categoryName}}"
+                      src="{{data.categoryLogo}}">
+                  </picture>
+                </ng-container>
+                <span>{{data.categoryName}}</span>
+                <small class="ml-auto link"
+                  (click)="navigateToCategory(data.id, data.nodeId, data.categoryName, data.isPopular, data.popularName, data.parentNodeId, data.categoryName)">
+                  <!--[routerLink]="['categories/category', data.categoryName , { id: data.nodeId}]"-->
+                  <svg class="icon">
+                    <use xlink:href="/assets/icons/sprite.svg#external-link"></use>
+                  </svg>
+                </small>
+              </a>
+            </ng-container>
+          </ng-container>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="menu-overlay__right">
+    <div class="menu-overlay__subcategories">
+      <div class="p-4">
+        <h5 class="m-0"><a
+            (click)="navigateToCategory(catUID, selctedCatNode, selctedcatTitle, isPopular, popularName, selctedCatNode, selctedcatTitle)"
+            class="animate__animated animate__fadeInUp d-flex align-items-center"
+            [attr.data-nodeId]="selctedCatNode">{{selctedcatTitle}}
+            <svg class="icon ml-2" style="height: 16px; width: 16px">
+              <use xlink:href="/assets/icons/sprite.svg#external-link"></use>
+            </svg>
+          </a>
+        </h5>
+        <div class="row">
+          <ng-container *ngFor="let data of subCategories">
+            <div class="col-6 col-md-4 col-lg-3 items animate__animated animate__fadeIn ">
+              <a (click)="navigateToCategory(data.id, data.nodeId, data.categoryName, data.isPopular, data.popularName, data.parentNodeId, data.parentCategoryName)"
+                class="d-flex py-3" title="{{data.categoryName}}" [attr.data-nodeId]="data.nodeId">
+                {{data.categoryName}}
+              </a>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="menu-overlay__stores">
+      <div class="p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <h5 class="m-0">Related Stores</h5>
+          <a (click)="hideMegaMenu()" routerLink="/stores">View all stores</a>
+        </div>
+        <div class="d-flex flex-wrap">
+          <ng-container *ngFor="let data of relatedStores">
+            <div class="  mb-3 items animate__animated animate__fadeIn ">
+              <a [routerLink]="['/stores/', data.siteID , data.siteName]" (click)="hideMegaMenu()"
+                class="d-flex align-items-center justify-content-center py-3 rel_store" title="{{data.siteName}}">
+                <ng-container *ngIf="data.logo != null">
+                  <picture>
+                    <source srcset="{{data.logo.split('.').slice(0, -1).join('.') + '.webp'}}" type="image/webp">
+                    <img (error)="onImgError($event)" alt="{{data.siteName}}" title="{{data.siteName}}"
+                      src="{{data.logo}}">
+                  </picture>
+                </ng-container>
+              </a>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<canvas id="my-canvas" class="my-canvas" width="883" height="380" style="
+position: absolute;
+z-index: 10000;
+height: 100vh;
+width: 100%;
+pointer-events: none;
+"></canvas>
+<!-- CSS File: _layout.scss -->

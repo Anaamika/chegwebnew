@@ -1,0 +1,639 @@
+.page_gift {
+    @include page_one;
+
+    .description {
+        @include laptop {
+            width: 75%;
+        } 
+    }
+
+    &_banner {
+        background-color: #8fdefc;
+        background-position: right bottom;
+        background-repeat: no-repeat;
+        background-size: contain;
+        min-height: 140px;
+
+        @include laptop {
+            background-image: url("assets/images/giftcardbanner1.jpg");
+        }
+
+        .breadcrumb {
+            width: 70%;
+
+            @include phone {
+                width: 60%;
+            }
+
+            @include tablet {
+                width: 80%;
+            }
+
+            @include laptop {
+                width: 100%;
+            }
+        }
+
+        .description {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            width: 0;
+            height: 0;
+
+            @include tablet {
+                width: 50%;
+                height: auto;
+            }
+
+            @include laptop {
+                width: 75%;
+            }
+        }
+
+        .steps {
+            @include scrolling-wrapper-flexbox;
+            .img_steps {
+                height: 80px;
+            }
+        }
+
+        .text-content {
+            width: 100%;
+            @include laptop {
+                width: 80%;
+            }
+
+            h4 {
+                color: #002d56;
+                line-height: 2rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+    }
+
+    .arrow_icon{
+        font-size: 1.6em;
+    }
+
+    &_banner_bandhan {
+        background-color: #004880;
+        background-position: right bottom;
+        background-repeat: no-repeat;
+        background-size: contain;
+        min-height: 140px;
+
+        @include laptop {
+            background-image: url("assets/images/giftcardbannerbandhan.png");
+        }
+
+        .breadcrumb {
+            width: 70%;
+
+            @include phone {
+                width: 60%;
+            }
+
+            @include tablet {
+                width: 80%;
+            }
+
+            @include laptop {
+                width: 100%;
+            }
+        }
+
+        .description {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            width: 0;
+            height: 0;
+
+            @include tablet {
+                width: 50%;
+                height: auto;
+            }
+
+            @include laptop {
+                width: 75%;
+            }
+        }
+
+        .steps {
+            @include scrolling-wrapper-flexbox;
+            .img_steps {
+                height: 80px;
+            }
+        }
+
+        .text-content {
+            width: 100%;
+            @include laptop {
+                width: 80%;
+            }
+
+            h4 {
+                color: #002d56;
+                line-height: 2rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+    }
+
+
+    .btn-filter {
+        display: block;
+        @include laptop {
+            display: none;
+        }
+    }
+
+    .giftcards {
+        @include page_layout_one;
+
+        &_sidebar {
+            .sidebar_content {
+                .filter--category {
+                    max-height: 70vh;
+
+                    .all {
+                        cursor: pointer;
+                        padding: 0.2rem 0.8rem;
+                        padding-left: 3px;
+                        width: 100%;
+                        display: block;
+                        &.active {
+                            font-weight: 500;
+                            @include themed() {
+                                color: t(theme-color);
+                            }
+                        }
+                    }
+
+                    .mat-checkbox {
+                      
+                        .mat-checkbox-layout {
+                            width: 100%;
+                            display: block;
+                            margin-bottom: 0;
+                            padding: 0.2rem 0;
+                            padding-left: 0;
+                        }
+                        .mat-checkbox-inner-container {
+                            width: 1px;
+                            visibility: hidden;
+                            margin-left: -10px;
+                        }
+                    }
+
+                    .mat-checkbox-checked {
+                        .mat-checkbox-label {
+                            font-weight: 500;
+                            @include themed() {
+                                color: t(theme-color);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .mobile-filter {
+                .filter--category {
+                    height: calc(100vh - 140px);
+                    overflow-y: auto;
+                }
+                .all {
+                    padding: 1rem 1.3rem !important;
+                }
+
+                .mat-checkbox-layout {
+                    padding: 1rem !important;
+                }
+            }
+        }
+
+        &_content {
+            .banner-card-gift {
+                @extend .banner-card;
+                background-image: url("assets/images/giftcardbanner3.jpg");
+                background-color: #ffde85;
+
+                h2 {
+                    position: relative;
+                    color: #7d5f0c;
+                }
+                p {
+                    position: relative;
+                    color: #8b7538;
+                    @include tablet {
+                        width: 80%;
+                    }
+                }
+            }
+            .banner-card-gift-bandhan {
+                @extend .banner-card;
+                background-image: url("assets/images/giftcardbanner4.png");
+                background-color: #F3F3F3;
+
+                h2 {
+                    position: relative;
+                    color: #000000;
+                }
+                p {
+                    position: relative;
+                    color: #000000;
+                    @include tablet {
+                        width: 80%;
+                    }
+                }
+            }
+
+            .banner-card-redeem {
+                @extend .banner-card;
+                background-image: url("assets/images/giftcardbanner.jpg");
+                min-height: 135px;
+                background-color: #79cadd;
+                display: flex;
+                align-items: center;
+
+                h3 {
+                    position: relative;
+                    color: #156a7d;
+                    font-weight: 200;
+                }
+            }
+        }
+    }
+
+    .gift_card_details {
+        position: relative;
+        display: grid;
+        grid-gap: 0;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: "steps";
+        margin-left: -15px;
+        margin-right: -15px;
+
+        @include tablet {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        @include laptop {
+            grid-template-columns: 400px 1fr;
+            grid-template-areas: "preview steps";
+        }
+
+        &_preview {
+            position: fixed;
+            top: 0;
+            left: 120vw;
+            width: 100vw;
+            height: 100%;
+            z-index: 1000;
+            background: #b2cccd url("assets/images/gift_card_bg.jpg");
+            background-position: bottom;
+            background-repeat: no-repeat;
+            background-size: contain;
+
+            @include laptop {
+                grid-area: preview;
+                position: relative;
+                left: auto;
+                width: auto;
+                height: auto;
+                z-index: 0;
+                background: none;
+            }
+
+            .gift_card {
+                background-color: #fff;
+                border: 1px solid #eee;
+                padding: 0.2rem;
+                margin: 1rem;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+                @include tablet {
+                    margin: 3rem;
+                }
+
+                @include laptop {
+                    margin: 0;
+                }
+
+                .theme {
+                    margin-bottom: 1rem;
+                }
+
+                .content {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 1rem;
+                    .msg_preview {
+                        p {
+                            @include themed() {
+                                color: t(theme-color);
+                            }
+                        }
+                    }
+
+                    img {
+                        max-height: 75px;
+                    }
+
+                    // hr {
+                    //     height: 85px;
+                    //     border: none;
+                    //     margin: 0 1.2rem;
+                    //     opacity: 0.3;
+                    //     border-left: 1px solid #000000;
+                    // }
+                    .price {
+                        font-size: 2rem;
+                        margin-bottom: 0;
+                        @include themed() {
+                            color: t(theme-color);
+                        }
+                        small {
+                            color: #666;
+                            font-size: 50%;
+                        }
+                    }
+                }
+            }
+            .continue {
+                color: #fff;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                padding: 1rem;
+                width: 100%;
+                text-align: center;
+                @include themed() {
+                    background-color: t(theme-color);
+                }
+
+                @include laptop {
+                    display: none;
+                }
+            }
+        }
+
+        &_steps {
+            grid-area: steps;
+            @include laptop {
+                padding-left: 1rem;
+            }
+
+            .preview {
+                @include laptop {
+                    display: none;
+                }
+            }
+
+            .theme_tile {
+                cursor: pointer;
+                padding: 0.2rem;
+                margin-right: 0.5rem;
+                margin-bottom: 0.5rem;
+                @include themed() {
+                    border: 1px solid t(theme-color);
+                }
+
+                &.active {
+                    border: 1px solid #ff5722;
+                    background: #ff5722;
+                }
+
+                img {
+                    max-height: 50px;
+
+                    @include phone {
+                        max-height: 70px;
+                    }
+
+                    @include tablet {
+                        max-height: 80px;
+                    }
+                }
+            }
+
+            .other {
+                border: 1px solid #ccc;
+                width: 90px;
+                min-height: 34px;
+                padding: 0.3rem 0.8rem;
+                border-radius: 3px;
+                margin-bottom: 0.5rem;
+                text-align: center;
+                cursor: pointer;
+                position: relative;
+                input {
+                    display: none;
+                    width: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    border: 0;
+                    padding: 0.2rem 0.5rem;
+                    font-size: 0.875rem !important;
+                }
+                &.blur input {
+                    display: block;
+                }
+                &.active {
+                    color: #fff;
+                    @include themed() {
+                        background: t(theme-color);
+                        border: 1px solid t(theme-color);
+                    }
+                    &::before {
+                        content: "₹";
+                        font-size: 80%;
+                    }
+                }
+            }
+
+            .mat-gift-amount {
+                .mat-radio-button {
+                    margin-right: 0.8rem;
+                    .mat-radio-label {
+                        border: 1px solid #ccc;
+                        width: 90px;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 3px;
+
+                        .mat-radio-container {
+                            width: 1px;
+                            visibility: hidden;
+                        }
+                        .mat-radio-label-content {
+                            padding-left: 0;
+                            margin: 0 auto;
+                            &::before {
+                                content: "₹";
+                                font-size: 80%;
+                            }
+                        }
+                    }
+                }
+
+                .mat-radio-checked {
+                    .mat-radio-label {
+                        color: #fff;
+                        @include themed() {
+                            background: t(theme-color);
+                            border: 1px solid t(theme-color);
+                        }
+                    }
+                }
+            }
+
+            .mat-payment-method {
+                .mat-radio-button {
+                    .mat-radio-label {
+                        margin: 0;
+                        padding: 0.8rem;
+                    }
+                    .msg {
+                        display: none;
+                    }
+                    .custom {
+                        display: none;
+                    }
+                }
+
+                .mat-radio-checked {
+                    background: #ffecf3;
+                    border: 1px solid #fdb9d0;
+                    border-radius: 5px;
+                    .msg {
+                        display: block;
+                    }
+
+                    .custom {
+                        display: block;
+                    }
+                }
+            }
+
+            .other_payment {
+                &.disable {
+                    opacity: 0.5;
+                    pointer-events: none;
+                }
+            }
+
+            .checkout {
+                span {
+                    pointer-events: none;
+                }
+                .loading {
+                    display: none;
+                    .spinner {
+                        @include spinner;
+                        height: 20px;
+                        width: 20px;
+                        margin-right: 0.5rem;
+                    }
+                }
+
+                &.active {
+                    .loading {
+                        display: inline-block;
+                    }
+
+                    label {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.gifts-dialog {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    @include tablet {
+        top: 5vh;
+        height: 90vh;
+        width: 670px;
+        // box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%), 0px 24px 38px 3px rgb(0 0 0 / 14%),
+        //     0px 9px 46px 8px rgb(0 0 0 / 12%);
+    }
+
+    &_front,
+    &_back {
+        position: absolute;
+        padding: 0;
+        background: #fff;
+        overflow: hidden;
+        border-radius: 5px;
+    }
+}
+
+.gift_card_details_steps {
+    .step1 {
+        display: grid;
+        grid-gap: 0;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: "amount" "details";
+        @include tablet {
+            grid-template-columns: 1fr auto;
+            grid-template-areas: "amount details";
+        }
+
+        .amount {
+            grid-area: amount;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f3f3f3;
+            @include tablet {
+                margin-bottom: 0;
+            }
+        }
+
+        .details {
+            grid-area: details;
+            padding: 1rem;
+            background: #edffee;
+            @include tablet {
+                margin-bottom: 0;
+                border-left: 1px solid #ccc;
+            }
+
+            table td {
+                padding: 0.5rem 0;
+            }
+        }
+    }
+    .step2 {
+        table td {
+            padding: 0.5rem 0;
+        }
+    }
+}
+.gift_card_info {
+    .lable1 {
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .detail1 {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .icon19 {
+        width: 19px;
+        height: 19px;
+        fill: #444444;
+        margin-left: 9px;
+        cursor: pointer;
+    }
+}

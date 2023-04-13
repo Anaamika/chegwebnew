@@ -1,0 +1,25 @@
+
+/**
+ * Styles for Material elements are added here
+ */
+ .mat-snack-bar-container {
+    color: #fff;
+}
+
+.red-snackbar {
+    background: #ed4d4d;
+}
+.green-snackbar {
+    background: #7cb544;
+}
+.blue-snackbar {
+    background: #45b0e6;
+}
+.yellow-snackbar {
+    background: #ffc44e;
+    color: #000;
+}
+
+.mat-snack-bar-handset .mat-snack-bar-container {
+    width: auto !important;
+}

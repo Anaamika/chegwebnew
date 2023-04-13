@@ -1,0 +1,12 @@
+
+
+
+<div class="topcategorybar d-flex justify-content-md-between" *ngIf="show" >
+<div  *ngFor="let cat of categories">
+        <div class="iconblock" (click)="toggleCategory(cat)"  [ngClass]="{'active': cat.selected}">
+        <img src="{{cat.categoryLogo}}" >
+        <h5>{{cat.categoryName}}</h5>
+    </div> 
+</div>
+</div>
+

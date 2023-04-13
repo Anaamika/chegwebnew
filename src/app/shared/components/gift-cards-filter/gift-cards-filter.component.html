@@ -1,0 +1,145 @@
+<div class="mobile-filter" #filterBlock>
+    <div class="p-3 border-bottom d-flex align-items-center">
+        <h3 class="m-0">Filters</h3>
+        <a class="underline_pointer btn btn-link ml-auto mr-1" (click)="clearFilters()">Clear</a>
+        <a class="btn btn-link" (click)="hideFilters()">Done</a>
+    </div>
+    <div>
+        <div class="tabordion sidebar_content">
+            <section id="section1">
+                <input type="radio" name="sections" id="option1" checked>
+                <label for="option1">Retailer</label>
+                <article>
+                    <div class="d-flex align-items-center pb-2" *ngIf="retailersData.length > 10">
+                        <div class="filter-search">
+                            <input [(ngModel)]="searchRetailer" type="text" data-name="itemSearch" class="form-control"
+                                placeholder="Search Retailer">
+                            <a title="clear" class="clear" *ngIf="searchRetailer !== ''" (click)="searchRetailer = ''">
+                                <svg class="icon">
+                                    <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush filter--category">
+                        <li class="list-group-item list-group-item-action">
+                            <a class="all" [ngClass]="{'active': arrFilter.length == 0}" (click)="clearFilters()">All
+                                Retailers</a>
+                        </li>
+                        <li class="list-group-item list-group-item-action"
+                            *ngFor="let data of retailersData | filterObject : searchRetailer : 'siteName'">
+                            <mat-checkbox #chkbxRetailer [checked]=isFilterSelected(data.siteName) [value]=data.siteName
+                                data-name="filter" [name]="data.siteName" [attr.data-value]="data.siteName"
+                                data-key="siteName"
+                                (change)="toggleFilters($event, 'siteName', false); hideFilters(); searchRetailer = ''">
+                                {{data.siteName}}
+                            </mat-checkbox>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+            <section id="section2">
+                <input type="radio" name="sections" id="option2">
+                <label for="option2">Category</label>
+                <article>
+                    <div class="d-flex align-items-center pb-2" *ngIf="categoriesData.length > 10">
+                        <div class="filter-search">
+                            <input [(ngModel)]="searchCategory" type="text" data-name="itemSearch" class="form-control"
+                                placeholder="Search Category">
+                            <a title="clear" class="clear" *ngIf="searchCategory !== ''" (click)="searchCategory = ''">
+                                <svg class="icon">
+                                    <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush filter--category">
+                        <li class="list-group-item list-group-item-action">
+                            <a class="all" [ngClass]="{'active': arrFilter.length == 0}"
+                                (click)="clearFilters(); hideFilters()">All
+                                Categories</a>
+                        </li>
+                        <li class="list-group-item list-group-item-action"
+                            *ngFor="let data of categoriesData | filterObject : searchCategory : 'categoryName'">
+                            <mat-checkbox #chkbxCategory [checked]=isFilterSelected(data.categoryId)
+                                [value]=data.categoryName data-name="filter" [name]="data.categoryId"
+                                [attr.data-value]="data.categoryId" data-key="categoryId"
+                                (change)="toggleFilters($event, 'categoryId', false); hideFilters(); searchCategory = ''">
+                                {{data.categoryName}}
+                            </mat-checkbox>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar filter">
+    <div class="sidebar_title d-flex align-items-center justify-content-between">
+        <h3 class="m-0">Filters</h3>
+    </div>
+    <div class="sidebar_content">
+        <div class="mat-filters">
+            <ng-container>
+                <div class="d-flex align-items-center pb-2" *ngIf="retailersData.length > 10">
+                    <div class="filter-search">
+                        <input [(ngModel)]="searchRetailer" type="text" data-name="itemSearch" class="form-control"
+                            placeholder="Search Retailer">
+                        <a title="clear" class="clear" *ngIf="searchRetailer !== ''" (click)="searchRetailer = ''">
+                            <svg class="icon">
+                                <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush filter--category">
+                    <li class="list-group-item list-group-item-action">
+                        <a class="all" [ngClass]="{'active': arrFilter.length == 0}" (click)="clearFilters()">All
+                            Retailers</a>
+                    </li>
+                    <li class="list-group-item list-group-item-action"
+                        *ngFor="let data of retailersData | filterObject : searchRetailer : 'siteName'">
+                        <mat-checkbox #chkbxRetailer [checked]=isFilterSelected(data.siteName) [value]=data.siteName
+                            data-name="filter" [name]="data.siteName" [attr.data-value]="data.siteName"
+                            data-key="siteName"
+                            (change)="toggleFilters($event, 'siteName', false); searchRetailer = ''">
+                            {{data.siteName}}
+                        </mat-checkbox>
+                    </li>
+                </ul>
+            </ng-container>
+        </div>
+        <hr>
+        <div class="mat-filters">
+            <ng-container>
+                <div class="d-flex align-items-center pb-2" *ngIf="categoriesData.length > 10">
+                    <div class="filter-search">
+                        <input [(ngModel)]="searchCategory" type="text" data-name="itemSearch" class="form-control"
+                            placeholder="Search Category">
+                        <a title="clear" class="clear" *ngIf="searchCategory !== ''" (click)="searchCategory = ''">
+                            <svg class="icon">
+                                <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush filter--category">
+                    <li class="list-group-item list-group-item-action">
+                        <a class="all" [ngClass]="{'active': arrFilter.length == 0}" (click)="clearFilters()">All
+                            Categories</a>
+                    </li>
+                    <li class="list-group-item list-group-item-action"
+                        *ngFor="let data of categoriesData | filterObject : searchCategory : 'categoryName'">
+                        <mat-checkbox #chkbxCategory [checked]=isFilterSelected(data.categoryId)
+                            [value]=data.categoryName data-name="filter" [name]="data.categoryId"
+                            [attr.data-value]="data.categoryId" data-key="categoryId"
+                            (change)="toggleFilters($event, 'categoryId', false); searchCategory = ''">
+                            {{data.categoryName}}
+                        </mat-checkbox>
+                    </li>
+                </ul>
+            </ng-container>
+        </div>
+    </div>
+</div>

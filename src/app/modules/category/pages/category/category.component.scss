@@ -1,0 +1,6 @@
+.ngx-pagination {
+    a.disabled {
+        color: #bdbdbd !important;
+        pointer-events: none !important;
+    }
+}

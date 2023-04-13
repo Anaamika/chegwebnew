@@ -1,0 +1,49 @@
+<div class="theme--{{bank | lowercase}}">
+  <div class="offer-dialog">
+    <div mat-dialog-title class="header border-bottom d-flex align-items-center justify-content-between">
+      <h4 class="m-0">{{data.rewardTitle}}</h4>
+      <button type="button" (click)="close(false)" class="close" aria-label="Close">
+        <svg class="icon">
+          <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+        </svg>
+      </button>
+    </div>
+    <div mat-dialog-content>
+      <div class="d-flex flex-column align-items-center">
+
+        <ng-template [ngIf]="data.sitelogo != '' && data.sitelogo != null">
+          <a title="{{data.siteName}}">
+            <img class="mb-3" alt="{{data.siteName}}" style="max-height: 40px; max-width: 100px;"
+              src="{{ data.sitelogo }}" />
+          </a>
+          <a (click)="postProductInfo($event, data)" class="btn btn-primary">Shop now</a>
+
+          <hr class="w-100">
+        </ng-template>
+
+        <ng-template [ngIf]="data.rewardDescription != '' && data.rewardDescription != null">
+
+          <app-read-more class="mb-3 w-100"><strong>Rewards Rates: </strong>
+            <div [innerHTML]="data.rewardDescription | sanitizeHtml"></div>
+          </app-read-more>
+        </ng-template>
+
+        <ng-template [ngIf]="data.rewardTerms != '' && data.rewardTerms != null">
+          <app-read-more class="mb-3 w-100"><strong>Rewards Terms & Conditions: </strong>
+            <div [innerHTML]="data.rewardTerms | sanitizeHtml"></div>
+          </app-read-more>
+        </ng-template>
+
+        <ng-template [ngIf]="data.offerTerms != '' && data.offerTerms != null">
+          <app-read-more class="mb-3 w-100"><strong>Offer Terms & Conditions: </strong>
+            <div [innerHTML]="data.offerTerms | sanitizeHtml"></div>
+          </app-read-more>
+        </ng-template>
+
+      </div>
+    </div>
+    <div class="d-flex justify-content-end border-top" mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cancel</button>
+    </div>
+  </div>
+</div>

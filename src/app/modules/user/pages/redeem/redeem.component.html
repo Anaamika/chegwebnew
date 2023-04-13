@@ -1,0 +1,50 @@
+<div class="page_gift overview">
+  <div class="page_gift_content pt-0">
+    <div class="container">
+      <h2 *ngIf="bankName === 'BFSL'" class="welcome-note">Hi {{userName}},</h2>
+      <div class=" py-4 py-md-0">
+        <div class="giftcards_content">
+          <!-- <div class="banner-card banner-card-overview mb-4" role="alert">
+            <h2>Hi {{userName}}, you have</h2>
+            <h2>₹<span class="ml-1">{{walletBalance}}</span> available in your eWallet</h2>
+
+          </div> -->
+          <div *ngIf="bankName === 'BFSL'" class="row BFSL">
+            <div class="col mb-4 mr-2 redeemgift banner-left-overview text-center">
+              <h2 class="m-0">To View or to Redeem <br/> your available Gift Cards</h2>
+              <button class="btn ml-2 mt-2 redeembtn" routerLink="/account/mygiftcards">CLICK HERE</button>
+            </div>
+            <div class="col banner-card banner-right-overview mb-4 ml-2 text-center" role="alert">
+              <h2>You have points worth ₹<span class="ml-1 my-auto">{{walletBalance}}</span><br/>available to buy Gift Cards</h2>
+            </div>
+          </div>
+
+          <div *ngIf="bankName !== 'BFSL'" class="nonBFSL">
+            <div class="banner-card banner-card-overview mb-4" role="alert">
+              <h2>Hi {{userName}}, you have</h2>
+              <h2>₹<span class="ml-1">{{walletBalance}}</span> available to redeem as gift vouchers</h2>
+            </div>
+            <div class="d-flex mt-4 mb-4 redeemgift align-items-center">
+              <!--<h3 class="m-0">To redeem your Gift Cards</h3>-->
+              <h3 class="m-0">Redeem My Gift Cards</h3>
+              <button class="btn ml-2 redeembtn" routerLink="/account/mygiftcards">Click Here</button>
+            </div>
+          </div>
+
+
+
+        <app-gift-cards-grid [title]=categoryTitle [giftCardsData]=filteredData [isRedeem]=isRedeem>
+        </app-gift-cards-grid>
+      </div>
+
+      <a (click)="showFilters($event)" class="btn btn-float btn-filter">
+        <svg class="icon">
+          <use xlink:href="/assets/icons/sprite.svg#Filter"></use>
+        </svg>
+      </a>
+     
+      </div>
+    </div>
+</div>
+
+<!-- CSS File: _gifts.scss -->

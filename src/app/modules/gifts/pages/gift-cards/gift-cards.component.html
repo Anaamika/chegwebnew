@@ -1,0 +1,99 @@
+<div class="page_gift">
+    <div [ngClass]="{'page_gift_banner text_dark': !isBandhan,
+    'page_gift_banner_bandhan text_dark': isBandhan}" *ngIf="!hideBanner">
+    <!-- <div class="page_gift_banner text_dark" *ngIf="!hideBanner"> -->
+        <div class="container">
+            <div class="bannerctm">
+            <app-breadcrumb></app-breadcrumb>
+            <div *ngIf="isBank" class="d-flex align-items-center w-100 w-md-50 steps">
+                <div style="align-self: start;" class="d-flex flex-column align-items-center text-center">
+                    <span>STEP 1</span>
+                    <img src="/assets/images/select_giftcard.svg" alt="Select the Gift Card of your choice"
+                        class="img_steps">
+                    <p>Select the Gift Card of your choice</p>
+                </div>
+                <span class="mx-3 arrow_icon">→</span>
+                <div style="align-self: start;" class="d-flex flex-column align-items-center text-center">
+                    <span>STEP 2</span>
+                    <img src="/assets/images/pay_discount.svg" alt="Select the Gift Card of your choice"
+                        class="img_steps">
+                    <p>Pay with the best discount price</p>
+                </div>
+                <span class="mx-3 arrow_icon">→</span>
+                <div style="align-self: start;" class="d-flex flex-column align-items-center text-center">
+                    <span>STEP 3</span>
+                    <img src="/assets/images/gift_delivery.svg" alt="Select the Gift Card of your choice"
+                        class="img_steps">
+                    <p>Get your Gift Cards instantly delivered</p>
+                </div>
+                <span class="mx-3 arrow_icon">→</span>
+                <div style="align-self: start;" class="d-flex flex-column align-items-center text-center">
+                    <span>STEP 4</span>
+                    <img src="/assets/images/shop_redeem.svg" alt="Select the Gift Card of your choice"
+                        class="img_steps">
+                    <p>Shop & Redeem the Gift Cards at the Retailer</p>
+                </div>
+            </div>
+
+            <div class="text-content">
+                <h4 *ngIf="!isBank">
+                    MRewards - your exclusive employee discount program, designed to help you save money. With
+                    over
+                    250+ partnered merchants, get the best deals that matters to you!
+                </h4>
+            </div>
+
+        </div>
+        </div>
+    </div>
+    <div class="page_gift_content">
+        <div class="container">
+            <div class="giftcards py-4 py-md-0">
+                <div class="giftcards_sidebar">
+                    <div #filterBlock class="h-100">
+                        <app-gift-cards-filter (filterEvent)="receiveFilter($event)" [categoriesList]=categoriesList
+                            [retailersList]=retailersList>
+                        </app-gift-cards-filter>
+                    </div>
+                </div>
+
+                <div class="giftcards_content">
+                    <div *ngIf="isBank" [ngClass]="{'banner-card banner-card-gift': !isBandhan,
+                    'banner-card banner-card-gift-bandhan': isBandhan}" class="banner-card banner-card-gift">
+                        <h2 class="mb-3">Upto 10% off</h2>
+                        <p class="m-0">
+                            Now you get up to <strong>10% exclusive discount</strong> on Gift Cards on shopping from
+                            {{bankFullName}} Compare & Shop.
+                        </p>
+                    </div>
+                    <app-gift-cards-grid [title]=categoryTitle [giftCardsData]=filteredData [isRedeem]=isRedeem>
+                    </app-gift-cards-grid>
+
+                    <!-- <section class="alert alert-light d-flex justify-content-around d-none">
+                        <div class="w-25 text-center">
+                            <h4>Fast Delivery</h4>
+                            <p>The Gift Cards are instantly delivered to your email.</p>
+                        </div>
+                        <div class="w-25 text-center">
+                            <h4>Safe & Secure</h4>
+                            <p>Your safety is our priority. We use SSL protocol to secure your transactions.</p>
+                        </div>
+                        <div class="w-25 text-center">
+                            <h4>Support Team</h4>
+                            <p>Feel free to reach out to us for any query or clarification, we will get back to you in a
+                                jiffy.</p>
+                        </div>
+                    </section> -->
+                </div>
+
+                <a (click)="showFilters($event)" class="btn btn-float btn-filter">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#Filter"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS File: _gifts.scss -->

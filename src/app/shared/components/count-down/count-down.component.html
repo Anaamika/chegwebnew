@@ -1,0 +1,15 @@
+<div class="timer mb-2" *ngIf="daysToDday >= 0">
+    Sale ends in&nbsp;
+    <span id="days" *ngIf="daysToDday !== 0"> {{daysToDday}} </span>
+    <ng-container *ngIf="daysToDday == 1">Day&nbsp;</ng-container>
+    <ng-container *ngIf="daysToDday > 1">Days&nbsp;</ng-container>
+    <span id="hours">
+        <ng-container *ngIf="hoursToDday < 10">0</ng-container>{{hoursToDday}}
+    </span>:
+    <span id="minutes">
+        <ng-container *ngIf="minutesToDday < 10">0</ng-container>{{minutesToDday}}
+    </span>:
+    <span id="seconds">
+        <ng-container *ngIf="secondsToDday < 10">0</ng-container>{{secondsToDday}}
+    </span>
+</div>

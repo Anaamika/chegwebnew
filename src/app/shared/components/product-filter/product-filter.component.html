@@ -1,0 +1,147 @@
+<ng-container *ngIf="mobileView">
+    <div class="mobile-filter" #filterBlock>
+        <div class="p-3 border-bottom d-flex align-items-center">
+            <h5 class="m-0">Filters</h5>
+            <a class="underline_pointer btn btn-link ml-auto mr-1" (click)="clearFilters()">Clear all</a>
+            <a class="btn btn-link" (click)="hideFilters()">Done</a>
+        </div>
+        <div>
+            <div class="tabordion">
+                <ng-container *ngFor="let item of productFilters | keyvalue; let isFirst=first">
+                    <section id="section{{ item.key | trim}}" *ngIf="item.value.values.length > 0">
+                        <input type="radio" name="sections" id="option{{ item.key | trim}}" [checked]="isFirst">
+                        <label for="option{{ item.key | trim}}">{{ item.key }}</label>
+                        <article>
+                            <div class="d-flex align-items-center pb-2" *ngIf="item.value.values.length > 10">
+                                <div class="filter-search">
+                                    <input [(ngModel)]="ngMFilterMob[item.key]" type="text" data-name="itemSearch"
+                                        class="form-control" placeholder="{{item.key}}">
+                                    <a title="clear" class="clear" *ngIf="ngMFilterMob[item.key] !== ''"
+                                        (click)="ngMFilterMob[item.key] = ''">
+                                        <svg class="icon">
+                                            <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                            <ul class="list-group list-group-flush filter--category">
+                                <li class="list-group-item"
+                                    *ngFor="let subitem of item.value.values | filterList : ngMFilterMob[item.key]">
+                                    <mat-checkbox #chkbxCategory [checked]=isFilterSelected(subitem) [value]=subitem
+                                        data-name="filter-mob" [attr.data-value]="subitem" [attr.data-key]="item.key"
+                                        (change)="toggleFilters($event, item.key, true); ngMFilterMob[item.key] = ''">
+                                        {{subitem}}
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                            <div *ngIf="item.key == 'Price'" class="d-flex flex-column justify-content-center py-2">
+                                <input [(ngModel)]="minPrice" type="text" class="form-control mb-1" placeholder="min">
+                                <input [(ngModel)]="maxPrice" type="text" class="form-control mt-1 mb-2"
+                                    placeholder="max">
+                                <button [disabled]="minPrice ==='' || maxPrice ==='' || minPrice >= maxPrice"
+                                    mat-raised-button color="accent" (click)="triggerPriceFilter($event)">Go</button>
+                            </div>
+                        </article>
+                    </section>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobilebar" *ngIf="CategoriesData.length > 0">
+        <div class="scrolling-wrapper-flexbox py-3">
+            <div class="tile back" *ngIf="!show" (click)="goBack()">
+                <svg class="icon">
+                    <use xlink:href="/assets/icons/sprite.svg#ArrowLeft001"></use>
+                </svg>
+                Back
+            </div>
+            <div class="tile" *ngFor="let data of CategoriesData">
+                <a (click)="navigateToCategory(data.id, data.nodeId, data.categoryName, data.isPopular, data.popularName)"
+                    class="d-flex align-items-center" title="{{data.categoryName}}" [attr.data-nodeId]="data.nodeId">
+                    <span>{{data.categoryName}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</ng-container>
+
+<ng-container *ngIf="!mobileView">
+
+    <div class="sidebar filter">
+        <div class="sidebar_title d-flex align-items-center justify-content-between">
+            <h5 class="m-0">Filters</h5>
+            <a *ngIf="arrFilter.length > 0" class="underline_pointer" (click)="clearFilters()">Clear all</a>
+        </div>
+        <div class="sidebar_content p-0">
+            <div class="d-flex align-items-center p-3">
+                <a class="back mr-2" [ngClass]="{'no-pointer-event' : show}" (click)="goBack()">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#ArrowLeft001"></use>
+                    </svg>
+                </a>
+                <strong class="m-0">{{catTitle}}</strong>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let data of CategoriesData">
+                    <a (click)="navigateToCategory(data.id, data.nodeId, data.categoryName, data.isPopular, data.popularName)"
+                        class="d-flex align-items-center" title="{{data.categoryName}}"
+                        [attr.data-nodeId]="data.nodeId">
+                        <!-- (click)="sendMessage(data.categoryName, data.nodeId)" -->
+                        <span>{{data.categoryName}}</span>
+                    </a>
+                </li>
+            </ul>
+            <ng-container *ngIf="!showFilter">
+                <mat-accordion>
+                    <ng-container *ngFor="let item of productFilters | keyvalue">
+                        <!--keyvalue is for Array object loop -->
+                        <mat-expansion-panel class="border-bottom" *ngIf="item.value.values.length > 0">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    {{item.key}}
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="mat-filters">
+                                <div class="d-flex align-items-center pb-2" *ngIf="item.value.values.length > 10">
+                                    <div class="filter-search">
+                                        <input [(ngModel)]="ngMFilter[item.key]" type="text" data-name="itemSearch"
+                                            class="form-control" placeholder="{{item.key}}">
+                                        <a title="clear" class="clear" *ngIf="ngMFilter[item.key] !== ''"
+                                            (click)="ngMFilter[item.key] = ''">
+                                            <svg class="icon">
+                                                <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                                <ul class="list-group list-group-flush filter--category">
+                                    <li class="list-group-item"
+                                        *ngFor="let subitem of item.value.values | filterList : ngMFilter[item.key]">
+                                        <mat-checkbox #chkbxCategory [checked]=isFilterSelected(subitem) [value]=subitem
+                                            data-name="filter" [attr.data-value]="subitem" [attr.data-key]="item.key"
+                                            (change)="toggleFilters($event, item.key, false); ngMFilter[item.key] = ''">
+                                            {{subitem}}
+                                        </mat-checkbox>
+                                    </li>
+                                </ul>
+                                <div *ngIf="item.key == 'Price'" class="d-flex align-items-cnter py-2">
+                                    <input [(ngModel)]="minPrice" type="text" class="form-control mr-1"
+                                        placeholder="min">
+                                    <input [(ngModel)]="maxPrice" type="text" class="form-control ml-1 mr-2"
+                                        placeholder="max">
+                                    <button [disabled]="minPrice ==='' || maxPrice ==='' || minPrice >= maxPrice"
+                                        mat-raised-button color="accent"
+                                        (click)="triggerPriceFilter($event)">Go</button>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </ng-container>
+                </mat-accordion>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>
+
+<!-- CSS File: _shared.scss -->

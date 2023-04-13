@@ -1,0 +1,21 @@
+<div class="theme--{{bank | lowercase}}">
+  <div class="offer-dialog">
+    <div mat-dialog-title class="header border-bottom d-flex align-items-center justify-content-between">
+      <h4 class="m-0">{{data.title}}</h4>
+      <!-- <button type="button" (click)="close(false)" class="close" aria-label="Close">
+        <svg class="icon">
+          <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+        </svg>
+      </button> -->
+    </div>
+    <div mat-dialog-content class="notify-content">
+      <div class="d-flex flex-column align-items-start">
+          <label class="font-size-1">{{data.message1}}</label>
+          <label class="font-size-1">{{data.message2}}</label>
+      </div>
+    </div>
+    <!-- <div class="d-flex justify-content-end border-top" mat-dialog-actions>
+      <button mat-button mat-dialog-close>{{data.cancelText}}</button>
+    </div> -->
+  </div>
+</div>

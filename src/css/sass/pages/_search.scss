@@ -1,0 +1,35 @@
+.page_search {
+    .page_banner {
+        background: #67b26f;
+        background: -webkit-linear-gradient(to left, #4ca2cd, #67b26f);
+        background: linear-gradient(to left, #4ca2cd, #67b26f);
+        padding: 0.8rem 0;
+
+        .theme--canara & {
+            background: #2980b9;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #2c3e50, #2980b9);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #2c3e50, #2980b9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                        
+        }
+
+        .container {
+            width: 100vw;
+
+            @include tablet {
+                width: inherit;
+            }
+        }
+
+        h4 {
+            color: #fff;
+            margin: 0.5rem 0;
+        }
+        span {
+            color: #fff;
+        }
+    }
+
+    .page_content {
+        padding: 2rem 0;
+    }
+}

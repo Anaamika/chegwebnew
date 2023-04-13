@@ -1,0 +1,136 @@
+<div class="page_product">
+    <div class="page_title">
+        <div class="container">
+            <!-- <app-breadcrumb></app-breadcrumb> -->
+
+            <div class="mt-4">
+                <div *ngIf="!noProducts">
+                    <div class="spinner-grow" role="status"
+                        *ngIf="searchResult.length == 0 && similarProducts.length == 0 && moreProducts.length == 0">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <div *ngIf="noProducts">
+                    <h5 class="section_title">You Searched for "{{searchedProduct}}"</h5>
+                </div>
+                <div *ngIf="searchResult.length > 0">
+                    <h5 class="section_title">Showing results for "{{searchedProduct}}"</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page_content">
+        <div class="container">
+            <div *ngIf="searchResult.length !== 0 || similarProducts.length !== 0 || moreProducts.length !== 0">
+                <ul id="moreKey" class="d-none">
+                    <li *ngFor="let opt of moreOptions">
+                        <a routerLink="/search/{{opt}}">{{opt}}</a>
+                    </li>
+                </ul>
+
+                <div class="search_result">
+                    <ng-container *ngFor="let prod of searchResult">
+                        <div class="prod pnb-prod">
+                            <div *ngIf="prod.offerTitle !== null && prod.offerTitle !==''" class="badge-overlay pointer"
+                                (click)="getStoreRewardDetails(prod.siteID)">
+                                <div class="top-right badge">
+                                    <svg class="icon offer">
+                                        <use xlink:href="/assets/icons/sprite.svg#OfferBadge"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="prod_img pointer" (click)="postProductInfo(prod)">
+                                    <img class="img-fluid" [src]="prod.imgSrc" alt="{{prod.productName}}" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-around prod_info pointer"
+                                    (click)="postProductInfo(prod)">
+                                    <div class="title">
+                                        <h4>{{prod.productName}}</h4>
+                                        <img class="site_logo d-block d-sm-none" title="{{prod.siteName}}"
+                                            [src]="prod.siteLogo" alt="{{prod.siteName}}" />
+                                    </div>
+                                    <div class="info">
+                                        <img class="site_logo d-none d-sm-block" title="{{prod.siteName}}"
+                                            [src]="prod.siteLogo" alt="{{prod.siteName}}" />
+                                    </div>
+                                </div>
+                                <div class="shop">
+                                    <div class="d-flex flex-column">
+                                        <h5  *ngIf="prod.price > 0" class="price mb-3">{{prod?.price |
+                                            currency:'INR':'symbol':'2.0'}}</h5>
+
+                                        <h6 *ngIf="prod.offerTitle !== null && prod.offerTitle !==''" class="offer_title pointer mb-3"
+                                            (click)="getStoreRewardDetails(prod.siteID)">
+                                            {{prod.offerTitle}}
+                                        </h6>
+
+                                        <div title="shop" class="w-100 pointer">
+                                            <svg class="icon cart">
+                                                <use xlink:href="/assets/icons/sprite.svg#Shop"></use>
+                                            </svg>
+                                        </div>
+                                        <a (click)="postProductInfo(prod)"
+                                            class="btn btn-shop d-flex align-items-center justify-content-center">
+                                            <svg class="icon mr-2">
+                                                <use xlink:href="/assets/icons/sprite.svg#Shop"></use>
+                                            </svg>
+                                            Shop
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cut">
+                                <hr>
+                            </div>
+                            <div class="offer_info">
+                                <div class="d-flex align-items-center justify-content-end">
+                                    <!-- <svg (click)="postProductInfo(prod)" class="icon cart mr-auto">
+                                        <use xlink:href="/assets/icons/sprite.svg#Shop"></use>
+                                    </svg> -->
+                                    <h6 *ngIf="prod.offerTitle !== null && prod.offerTitle !==''"
+                                        class="offer_title pointer mr-3" (click)="getStoreRewardDetails(prod.siteID)">
+                                        {{prod.offerTitle}}
+                                    </h6>
+                                    <!-- <h5  *ngIf="prod.price > 0" (click)="postProductInfo(prod)" class="price">{{prod?.price |
+                                        currency:'INR':'symbol':'2.0'}}</h5> -->
+                                    <a (click)="postProductInfo(prod)"
+                                        class="btn btn-shop d-flex align-items-center justify-content-center">
+                                        <svg class="icon mr-2">
+                                            <use xlink:href="/assets/icons/sprite.svg#Shop"></use>
+                                        </svg>
+                                        Shop
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div style="margin-top: 1rem;" *ngIf="this.searchResult.length == 0">
+                        <div class="py-3"></div>
+                        <!-- <div class="no-data d-flex flex-column align-items-center justify-content-center">
+                            <ng-lottie width="300px" height="340px" containerClass="moving-box" [styles]="styles"
+                                [options]="options" (animationCreated)="animationCreated($event)"
+                                (loopComplete)="onLoopComplete()">
+                            </ng-lottie>
+                            <h5>Sorry! No products found matching the search criteria.</h5>
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="similar_products" class="py-4" *ngIf="similarProducts.length != 0">
+                    <h5 class="section_title">Similar Products</h5>
+                    <app-best-sellers-grid [bestsellersData]=similarProducts [instance]=1 [page]="3" [catName]="">
+                    </app-best-sellers-grid>
+                </div>
+
+                <section id="moreProducts" class="py-4" *ngIf="moreProducts.length > 0">
+                    <ng-container *ngIf="!noProducts">
+                        <h5 class="section_title">Not what you were looking for? Try these products:</h5>
+                    </ng-container>
+                    <app-best-sellers-grid [bestsellersData]=moreProducts [instance]=2 [page]="3" [catName]="">
+                    </app-best-sellers-grid>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

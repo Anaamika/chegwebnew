@@ -1,0 +1,46 @@
+<div class="top_gifts">
+    <div class="scrolling-wrapper-flexbox">
+        <ng-container *ngFor="let data of topGiftCardsData; let i = index">
+            <div class="card card-gift border-0" appObserveVisibility (visible)="onVisible(data, data.productId, 'giftcard','Impression')">
+                <img [attr.data-index]="i" (click)="openGiftsDialog($event, data)" class="card-img-top pointer"
+                    src="{{data.s_Images}}" alt="{{data.productName}}">
+                <div class="card-body">
+                    <p title="{{data.productName}}" class="card-title">{{data.productName}}</p>
+
+                    <ng-container *ngIf="data.isSale; else defaultOffer">
+                        <h5 *ngIf="data.offerSaleTitle !== null">{{data.offerSaleTitle}}</h5>
+                    </ng-container>
+                    <ng-template #defaultOffer>
+                        <h5 *ngIf="data.offerTitle !== null">{{data.offerTitle}}</h5>
+                    </ng-template>
+                    <span class="small d-flex text-black-50">
+                        <app-count-down *ngIf="data.isSale" [endDate]="data.endDate" [timerID]="data.productId"
+                            (timerEvent)="receiveTimer($event)">
+                        </app-count-down>
+                    </span>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn-gift w-50 mr-1" (click)="openGiftsDialog($event, data)" mat-stroked-button>
+                            <svg  class="icon buynowicon">
+                                <use xlink:href="/assets/icons/sprite.svg#Bag"></use>
+                            </svg>&nbsp;
+                            <span>Buy now</span></button>
+                        <button class="btn-gift w-50 ml-1"
+                            [routerLink]="['/gift-cards/', data.productId , data.productName]" mat-stroked-button>
+                            <svg  class="icon sendgifticon">
+                                <use xlink:href="/assets/icons/sprite.svg#Gift"></use>
+                            </svg>&nbsp;
+                            <span>Send gift</span></button>
+                    </div>
+
+                </div>
+                <div *ngIf="data.isSale" class="gifts-badge-overlay">
+                    <div class="top-right badge">
+                        Sale
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<!-- CSS File: _shared.scss -->

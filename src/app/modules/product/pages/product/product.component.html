@@ -1,0 +1,210 @@
+<div class="page_product">
+    <div class="page_title">
+        <div class="container">
+            <!-- <app-breadcrumb></app-breadcrumb> -->
+
+            <div class="mt-4">
+                <div *ngIf="!noProducts">
+                    <div class="spinner-grow" role="status"
+                        *ngIf="searchResult.length == 0 && similarProducts.length == 0 && moreProducts.length == 0">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <div *ngIf="noProducts">
+                    <h5 class="section_title">You Searched for "{{searchedProduct}}"</h5>
+                </div>
+                <div *ngIf="searchResult.length > 0">
+                    <h3 class="section_title">Showing results for "{{searchedProduct}}"</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page_content">
+        <div class="container">
+
+            <div *ngIf="searchResult.length !== 0 || similarProducts.length !== 0 || moreProducts.length !== 0">
+                <!-- <ul id="moreKey d-none" >
+                    <li *ngFor="let opt of moreOptions">
+                        <a routerLink="/search/{{opt}}">{{opt}}</a>
+                    </li>
+                </ul> -->
+
+
+                <div class="search_result">
+                    <ng-container *ngFor="let prod of searchResult">
+                        <div class="prod" appObserveVisibility (visible)="onVisible(prod,'Products','Impression')">
+
+                            <div *ngIf="prod.offerTitle !== null && prod.offerTitle !==''" class="badge-overlay pointer"
+                                (click)="getStoreRewardDetails(prod.siteID)">
+                                <div class="top-right badge">
+                                    <svg class="icon offer">
+                                        <use xlink:href="/assets/icons/sprite.svg#OfferBadge"></use>
+                                    </svg>
+                                </div>
+                            </div>
+
+
+                            <div class="card">
+                                <div class="prod_img pointer" (click)="postProductInfo(prod)">
+                                    <img class="img-fluid" [src]="prod.imgSrc" alt="{{prod.productName}}" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-around prod_info pointer"
+                                    (click)="postProductInfo(prod)">
+                                    <div class="title">
+                                        <p>{{prod.productName}}</p>
+
+                                        <img class="site_logo d-block d-sm-none" title="{{prod.siteName}}"
+                                            [src]="prod.siteLogo" alt="{{prod.siteName}}" />
+                                        <div class="info">
+                                            <img class="site_logo d-none d-sm-block" title="{{prod.siteName}}"
+                                                [src]="prod.siteLogo" alt="{{prod.siteName}}" />
+                                        </div>
+                                    </div>
+
+
+                                    <h5 *ngIf="prod.price > 0" class="price mb-3">{{prod.price |
+                                        currency:'INR':'symbol':'2.0'}}</h5>
+                                </div>
+
+                                <div class="shop">
+                                    <div class="d-flex flex-column">
+                                        <div  *ngIf="prod.offerTitle !== null && prod.offerTitle !==''">
+                                        <h5 class="price mb-2">Bank Offer</h5>
+                                        <div class="d-flex align-items-center">
+                                            <h6 *ngIf="prod.offerTitle !== null && prod.offerTitle !==''"
+                                                class="offer_title pointer mb-4"
+                                                (click)="getStoreRewardDetails(prod.siteID)">
+                                                {{prod.offerTitle}} <img src="../assets/images/cashrupee.png">
+                                            </h6>
+
+                                 
+                                        </div>
+                                       </div>
+                                        <!-- <div title="shop" class="w-100 pointer">
+                                            <svg class="icon cart">
+                                                <use xlink:href="/assets/icons/sprite.svg#Shop"></use>
+                                            </svg>
+                                        </div> -->
+                                        <div class="d-flex align-items-center">
+                                            <a (click)="activateProd(prod)"
+                                                class="btn btn-shop d-flex align-items-center justify-content-center">
+                                                <svg class="icon mr-2">
+                                                    <use xlink:href="/assets/icons/sprite.svg#Shop"></use>
+                                                </svg>
+                                                {{prod.toggle ?'Activating' : 'Activate'  }}
+                                            </a>
+                                            <!-- <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_p8bfn5to.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;"  loop  autoplay></lottie-player> -->
+                                            <ng-lottie *ngIf="prod.activate" height="auto" width="46px" height="33px"
+                                                [options]="options"></ng-lottie>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="cut">
+                                <hr>
+                            </div>
+                            <div class="offer_info">
+                                <div class="d-flex align-items-center justify-content-start">
+                                    <!-- <svg (click)="postProductInfo(prod)" class="icon cart mr-auto">
+                                        <use xlink:href="/assets/icons/sprite.svg#Shop"></use>
+                                    </svg> -->
+                                    <h6 *ngIf="prod.offerTitle !== null && prod.offerTitle !==''"
+                                        class="offer_title pointer mr-3" (click)="getStoreRewardDetails(prod.siteID)">
+                                        {{prod.offerTitle}}
+                                    </h6>
+                                   
+                                    <!-- <h5 (click)="postProductInfo(prod)" class="price">{{prod.price |
+                                        currency:'INR':'symbol':'2.0'}}</h5> -->
+                                    <div class="d-flex align-items-center">
+                                        <a (click)="activateProd(prod)"
+                                            class="btn btn-shop d-flex align-items-center justify-content-center ml-3">
+                                            <svg class="icon mr-2">
+                                                <use xlink:href="/assets/icons/sprite.svg#Shop"></use>
+                                            </svg>
+                                            {{prod.toggle ?'Activating' : 'Activate'  }}
+                                        </a>
+                                        <!-- <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_p8bfn5to.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;"  loop  autoplay></lottie-player> -->
+                                        <ng-lottie *ngIf="prod.activate" height="auto" width="80px" height="70px"
+                                            [options]="options"></ng-lottie>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-container>
+                    <div style="margin-top: 1rem;" *ngIf="this.searchResult.length == 0">
+                        <div class="py-3"></div>
+                        <div class="no-data d-flex flex-column align-items-center justify-content-center">
+                            <!-- <ng-lottie width="300px" height="340px" containerClass="moving-box" [styles]="styles"
+                                [options]="options" (animationCreated)="animationCreated($event)"
+                                (loopComplete)="onLoopComplete()">
+                            </ng-lottie> -->
+                            <h5>Sorry! No products found matching the search criteria.</h5>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- <div class="similar_products" class="py-4" *ngIf="similarProducts.length != 0">
+                    <h3 class="section_title">Similar Products</h3>
+                    <app-best-sellers-grid [bestsellersData]=similarProducts [instance]=1 [page]="3" [catName]="">
+                    </app-best-sellers-grid>
+                </div> -->
+
+                <!-- <section id="moreProducts" class="py-4" *ngIf="moreProducts.length > 0">
+                    <ng-container *ngIf="!noProducts">
+                        <h3 class="section_title">Not what you were looking for? Try these products:</h3>
+                    </ng-container>
+                    <app-best-sellers-grid [bestsellersData]=moreProducts [instance]=2 [page]="3" [catName]="">
+                    </app-best-sellers-grid>
+                </section> -->
+
+
+
+            <div  class="offer-store">
+                <div *ngIf="homeBannersData.length>0">
+                <h3 class="section_title mt-5" >Offers in {{selectedCategory}}</h3>
+                <div class="store-banner py-4">
+                  <div class="container" #bannerCarouselWrapper>
+                    <div class="mb-3"  [ngStyle]="{'width': bannerCarouselWrapper_Width +'px'}">
+                      <app-banner-carousel  [bannersData]=homeBannersData></app-banner-carousel>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+ 
+
+
+
+
+
+                <h3 class="section_title mt-5">Popular stores in {{selectedCategory}}</h3>
+                <div class="offers">
+                    <!-- <div class="best_deals d-flex flex-wrap">
+
+                        <div *ngFor="let item of popularStores">
+                            <div class="card w-100 bg bgstore" title="Myntra">
+                                <div *ngif="item.offerTitle!=null" class="d-flex align-items-center">
+                                    <div class="cash_ribbon">{{item.offerTitle}}<img
+                                            src="../assets/images/cashrupee.png"></div>
+                                </div>
+                                <div class="content"><a target="_blank">
+                                        <div class="logo"><img loading="lazy" class="store_logo " src="{{item.logo}}"
+                                                title="item.siteName" alt="item.siteName">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> -->
+                    <app-popular-store-grid [storesgridData]=popularStores></app-popular-store-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

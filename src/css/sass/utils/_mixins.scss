@@ -1,0 +1,492 @@
+@mixin main_layout {
+    position: relative;
+    display: grid;
+    grid-gap: 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "app-header" "app-home" "app-footer";
+
+    %app-header {
+        grid-area: app-header;
+    }
+
+    %app-home {
+        grid-area: app-home;
+    }
+
+    %app-footer {
+        grid-area: app-footer;
+    }
+}
+
+@mixin scroll_custom {
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        // background-color: #f1f1f1;
+        //background-color: #fff;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #dddddd;
+    }
+}
+
+/*Horizontal Tab Styles*/
+
+/* colors */
+$blue: #4dc3ff;
+$red: #ff4a53;
+$dark: #333;
+
+$accent: $blue;
+$accent-inactive: desaturate($accent, 85%);
+$secondary: $accent-inactive;
+/* tab setting */
+$tab-count: 2;
+$indicator-width: 50%;
+$indicator-height: 4px;
+/* breakpoints */
+$breakpoints: (
+    medium: #{$tab-count * 250px},
+    small: #{$tab-count * 150px},
+);
+/* selectors relative to radio inputs */
+$label-selector: "~ ul > li";
+$slider-selector: "~ .slider";
+$content-selector: "~ .tab_content > section";
+
+@mixin tabs(
+    $label-selector: $label-selector,
+    $slider-selector: $slider-selector,
+    $content-selector: $content-selector,
+    $tab-count: $tab-count
+) {
+    @for $i from 1 through $tab-count {
+        &:nth-of-type(#{$i}):checked {
+            #{$label-selector}:nth-child(#{$i}) {
+                @content;
+            }
+
+            #{$slider-selector} {
+                transform: translateX(#{100% * ($i - 1)});
+            }
+
+            #{$content-selector}:nth-child(#{$i}) {
+                display: block;
+            }
+        }
+    }
+}
+
+@mixin tabsection($tab-count, $indicator-height) {
+    position: relative;
+    padding: 1em 0;
+    min-width: #{$tab-count * 60px};
+
+    input[name="tab-control"] {
+        display: none;
+    }
+
+    .tab_content section h2,
+    ul li label {
+        color: $accent;
+    }
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 0;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+
+        li {
+            box-sizing: border-box;
+            flex: 1;
+            width: #{100% / $tab-count};
+            padding: 0 10px;
+            text-align: center;
+
+            label {
+                transition: all 0.3s ease-in-out;
+                color: $secondary;
+                padding: 5px auto;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: block;
+                cursor: pointer;
+                transition: all 0.2s ease-in-out;
+                white-space: nowrap;
+                -webkit-touch-callout: none;
+
+                br {
+                    display: none;
+                }
+
+                svg {
+                    fill: $secondary;
+                    height: 1.2em;
+                    vertical-align: bottom;
+                    margin-right: 0.2em;
+                    transition: all 0.2s ease-in-out;
+                }
+
+                &:hover,
+                &:focus,
+                &:active {
+                    outline: 0;
+                    color: lighten($secondary, 15%);
+
+                    svg {
+                        fill: lighten($secondary, 15%);
+                    }
+                }
+            }
+        }
+    }
+
+    .slider {
+        position: relative;
+        width: #{100% / $tab-count};
+        transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
+
+        .indicator {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+            height: $indicator-height;
+            background: $accent;
+            border-radius: 1px;
+        }
+    }
+
+    .tab_content {
+        section {
+            display: none;
+
+            animation: {
+                name: content;
+                direction: normal;
+                duration: 0.3s;
+                timing-function: ease-in-out;
+                iteration-count: 1;
+            }
+
+            line-height: 1.4;
+
+            h2 {
+                color: $accent;
+                display: none;
+
+                &::after {
+                    content: "";
+                    position: relative;
+                    display: block;
+                    width: 30px;
+                    height: 3px;
+                    background: $accent;
+                    margin-top: 5px;
+                    left: 1px;
+                }
+            }
+        }
+    }
+
+    input[name="tab-control"] {
+        @include tabs($tab-count: $tab-count) {
+            > label {
+                cursor: default;
+                color: #fff;
+                border-radius: 30px;
+                @include themed() {
+                    background-color: t(theme-color);
+                }
+
+                svg {
+                    fill: $accent;
+                }
+
+                @media (max-width: map-get($breakpoints, small)) {
+                    background: rgba(0, 0, 0, 0.08);
+                }
+            }
+
+            &:after {
+                //Added by me for auto width li
+                content: "";
+                background-color: $accent;
+                height: 0; //height: 3px;
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                @include themed() {
+                    background-color: t(theme-color);
+                }
+            }
+        }
+    }
+
+    @keyframes content {
+        from {
+            opacity: 0;
+            transform: translateY(5%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0%);
+        }
+    }
+
+    @media (max-width: map-get($breakpoints, medium)) {
+        ul li label {
+            white-space: initial;
+
+            br {
+                display: initial;
+            }
+
+            svg {
+                height: 1.5em;
+            }
+        }
+    }
+
+    @media (max-width: map-get($breakpoints, small)) {
+        ul li label {
+            padding: 5px;
+            border-radius: 5px;
+
+            span {
+                display: none;
+            }
+        }
+
+        .slider {
+            display: none;
+        }
+
+        .tab_content {
+            margin-top: 20px;
+
+            section h2 {
+                display: block;
+            }
+        }
+    }
+}
+
+@mixin prefix($property, $value, $prefixes) {
+    @each $prefix in $prefixes {
+        -#{$prefix}-#{$property}: $value;
+    }
+
+    #{$property}: $value;
+}
+
+@mixin badge {
+    position: absolute;
+    left: -14px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+    -webkit-transition: width 1s ease, height 1s ease;
+    -moz-transition: width 1s ease, height 1s ease;
+    -o-transition: width 1s ease, height 1s ease;
+    transition: width 0.4s ease, height 0.4s ease;
+    .badge {
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        padding: 5px 5px;
+        text-align: center;
+        line-height: normal;
+        background: #8bc34a;
+        font-size: 90%;
+        font-weight: 500;
+        border-radius: 0;
+    }
+
+    .badge::before,
+    .badge::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        margin: 0 -1px;
+        width: 100%;
+        height: 100%;
+        background: inherit;
+        min-width: 55px;
+    }
+
+    .badge::before {
+        right: 100%;
+    }
+
+    .badge::after {
+        left: 100%;
+    }
+
+    .top-left {
+        position: absolute;
+        top: 0;
+        left: 0;
+        -ms-transform: translateX(-30%) translateY(0%) rotate(-45deg);
+        -webkit-transform: translateX(-30%) translateY(0%) rotate(-45deg);
+        transform: translateX(-30%) translateY(0%) rotate(-45deg);
+        -ms-transform-origin: top right;
+        -webkit-transform-origin: top right;
+        transform-origin: top right;
+    }
+
+    .top-right {
+        position: absolute;
+        top: 0;
+        right: 0;
+        -ms-transform: translateX(30%) translateY(0%) rotate(45deg);
+        -webkit-transform: translateX(30%) translateY(0%) rotate(45deg);
+        transform: translateX(30%) translateY(0%) rotate(45deg);
+        -ms-transform-origin: top left;
+        -webkit-transform-origin: top left;
+        transform-origin: top left;
+    }
+}
+
+@mixin spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+$sphone: 370px;
+$phone: 411px;
+$tablet: 768px;
+$laptop: 1024px;
+$desktop: 1200px;
+
+@mixin sphone {
+    @media (min-width : #{$sphone}) {
+        @content;
+    }
+}
+
+@mixin phone {
+    @media (min-width : #{$phone}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width : #{$tablet}) {
+        @content;
+    }
+}
+
+@mixin laptop {
+    @media (min-width : #{$laptop}) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width : #{$desktop}) {
+        @content;
+    }
+}
+
+@mixin edge {
+    @supports (-ms-ime-align: auto) {
+        @content;
+    }
+}
+
+@mixin page_one {
+    &_banner {
+        padding: 0.8rem 0;
+        width: 100vw;
+
+        @include tablet {
+            width: 100%;
+        }
+    }
+
+    &_content {
+        @include tablet {
+            padding: 2rem 0;
+        }
+    }
+}
+
+@mixin page_layout_one {
+    position: relative;
+    display: grid;
+    grid-gap: 0;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "sidebar"
+        "content";
+
+    @include laptop {
+        grid-gap: 20px;
+        grid-template-columns: 230px 1fr;
+        grid-template-areas: "sidebar content";
+    }
+
+    @include desktop {
+        grid-gap: 20px;
+        grid-template-columns: 280px 1fr;
+    }
+    &_sidebar {
+        grid-area: sidebar;
+    }
+
+    &_content {
+        grid-area: content;
+    }
+}
+
+@mixin scrolling-wrapper-flexbox {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    //padding: 0.8rem;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+
+    @include laptop {
+        overflow-x: hidden;
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

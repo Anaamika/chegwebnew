@@ -1,0 +1,8 @@
+{
+    "/api/*": {
+      "target": "https://www.api.cheggout.com",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": true
+    }
+  }

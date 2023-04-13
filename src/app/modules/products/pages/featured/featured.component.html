@@ -1,0 +1,74 @@
+<div class="featured">
+    <div class="page_banner py-3 text_light">
+        <div class="container">
+            <app-breadcrumb></app-breadcrumb>
+            <div *ngIf="subCatData.length > 0" class="scrolling-wrapper-flexbox">
+                <div class="sub_cat d-flex flex-column justify-content-center align-items-center mr-3"
+                    *ngFor="let data of subCatData" [routerLink]="['../s/', data.id, data.categoryName]">
+                    <div class="thumb mb-2" [ngStyle]="{'background-image': 'url(' + data.categoryLogo +')'}">
+                    </div>
+                    <h5 class="card-title text-light">{{data.categoryName}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page_content py-4">
+        <div class="container">
+            <div class="subtitle">
+                <h2>{{title}}</h2>
+                <div class="d-flex align-items-center sort_select">
+                    Sort by:
+                    <mat-form-field class="ml-2">
+                        <mat-select (selectionChange)="toggleproductsData($event.value)" [(value)]="selected">
+                            <mat-option value="REL">Relevance</mat-option>
+                            <mat-option value="LTH">Price: Low To High</mat-option>
+                            <mat-option value="HTL">Price: High To Low</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="products d-flex flex-wrap">
+                <div class="fullpage" *ngFor="let data of productsData" >
+                    <div class="product-card pointer" (click)="postProductInfo($event, data)" appObserveVisibility  (visible)="onVisible(data,'Impression')">
+                        <!-- (click)="compare(data)" -->
+                        <div class="product-card__img d-flex align-items-center justify-content-center pointer">
+                            <img class="img-fluid" alt="{{data.productName}}" src="{{data.imgSrc}}" loading="lazy">
+                        </div>
+                        <div class="product-card__body d-flex flex-column">
+                            <div class="info">
+                                <ng-template #siteName>
+                                    <h5 *ngIf="data.siteName">By {{data.siteName}}</h5>
+                                </ng-template>
+                                <p style="height: inherit; max-height: 45px;" title="{{data.productName}}"
+                                    class="title wrapword mb-3">{{data.productName}}</p>
+                                <ng-container *ngIf="data.siteLogo; else siteName">
+                                    <!-- <span class="site ml-2">View on {{data.siteName}}</span> -->
+                                    <img class="site_logo mb-3" title="{{data.siteName}}" [src]="data.siteLogo"
+                                        alt="{{data.siteName}}" loading="lazy" />
+                                </ng-container>
+                                <p class="m-0">
+                                    <ng-container *ngIf="data.price !== 0">
+                                        <span class="price">{{data.price |
+                                            currency:'INR':'symbol':'2.0'}}
+                                            <small *ngIf="data.actualPrice !== 0"
+                                                class="text-black-50 font-weight-light ml-1"><del>{{data.actualPrice
+                                                    |
+                                                    currency:'INR':'symbol':'2.0'}}</del></small>
+                                        </span>
+                                    </ng-container>
+                                    <ng-container *ngIf="data.price === 0">
+                                        <span class="price">{{data.offerText}}</span>
+                                    </ng-container>
+                                </p>
+                            </div>
+                            <span class="offer" *ngIf="data.actualPrice !== 0"> {{data.actualPrice - data.price |
+                                currency:'INR':'symbol':'2.0'}} off</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS File: _products.scss -->

@@ -1,0 +1,110 @@
+<div #giftsContainer class="theme--{{bank | lowercase}} page_gift h-75 " >
+    <div #giftsDialog class="gifts-dialog">
+        <div #giftsDialogFront class="gifts-dialog_front w-100 ">
+            <div mat-dialog-title class="header border-bottom d-flex align-items-center m-0">
+                <div class="d-flex flex-column">
+                    <h2 class="mb-0">{{giftCardSiteName}}</h2>
+                </div>
+                <div class="ml-auto">
+                <!-- <button type="button" *ngIf="isBFSLbtn" (click)="SendMail()" class="btn ml-auto btn-primary mr-4 sendmail">Mail Gift Card</button> -->
+                <button type="button" (click)="close(false)" class="close" aria-label="Close">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                    </svg>
+                </button>
+            </div>
+          </div>
+            <div mat-dialog-content class="gift_card_info">
+                <div class="gift_card_details_steps mat-dialog-gift-section pl-0 d-felx flex-column">
+                    <div *ngIf="!mobileView" class="d-felx justify-content-between border-bottom pb-2">
+                        <div class="float-left">
+                            <img style="height: 80px;" class="img-fluid mr-2 d-block" src={{giftCardImage}} />
+                        </div>
+                        <div style="height: 80px;" class="d-flex align-items-center ml-auto flex-row">
+                            <button type="button" *ngIf="isBFSLbtn" (click)="SendMail()" class="btn ml-auto btn-primary mr-4 sendmail">Email Gift Card</button>
+                            <button type="button" *ngIf="isBFSLbtn" (click)="redeemNow()" class="btn ml-auto btn-primary mr-4 redeem">Redeem Now</button>
+                            <button type="button" *ngIf="isBFSLbtn" (click)="viewDetails('B')" class="btn ml-auto btn-primary mr-4 view-details">View Details</button>
+                        </div>
+                    </div>
+
+                    <div *ngIf="mobileView" class="d-felx border-bottom pb-2">
+                        <div class="text-center mx-auto">
+                            <img style="height: 80px;" src={{giftCardImage}} />
+                        </div>
+                        <div style="height: 80px;" class="d-flex align-items-center ml-auto flex-row">
+                            <button type="button" *ngIf="isBFSLbtn" (click)="SendMail()" class="btn ml-auto btn-primary mr-4 sendmail">Email Gift Card</button>
+                            <button type="button" *ngIf="isBFSLbtn" (click)="redeemNow()" class="btn ml-auto btn-primary mr-4 redeem">Redeem Now</button>
+                            <button type="button" *ngIf="isBFSLbtn" (click)="viewDetails('B')" class="btn ml-auto btn-primary mr-4 view-details">View Details</button>
+                        </div>
+                    </div>
+                    <div class="col-12 p-0 d-felx mt-3">
+                        <div class="col-6 p-2 d-felx flex-column float-left">
+                            <div class="col-12 pr-0 float-left lable1">Amount</div>
+                            <div class=" col-12 pr-0  float-left detail1">₹ {{giftCardAmount}}</div>
+                        </div>
+                        <div class="col-6 p-2 d-felx flex-column float-left">
+                            <div class="col-12 pr-0 float-left lable1">Gift card ID</div>
+                            <div class=" col-12 pr-0  float-left detail1">{{giftCardId}}</div>
+                        </div>
+                        <div class="col-6 p-2 d-felx flex-column float-left">
+                            <div class="col-12 pr-0 float-left lable1">Expiry date</div>
+                            <div class=" col-12 pr-0  float-left detail1">{{giftCardExpiry}}</div>
+                        </div>
+                        <div class="col-6 p-2 d-felx flex-column float-left">
+                            <div class="col-12 pr-0 float-left lable1">Card no</div>
+                            <div class=" col-12 pr-0  float-left detail1">{{giftCardNumber}}</div>
+                        </div>
+                        <div class="col-6 p-2 d-felx flex-column float-left">
+                            <div class="col-12 pr-0 float-left lable1">Pin/Code
+                                <svg class="icon19" (click)="showPassword()">
+                                    <use xlink:href="/assets/icons/sprite.svg#View002"></use>
+                                </svg>
+                            </div>
+                            <div class=" col-12 pr-0  float-left detail1" *ngIf="showPin">{{giftCardPin}}</div>
+                            <div class=" col-12 pr-0  float-left detail1" *ngIf="!showPin">*******</div>
+                        </div>
+                        <div class="col-6 p-2 d-felx flex-column float-left">
+                            <div class="col-12 pr-0 float-left lable1">Status</div>
+                            <div class=" col-12 pr-0  float-left detail1">{{giftCardStatus}}</div>
+                        </div>
+                    </div>
+                    <div class="col-12 p-0 d-felx mt-3">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div #giftsDialogBack class="gifts-dialog_back">
+            <div mat-dialog-title class="header d-flex align-items-center justify-content-between mb-0">
+                <a class="pointer" (click)="viewDetails('F')">
+                    <svg class="icon" style="height: 20px; width: 20px;">
+                        <use xlink:href="/assets/icons/sprite.svg#ArrowLeft001"></use>
+                    </svg>
+                    Back
+                </a>
+                <button type="button" (click)="close(false)" class="close ml-auto" aria-label="Close">
+                    <svg class="icon">
+                        <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                    </svg>
+                </button>
+            </div>
+            <div mat-dialog-content class="pt-0">
+                <mat-tab-group animationDuration="0ms">
+                    <!-- <mat-tab label="Gift Card Details">
+                        <div class="py-3" [innerHtml]="giftCardDescription | sanitizeHtml"></div>
+                    </mat-tab> -->
+                    <mat-tab label="How to Redeem">
+                        <div class="py-3" [innerHtml]="giftHowToRedeem | sanitizeHtml"></div>
+                    </mat-tab>
+                    <mat-tab label="Terms & Conditions">
+                        <div class="py-3" [innerHtml]="giftCardTermsAndCondtions | sanitizeHtml"></div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS File: _gifts.scss -->

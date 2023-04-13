@@ -1,0 +1,34 @@
+<div #storeCarousel class="stores_carousel">
+    <owl-carousel-o class="owl-carousel-outer" [options]="customOptions">
+        <ng-container class="owl-carousel" *ngFor="let data of storesData">
+            <ng-template carouselSlide>
+                <div (click)="postProductInfo($event, data)"
+                    class="store-tile d-flex flex-column justify-content-center align-items-center" appObserveVisibility (visible)="onVisible(data, data.siteID, 'store','Impression')">
+                    <!-- [routerLink]="['/stores/', data.siteID , data.siteName]" -->
+                    <div class="img_block">
+                        <!-- <img class="img-fluid" title="{{data.siteName}}" src="{{data.logo}}" loading="lazy"> -->
+                        <picture>
+                            <source srcset="{{data.logo.split('.').slice(0, -1).join('.') + '.webp'}}"
+                                type="image/webp">
+                            <img (error)="onImgError($event)" title="{{data.siteName}}" class="img-fluid"
+                                src="{{data.logo}}" loading="lazy">
+                        </picture>
+                    </div>
+                    <ng-container *ngIf="data.offerTitle != null && data.offerTitle != ''">
+                        <div class="content">
+                            <h6>{{data.offerTitle}}</h6>
+                            <a (click)="openTermsDialog($event, data)" title="Reward Rates & Terms" class="terms">
+                                <svg class="icon">
+                                    <use xlink:href="/assets/icons/sprite.svg#Information"></use>
+                                </svg>
+                                <span>terms</span>
+                            </a>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+</div>
+
+<!-- CSS File: _shared.scss -->

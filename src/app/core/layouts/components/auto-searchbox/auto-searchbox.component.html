@@ -1,0 +1,186 @@
+<div class="input-group">
+    <!-- (blur)="onBlur($event)" -->
+    <input #searchInput type="search" [matAutocomplete]="auto" [(ngModel)]="searchQuery" (paste)="onPaste($event)"
+        (keyup)="onKeyUp($event)" (keydown.enter)="keydownEnter($event);" (click)="getRecentTrends($event)"
+        placeholder="Search any product or store" class="form-control" #trigger="matAutocompleteTrigger" />
+    <mat-autocomplete #auto="matAutocomplete" showPanel=true>
+        <ng-container *ngIf="recentSuggestions && recentSuggestions.length !== 0">
+            <ng-container
+                *ngFor="let recent of recentSuggestions | slice: 0 : 5 | filterArray : searchQuery : 'keyword'; let i = index">
+                <ng-container [ngSwitch]=[recent.type]>
+                    <mat-option class="d-flex align-items-center" [value]="recent.keyword" *ngSwitchCase="'product1'"
+                        (click)="serachProducts(recent)" @fadeIn>
+                        <svg class="icon mr-3">
+                            <use xlink:href="/assets/icons/sprite.svg#History"></use>
+                        </svg>
+                        <div class="text"> {{recent.keyword}} <small>{{recent.prediction}}</small> </div>
+                        <a class="ml-auto" title="clear" (click)="clearRecentKeyword($event, i); trigger.openPanel()">
+                            <svg class="icon clear">
+                                <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                            </svg>
+                        </a>
+                    </mat-option>
+
+                    <mat-option class="d-flex align-items-center" [value]="recent.keyword" *ngSwitchCase="'bestseller'"
+                        (click)="saveBestSellerInfo(recent)"
+                        [routerLink]="['/categories/', recent.rootID , recent.parentCategoryName, 'bestsellers', { cid: recent.nodeId, cname: recent.catName, uid: recent.catId, pid: recent.id, pname: recent.productName }]"
+                        @fadeIn>
+                        <svg class="icon mr-3">
+                            <use xlink:href="/assets/icons/sprite.svg#History"></use>
+                        </svg>
+                        <div class="text"> {{recent.keyword}} <small>{{recent.prediction}}</small></div>
+                        <a class="ml-auto" title="clear" (click)="clearRecentKeyword($event, i)">
+                            <svg class="icon clear">
+                                <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                            </svg>
+                        </a>
+                    </mat-option>
+
+                    <mat-option class="d-flex align-items-center" [value]="recent.keyword" *ngSwitchCase="'store'"
+                        [routerLink]="['/stores/', recent.siteID, recent.siteName]" (click)="saveStoreInfo(recent)"
+                        @fadeIn>
+                        <svg class="icon mr-3">
+                            <use xlink:href="/assets/icons/sprite.svg#History"></use>
+                        </svg>
+                        <div class="text"> {{recent.keyword}} <small>Store</small></div>
+                        <a class="ml-auto" title="clear" (click)="clearRecentKeyword($event, i)">
+                            <svg class="icon clear">
+                                <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                            </svg>
+                        </a>
+                    </mat-option>
+
+                    <mat-option class="d-flex align-items-center" [value]="recent.keyword" *ngSwitchCase="'category'"
+                        (click)="saveCategoryInfo(recent)"
+                        [routerLink]="['/categories/', recent.rootID , recent.rootCategoryName, 'bestsellers', { cid: recent.nodeId, cname: recent.categoryName, uid: recent.id, cn: recent.popularName }]"
+                        @fadeIn>
+                        <svg class="icon mr-3">
+                            <use xlink:href="/assets/icons/sprite.svg#History"></use>
+                        </svg>
+                        <div class="text"> {{recent.keyword}} <small>Category</small></div>
+                        <a class="ml-auto" title="clear" (click)="clearRecentKeyword($event, i)">
+                            <svg class="icon clear">
+                                <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                            </svg>
+                        </a>
+                    </mat-option>
+
+                    <mat-option class="d-flex align-items-center" [value]="recent.keyword" *ngSwitchCase="'offer'"
+                        (click)="getOfferInfo($event, recent)" @fadeIn>
+                        <svg class="icon mr-3">
+                            <use xlink:href="/assets/icons/sprite.svg#History"></use>
+                        </svg>
+                        <div class="text"> {{recent.keyword}} <small>Offer</small></div>
+                        <a class="ml-auto" title="clear" (click)="clearRecentKeyword($event, i)">
+                            <svg class="icon clear">
+                                <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                            </svg>
+                        </a>
+                    </mat-option>
+
+                    <mat-option class="d-flex align-items-center" [value]="recent.keyword" *ngSwitchCase="'product2'"
+                        (click)="searchForCompare()" @fadeIn>
+                        <svg class="icon mr-3">
+                            <use xlink:href="/assets/icons/sprite.svg#History"></use>
+                        </svg>
+                        <div class="text"><span title="{{recent.keyword}}">{{recent.keyword}}</span> </div>
+                        <a class="ml-auto" title="clear" (click)="clearRecentKeyword($event, i)">
+                            <svg class="icon clear">
+                                <use xlink:href="/assets/icons/sprite.svg#Close001"></use>
+                            </svg>
+                        </a>
+                    </mat-option>
+
+                </ng-container>
+            </ng-container>
+        </ng-container>
+
+        <mat-optgroup class="group trending_group"
+            *ngIf="trendingSuggestions && trendingSuggestions.length !== 0  && !hideTrending">
+            <label class="mat-optgroup-label">Trending</label>
+            <mat-option class="d-flex align-items-center"
+                *ngFor="let trend of trendingSuggestions | slice: 0 : 5; let i = index" [value]="trend.keyword"
+                (click)="serachProducts(trend)" @fadeIn>
+                <svg class="icon mr-3">
+                    <use xlink:href="/assets/icons/sprite.svg#Trend"></use>
+                </svg>
+                <div class="text"> {{trend.keyword}} <small>{{trend.prediction}}</small></div>
+            </mat-option>
+        </mat-optgroup>
+
+        <!-- <ng-container *ngIf="popularSuggestions && popularSuggestions.length !== 0">
+            <mat-option title="Popular" class="d-flex align-items-center"
+                *ngFor="let popular of popularSuggestions | slice: 0 : 5; let i = index; trackBy:trackByPopularSuggestions"
+                [value]="popular.keyword" (click)="serachProducts(popular)" @fadeIn>
+                <svg class="icon mr-3" style="height: 23px; width: 23px;">
+                    <use xlink:href="/assets/icons/sprite.svg#Popular"></use>
+                </svg>
+                <div class="text"> {{popular.keyword}} <small>{{popular.prediction}}</small></div>
+            </mat-option>
+        </ng-container> -->
+
+        <mat-optgroup class="group popular_group" *ngIf="keywordSuggestions && keywordSuggestions.length !== 0">
+            <label class="mat-optgroup-label">Popular Searches</label>
+            <mat-option title="Popular" class="d-flex align-items-center"
+                *ngFor="let keyword of keywordSuggestions | slice: 0 : 5; let i = index; trackBy:trackByKeywordSuggestions"
+                [value]="keyword.keyword" (click)="searchForCompare()" @fadeIn>
+                <svg class="icon mr-3">
+                    <use xlink:href="/assets/icons/sprite.svg#Search001"></use>
+                </svg>
+                <div class="text">{{keyword.keyword}}</div>
+            </mat-option>
+        </mat-optgroup>
+
+        <mat-optgroup class="group store_group" *ngIf="storeSuggestions && storeSuggestions.length !== 0">
+            <label class="mat-optgroup-label">Store</label>
+            <mat-option
+                *ngFor="let store of storeSuggestions | slice: 0 : 4; let i = index; trackBy:trackByStoreSuggestions"
+                (click)="saveStoreInfo(store)" [value]="store.siteName"
+                [routerLink]="['/stores/', store.siteID, store.siteName]" @fadeIn>
+                {{store.siteName}}
+            </mat-option>
+        </mat-optgroup>
+
+        <mat-optgroup class="group category_group" *ngIf="categorySuggestions && categorySuggestions.length !== 0">
+            <label class="mat-optgroup-label">Category</label>
+            <mat-option
+                *ngFor="let cate of categorySuggestions | slice: 0 : 4; let i = index; trackBy:trackByCategorySuggestions"
+                [value]="cate.keyword" (click)="saveCategoryInfo(cate)"
+                [routerLink]="['/categories/', cate.rootID , cate.rootCategoryName, 'bestsellers', { cid: cate.nodeId, cname: cate.categoryName, uid: cate.id, cn: cate.popularName }]"
+                @fadeIn>
+                {{cate.categoryName}}
+            </mat-option>
+        </mat-optgroup>
+
+        <!-- <mat-optgroup class="group offer_group" *ngIf="couponSuggestions && couponSuggestions.length !== 0">
+            <label class="mat-optgroup-label">Coupon</label>
+            <mat-option
+                *ngFor="let cpn of couponSuggestions | slice: 0 : 4; let i = index; trackBy:trackByCouponSuggestions"
+                [value]="cpn.offer" (click)="getOfferInfo($event, cpn)" @fadeIn>
+                {{cpn.offer}}
+            </mat-option>
+        </mat-optgroup> -->
+
+        <ng-container *ngIf="amazonSuggestions && amazonSuggestions.length !== 0">
+            <hr>
+            <mat-option
+                *ngFor="let option of amazonSuggestions | slice: 0 : 10; let i = index; trackBy:trackByAmazonSuggestions"
+                [value]="option.productName" (click)="searchForCompare()" @fadeIn>
+                <svg class="icon mr-3">
+                    <use xlink:href="/assets/icons/sprite.svg#Search001"></use>
+                </svg>
+                {{option.productName}}
+            </mat-option>
+        </ng-container>
+
+    </mat-autocomplete>
+    <div class="input-group-append">
+        <button class="btn" type="button" (click)="keydownEnter($event);">
+            <svg class="icon">
+                <use xlink:href="/assets/icons/sprite.svg#Search001"></use>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<!-- CSS File: _layout.scss -->
